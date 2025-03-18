@@ -25,3 +25,37 @@ html.dark {
   width: 0;
   background: transparent;
 }
+
+.bd-red {
+  border: 1px solid red;
+}
+
+.vtable-input-field {
+  // border: 1px solid red;
+
+  --van-cell-vertical-padding: 4px;
+  --van-cell-horizontal-padding: 6px;
+  --van-cell-line-height: 30px;
+}
+
+:root {
+  --divider-color: #1677ff;
+  // --divider-gap: 20px;
+}
+
+// .divider-x {
+// }
+.divider-y > :not(:last-child) {
+  border-bottom: 1px solid var(--divider-color);
+  // margin-bottom: var(--divider-gap);
+}
+.divider-x > :not(:last-child) {
+  border-right: 1px solid var(--divider-color);
+  // margin-right: var(--divider-gap);
+}
+// /* 暗黑模式适配 */
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --divider-color: #1677ff;
+//   }
+// }

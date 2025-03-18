@@ -8,6 +8,16 @@ import '@/styles/app.less'
 import '@/styles/var.less'
 import { i18n } from '@/utils/i18n'
 
+import 'vant/lib/index.css'
+
+import * as VueVTable from '@visactor/vue-vtable'
+
+import { Button, CellGroup, Col, Field, Form, Row } from 'vant'
+
+import VzFormTable  from "@/components/vz-form-table/index.vue";
+
+console.info('VzFormTable', VzFormTable);
+
 // Vant 桌面端适配
 import '@vant/touch-emulator'
 
@@ -25,9 +35,23 @@ import 'vant/es/image-preview/style'
 const app = createApp(App)
 const head = createHead()
 
+app.component('vue-list-table', VueVTable.ListTable)
+app.component('list-column', VueVTable.ListColumn)
+
+app.component('VzFormTable', VzFormTable)
+
+
 app.use(head)
 app.use(router)
 app.use(pinia)
 app.use(i18n)
+
+app.use(Button)
+app.use(Field)
+app.use(CellGroup)
+app.use(Form)
+app.use(Row)
+app.use(Col)
+// app.use(VzFormTable)
 
 app.mount('#app')
