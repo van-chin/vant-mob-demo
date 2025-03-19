@@ -9,8 +9,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./../components/Chart/index.vue')['default']
+    copy: typeof import('./../components/vz-form-table/index copy.vue')['default']
     FormRenderer: typeof import('./../components/form-renderer/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
+    'Index.bk': typeof import('./../components/vz-form-table/index.bk.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

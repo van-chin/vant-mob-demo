@@ -32,7 +32,7 @@ const formInstance = ref<any>()
 
 const slots = useSlots()
 
-const active = ref(0);
+const active = ref(0)
 
 const slotKeys = Object.keys(slots)
 
@@ -42,103 +42,102 @@ const { refs, toRef } = useRefs<{
 
 const currentInstance = getCurrentInstance()
 
-
 const modeActions = {
-		'edit': [
-			{
-				id: '2',
-				code: 'save',
-				title: '保存',
-				icon: 'completed-o',
-			},
-			{
-				id: '3',
-				code: 'commit',
-				title: '提交',
-				icon: 'passed',
-			},
-			{
-				id: '4',
-				code: 'save-commit',
-				title: '保存提交',
-				icon: 'certificate',
-			},
-		],
-		'view': [
-			{
-				id: '1',
-				code: 'edit',
-				title: '维护',
-				icon: 'edit',
-			},
+  edit: [
+    {
+      id: '2',
+      code: 'save',
+      title: '保存',
+      icon: 'completed-o',
+    },
+    {
+      id: '3',
+      code: 'commit',
+      title: '提交',
+      icon: 'passed',
+    },
+    {
+      id: '4',
+      code: 'save-commit',
+      title: '保存提交',
+      icon: 'certificate',
+    },
+  ],
+  view: [
+    {
+      id: '1',
+      code: 'edit',
+      title: '维护',
+      icon: 'edit',
+    },
 
-			{
-				id: '5',
-				code: 'approve',
-				title: '审批',
-				icon: 'records-o',
-			},
-			{
-				id: '6',
-				code: 'more',
-				title: '更多',
-				icon: 'more-o',
-			}
-		],
-		'approve': [
+    {
+      id: '5',
+      code: 'approve',
+      title: '审批',
+      icon: 'records-o',
+    },
+    {
+      id: '6',
+      code: 'more',
+      title: '更多',
+      icon: 'more-o',
+    },
+  ],
+  approve: [
 
-			{
-				id: '5',
-				code: 'approve',
-				title: '审批',
-				icon: 'records-o',
-			},
-			{
-				id: '6',
-				code: 'more',
-				title: '更多',
-				icon: 'more-o',
-			}
-		],
-		"all": [
-			{
-				id: '1',
-				code: 'edit',
-				title: '维护',
-				icon: 'edit',
-			},
-			{
-				id: '2',
-				code: 'save',
-				title: '保存',
-				icon: 'completed-o',
-			},
-			{
-				id: '3',
-				code: 'commit',
-				title: '提交',
-				icon: 'passed',
-			},
-			{
-				id: '4',
-				code: 'save-commit',
-				title: '保存提交',
-				icon: 'certificate',
-			},
-			{
-				id: '5',
-				code: 'approve',
-				title: '审批',
-				icon: 'records-o',
-			},
-			{
-				id: '6',
-				code: 'ellipsis',
-				title: '更多',
-				icon: 'more-o',
-			}
-		]
-	};
+    {
+      id: '5',
+      code: 'approve',
+      title: '审批',
+      icon: 'records-o',
+    },
+    {
+      id: '6',
+      code: 'more',
+      title: '更多',
+      icon: 'more-o',
+    },
+  ],
+  all: [
+    {
+      id: '1',
+      code: 'edit',
+      title: '维护',
+      icon: 'edit',
+    },
+    {
+      id: '2',
+      code: 'save',
+      title: '保存',
+      icon: 'completed-o',
+    },
+    {
+      id: '3',
+      code: 'commit',
+      title: '提交',
+      icon: 'passed',
+    },
+    {
+      id: '4',
+      code: 'save-commit',
+      title: '保存提交',
+      icon: 'certificate',
+    },
+    {
+      id: '5',
+      code: 'approve',
+      title: '审批',
+      icon: 'records-o',
+    },
+    {
+      id: '6',
+      code: 'ellipsis',
+      title: '更多',
+      icon: 'more-o',
+    },
+  ],
+}
 
 function emitEventHandler(field: string, event: string, params: any) {
   const eo = `${field}-${event}`
@@ -283,96 +282,115 @@ watch(data, (newVal) => {
 </script>
 
 <template>
-  <div :class="[`${prefixCls}`,'w-full h-full flex flex-col']">
-
-    <div :class="[`${prefixCls}-wrapper`,'min-h-100px flex-1 overflow-hidden']">
+  <div class="h-full w-full flex flex-col" :class="[`${prefixCls}`]">
+    <div class="min-h-100px flex-1 overflow-hidden" :class="[`${prefixCls}-wrapper`]">
       <van-form
 
-      :ref="toRef('formRef')"
-      label-width="85px"
-      class="divider-y" :class="[`${prefixCls}-wrapper-form`]"
-      v-bind="data.items[0].item"
-    >
-      <template v-for="(item, index) in data.items[0].children">
-        <template v-if="item.type === 'grid-layout'">
-          <van-row class="divider-x">
-            <van-col
-              v-for="(rowItem, index) in item.children"
-              :key="index"
-              :span="rowItem.component?.props.span ? rowItem.component?.props.span : 24 / item.children.length"
-            >
-              <template v-for="ric in rowItem.children">
-                <!-- {{ ric.component.vant.props }} -->
-                <component
-                  :is="ric.component.vant.name"
-                  v-bind="ric.component.vant.props"
-                  v-model:[ric.vModelField]="data.model[ric.item.vant.name]"
-
-                  :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
-
-                  :label-class="`${prefixCls}-wrapper-form-item-label`"
-                  v-on="ric.component?.emitsEvents || {}"
-                />
-              </template>
-            </van-col>
-          </van-row>
-        </template>
-
-        <template v-else>
-          <template v-if="item.component.vant.name !== 'VzFormTable'">
+        :ref="toRef('formRef')"
+        label-width="85px"
+        class="divider-y" :class="[`${prefixCls}-wrapper-form`]"
+        v-bind="data.items[0].item"
+      >
+        <template v-for="(item, index) in data.items[0].children">
+          <template v-if="item.type === 'grid-layout'">
             <van-row class="divider-x">
-              <van-col :span="24">
-                <!-- <div>{{ item.component.vant.props }}</div> -->
-                <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
-                  <slot :name="item.item.slot" :item="item" :model="data.model" />
+              <van-col
+                v-for="(rowItem, index) in item.children"
+                :key="index"
+                :span="rowItem.component?.props.span ? rowItem.component?.props.span : 24 / item.children.length"
+              >
+                <template v-for="ric in rowItem.children">
+                  <!-- {{ ric.component.vant.props }} -->
+                  <component
+                    :is="ric.component.vant.name"
+                    v-bind="ric.component.vant.props"
+                    v-model:[ric.vModelField]="data.model[ric.item.vant.name]"
+
+                    :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
+
+                    :label-class="`${prefixCls}-wrapper-form-item-label`"
+                    v-on="ric.component?.emitsEvents || {}"
+                  />
                 </template>
+              </van-col>
+            </van-row>
+          </template>
 
-                <component
-                  :is="item.component.vant.name"
-                  v-else
-                  v-bind="item.component.vant.props"
-                  v-model:[item.vModelField]="data.model[item.item.vant.name]"
+          <template v-else-if="item.type === 'tabs-layout'">
+            <van-row class="divider-x">
+              <van-col
 
-                  :class="[`${prefixCls}-wrapper-form-item`, item.component.vant.class]"
-
-                  :label-class="`${prefixCls}-wrapper-form-item-label`"
-
-                  v-on="item.component?.emitsEvents || {}"
-                  @field-events="(params: any) => onFieldEvents(item.item.name, params)"
-                />
+                :span="24"
+                class="my-2"
+              >
+                <van-tabs v-bind="item.component.vant.props">
+                  <van-tab v-for="(tab) in item.children" :name="tab.id" :title="tab.title">
+                    <template v-for="(ric) in tab.children" :key="ric.id">
+                      <component
+                        :is="ric.component.vant.name"
+                        v-bind="ric.component.vant.props"
+                        v-model:[ric.vModelField]="data.model[ric.item.vant.name]"
+                        :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
+                        :label-class="`${prefixCls}-wrapper-form-item-label`"
+                        v-on="ric.component?.emitsEvents || {}"
+                        @field-events="(params: any) => onFieldEvents(ric.item.name, params)"
+                      />
+                    </template>
+                  </van-tab>
+                </van-tabs>
               </van-col>
             </van-row>
           </template>
 
           <template v-else>
+            <template v-if="item.component.vant.name !== 'VzFormTable'">
+              <van-row class="divider-x">
+                <van-col :span="24">
+                  <!-- <div>{{ item.component.vant.props }}</div> -->
+                  <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
+                    <slot :name="item.item.slot" :item="item" :model="data.model" />
+                  </template>
 
-            <component
-                  :is="item.component.vant.name"
+                  <component
+                    :is="item.component.vant.name"
+                    v-else
+                    v-bind="item.component.vant.props"
+                    v-model:[item.vModelField]="data.model[item.item.vant.name]"
 
-                  v-bind="item.component.vant.props"
-                  v-model:[item.vModelField]="data.model[item.item.vant.name]"
+                    :class="[`${prefixCls}-wrapper-form-item`, item.component.vant.class]"
 
+                    :label-class="`${prefixCls}-wrapper-form-item-label`"
 
+                    v-on="item.component?.emitsEvents || {}"
+                    @field-events="(params: any) => onFieldEvents(item.item.name, params)"
+                  />
+                </van-col>
+              </van-row>
+            </template>
 
-                  v-on="item.component?.emitsEvents || {}"
-                  @field-events="(params: any) => onFieldEvents(item.item.name, params)"
-                />
+            <template v-else>
+              <component
+                :is="item.component.vant.name"
 
+                v-bind="item.component.vant.props"
+                v-model:[item.vModelField]="data.model[item.item.vant.name]"
 
-
+                v-on="item.component?.emitsEvents || {}"
+                @field-events="(params: any) => onFieldEvents(item.item.name, params)"
+              />
+            </template>
+            <!-- {{ item }} -->
           </template>
-
         </template>
-      </template>
-    </van-form>
+      </van-form>
     </div>
     <div :class="[`${prefixCls}-tool-bar`]">
       <van-tabbar v-model="active">
-        <van-tabbar-item :icon="action.icon" v-for="(action) in modeActions['all']">{{ action.title }}</van-tabbar-item>
+        <van-tabbar-item v-for="(action) in modeActions.all" :icon="action.icon">
+          {{ action.title }}
+        </van-tabbar-item>
       </van-tabbar>
     </div>
-
-
   </div>
 </template>
 
@@ -384,13 +402,7 @@ watch(data, (newVal) => {
   height: 100%;
 
   &-wrapper {
-
-
-
-
     &-form {
-
-
       border: 1px solid #1677ff;
       .vz-form-renderer-form-item-label {
         height: 100px !important;
@@ -424,9 +436,6 @@ watch(data, (newVal) => {
   &-tool-bar {
     width: 100%;
     height: 100px;
-
   }
-
-
 }
 </style>

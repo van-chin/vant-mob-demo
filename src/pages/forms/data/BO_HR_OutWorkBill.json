@@ -12,9 +12,30 @@
     "drealenddate": "",
     "csourcecode": "",
     "csource": "",
-    "bo_hr_outworkbills_per": "",
-    "bo_hr_outworkbills_work": "",
-    "7307645290519990272": ""
+    "bo_hr_outworkbills_per": [
+      {
+        "cpercode_cc": "1234567890123456789012345678901201",
+        "cpername_cc": "小六",
+        "do_hr_outworkbills_per_id": "730656059597573734401"
+      },
+      {
+        "cpercode_cc": "1234567890123456789012345678901202",
+        "cpername_cc": "张三",
+        "do_hr_outworkbills_per_id": "730656059597573734402"
+      }
+    ],
+    "bo_hr_outworkbills_work": [
+      {
+        "ctask": "设备采购",
+        "cstart": "四川👦",
+        "cend": "湖南南海"
+      },
+      {
+        "ctask": "设备采购",
+        "cstart": "四川👦",
+        "cend": "湖南南海"
+      }
+    ]
   },
   "modelKeys": {
     "7306560545140772864": {
@@ -86,11 +107,6 @@
       "id": "7306561607306317824",
       "displayState": true,
       "model": "bo_hr_outworkbills_work"
-    },
-    "7307645290519990272": {
-      "id": "7307645290519990272",
-      "displayState": true,
-      "model": "7307645290519990272"
     }
   },
   "rules": {
@@ -110,7 +126,9 @@
     "7306560670550462464": [],
     "7306561346756153344": [],
     "7306561607306317824": [],
-    "7307645290519990272": []
+    "7307331282873094144": [],
+    "7307331295040770048": [],
+    "": []
   },
   "items": [
     {
@@ -387,7 +405,7 @@
                       "events": {},
                       "props": {
                         "placeholder": "请输入xx",
-                        "label": "任务下达人名",
+                        "label": "任务下达人",
                         "bordered": true,
                         "showCount": false,
                         "size": "",
@@ -1849,17 +1867,17 @@
           "class": "click-way-grid-layout"
         },
         {
-          "id": "7306561346756153344",
-          "key": "7306561346756153344",
-          "title": "输入表格",
-          "icon": "ant-design:cloud-upload-outlined",
-          "type": "vz-form-table",
-          "componentName": "VzFormTable",
+          "id": "7308029485238980608",
+          "key": "7308029485238980608",
+          "title": "卡片布局",
+          "icon": "radix-icons:layout",
+          "type": "tabs-layout",
+          "componentName": "VzTabsLayout",
           "vModelField": "value",
           "item": {
             "antdv": {
-              "label": "输入表格",
-              "name": "7306561346756153344",
+              "label": "卡片布局",
+              "name": "7308029485238980608",
               "tooltip": "",
               "extra": "",
               "required": false,
@@ -1868,8 +1886,8 @@
               "rules": []
             },
             "vant": {
-              "label": "输入表格",
-              "name": "7306561346756153344",
+              "label": "卡片布局",
+              "name": "7308029485238980608",
               "tooltip": "",
               "extra": "",
               "required": false,
@@ -1878,8 +1896,8 @@
               "rules": []
             },
             "wot": {
-              "label": "输入表格",
-              "name": "7306561346756153344",
+              "label": "卡片布局",
+              "name": "7308029485238980608",
               "tooltip": "",
               "extra": "",
               "required": false,
@@ -1888,2026 +1906,2067 @@
               "rules": []
             }
           },
-          "component": {
-            "antdv": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "数列1(姓名)",
-                    "dataIndex": "name",
-                    "key": "name",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
+          "children": [
+            {
+              "id": "7308029485243174912",
+              "key": "7308029485243174912",
+              "title": "出差人明细",
+              "icon": "radix-icons:layout",
+              "type": "tabs-layout-col",
+              "vModelField": "value",
+              "item": {
+                "label": "卡片布局-标签1",
+                "name": "",
+                "tooltip": "",
+                "extra": "",
+                "required": false,
+                "colon": true,
+                "displayState": true,
+                "rules": []
+              },
+              "componentProps": [],
+              "formItemProps": [],
+              "children": [
+                {
+                  "id": "7306561346756153344",
+                  "key": "7306561346756153344",
+                  "title": "输入表格",
+                  "icon": "ant-design:cloud-upload-outlined",
+                  "type": "vz-form-table",
+                  "componentName": "VzFormTable",
+                  "vModelField": "value",
+                  "item": {
+                    "antdv": {
+                      "label": "输入表格",
+                      "name": "7306561346756153344",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
+                    },
+                    "vant": {
+                      "label": "输入表格",
+                      "name": "bo_hr_outworkbills_per",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
+                    },
+                    "wot": {
+                      "label": "输入表格",
+                      "name": "7306561346756153344",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
                     }
                   },
-                  {
-                    "id": "2",
-                    "title": "数列2(年龄)",
-                    "dataIndex": "age",
-                    "key": "age",
-                    "component": {
-                      "name": "AInputNumber",
-                      "vModelField": "value",
-                      "type": "input-number",
+                  "component": {
+                    "antdv": {
+                      "name": "VzFormTable",
+                      "events": {},
                       "props": {
-                        "placeholder": "请输入 数列2(年龄)"
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
-                }
-              }
-            },
-            "vant": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "出差人编码",
-                    "dataIndex": "cpercode_cc",
-                    "key": "cpercode_cc",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
-                    }
-                  },
-                  {
-                    "id": "2",
-                    "title": "出差人名称",
-                    "dataIndex": "cpercode_cc",
-                    "key": "cpercode_cc",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入",
+                        "rowKey": "id",
                         "bordered": true,
-                        "showCount": false,
-                        "size": "",
-                        "events": {}
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "数列1(姓名)",
+                            "dataIndex": "name",
+                            "key": "name",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "数列2(年龄)",
+                            "dataIndex": "age",
+                            "key": "age",
+                            "component": {
+                              "name": "AInputNumber",
+                              "vModelField": "value",
+                              "type": "input-number",
+                              "props": {
+                                "placeholder": "请输入 数列2(年龄)"
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
+                      }
+                    },
+                    "vant": {
+                      "name": "VzFormTable",
+                      "events": {},
+                      "props": {
+                        "rowKey": "id",
+                        "bordered": true,
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "出差人编码",
+                            "dataIndex": "cpercode_cc",
+                            "key": "cpercode_cc",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "出差人名称",
+                            "dataIndex": "cpername_cc",
+                            "key": "cpername_cc",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入",
+                                "bordered": true,
+                                "showCount": false,
+                                "size": "",
+                                "events": {}
+                              }
+                            }
+                          },
+                          {
+                            "title": "主键ID",
+                            "key": "do_hr_outworkbills_per_id",
+                            "dataIndex": "do_hr_outworkbills_per_id",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "oP7VDtehECxGSXInStGie",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
+                      }
+                    },
+                    "wot": {
+                      "name": "VzFormTable",
+                      "events": {},
+                      "props": {
+                        "rowKey": "id",
+                        "bordered": true,
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "数列1(姓名)",
+                            "dataIndex": "name",
+                            "key": "name",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "数列2(年龄)",
+                            "dataIndex": "age",
+                            "key": "age",
+                            "component": {
+                              "name": "AInputNumber",
+                              "vModelField": "value",
+                              "type": "input-number",
+                              "props": {
+                                "placeholder": "请输入 数列2(年龄)"
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
                       }
                     }
                   },
-                  {
-                    "title": "主键ID",
-                    "key": "do_hr_outworkbills_per_id",
-                    "dataIndex": "do_hr_outworkbills_per_id",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "oP7VDtehECxGSXInStGie",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
+                  "componentProps": [],
+                  "formItemProps": [],
+                  "class": "click-way-vz-form-table"
                 }
-              }
-            },
-            "wot": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "数列1(姓名)",
-                    "dataIndex": "name",
-                    "key": "name",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
-                    }
-                  },
-                  {
-                    "id": "2",
-                    "title": "数列2(年龄)",
-                    "dataIndex": "age",
-                    "key": "age",
-                    "component": {
-                      "name": "AInputNumber",
-                      "vModelField": "value",
-                      "type": "input-number",
-                      "props": {
-                        "placeholder": "请输入 数列2(年龄)"
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
-                }
-              }
-            }
-          },
-          "componentProps": [],
-          "formItemProps": [],
-          "class": "click-way-vz-form-table"
-        },
-        {
-          "id": "7306561607306317824",
-          "key": "7306561607306317824",
-          "title": "输入表格",
-          "icon": "ant-design:cloud-upload-outlined",
-          "type": "vz-form-table",
-          "componentName": "VzFormTable",
-          "vModelField": "value",
-          "item": {
-            "antdv": {
-              "label": "输入表格",
-              "name": "7306561607306317824",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            },
-            "vant": {
-              "label": "输入表格",
-              "name": "7306561607306317824",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            },
-            "wot": {
-              "label": "输入表格",
-              "name": "7306561607306317824",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            }
-          },
-          "component": {
-            "antdv": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "数列1(姓名)",
-                    "dataIndex": "name",
-                    "key": "name",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
-                    }
-                  },
-                  {
-                    "id": "2",
-                    "title": "数列2(年龄)",
-                    "dataIndex": "age",
-                    "key": "age",
-                    "component": {
-                      "name": "AInputNumber",
-                      "vModelField": "value",
-                      "type": "input-number",
-                      "props": {
-                        "placeholder": "请输入 数列2(年龄)"
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
-                }
-              }
-            },
-            "vant": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "任务内容",
-                    "dataIndex": "ctask",
-                    "key": "ctask",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
-                    }
-                  },
-                  {
-                    "id": "2",
-                    "title": "出发地",
-                    "dataIndex": "cstart",
-                    "key": "cstart",
-                    "component": {
-                      "name": "AInputNumber",
-                      "vModelField": "value",
-                      "type": "input-number",
-                      "props": {
-                        "placeholder": "请输入 数列2(年龄)"
-                      }
-                    }
-                  },
-                  {
-                    "title": "目的地",
-                    "key": "cend",
-                    "dataIndex": "cend",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "c6kX9mIOSyMAWI2XAXRmF",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "目的地区ID",
-                    "key": "do_sa_region_id",
-                    "dataIndex": "do_sa_region_id",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "G39-gCQasryX1VjDfX-i1",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "任务开始日期",
-                    "key": "dbegindate",
-                    "dataIndex": "dbegindate",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "8FNI4dwV0mm_T_tNLKFyG",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "任务结束日期",
-                    "key": "denddate",
-                    "dataIndex": "denddate",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "hLMW60Yq07j_WmpNvNEVG",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "自备交通工具",
-                    "key": "bzb",
-                    "dataIndex": "bzb",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "9IO7RBQjli7iGZepsS4n1",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "自备车",
-                    "key": "csubsidyname",
-                    "dataIndex": "csubsidyname",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "JD9AXJUEu18Axkf_n-Ge7",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "往返里程",
-                    "key": "fwaylength",
-                    "dataIndex": "fwaylength",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "q0u_SJ9GcK2PwY8nKkGDM",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "交通工具",
-                    "key": "cvehicle",
-                    "dataIndex": "cvehicle",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "DjdzH72jq3R-2nxf6xkuT",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "出差总结",
-                    "key": "cresult",
-                    "dataIndex": "cresult",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "CrUjBKhrecOTcj0kO-SMf",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "评价意见",
-                    "key": "cassess",
-                    "dataIndex": "cassess",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "XM1Etnw3lQA8MrgDisZu5",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "目的地区",
-                    "key": "cregionname",
-                    "dataIndex": "cregionname",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "XCAHwtuw8OPC6tpDOQSjf",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "主键ID",
-                    "key": "do_hr_outworkbills_work_id",
-                    "dataIndex": "do_hr_outworkbills_work_id",
-                    "width": 100,
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入"
-                      }
-                    },
-                    "id": "zFr0dhE31haQ96e3bePPY",
-                    "_components": {
-                      "title": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 表头"
-                        }
-                      },
-                      "key": {
-                        "name": "AInput",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "dataIndex": {
-                        "name": "VzConfigurationValue",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 KEY"
-                        }
-                      },
-                      "width": {
-                        "name": "AInputNumber",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 宽度"
-                        }
-                      },
-                      "formatType": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择格式化类型",
-                          "options": [
-                            {
-                              "name": "date",
-                              "label": "日期",
-                              "value": 1,
-                              "color": "blue",
-                              "icon": "ant-design:check-outlined"
-                            },
-                            {
-                              "name": "datetime",
-                              "label": "时间",
-                              "value": 2,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "index",
-                              "label": "序号",
-                              "value": 3,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            },
-                            {
-                              "name": "join",
-                              "label": "联合",
-                              "value": 4,
-                              "color": "blue",
-                              "icon": "ant-design:close-outlined"
-                            }
-                          ]
-                        }
-                      },
-                      "formater": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "align": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请选择对齐方式"
-                        }
-                      },
-                      "ellipsis": {
-                        "name": "ASwitch",
-                        "vModelField": "checked",
-                        "props": {}
-                      },
-                      "fixed": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "placeholder": "请输入 格式器"
-                        }
-                      },
-                      "component": {
-                        "name": "ASelect",
-                        "vModelField": "value",
-                        "props": {
-                          "options": [],
-                          "placeholder": "请选择 组件",
-                          "allowClear": true
-                        }
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
-                }
-              }
-            },
-            "wot": {
-              "name": "VzFormTable",
-              "events": {},
-              "props": {
-                "rowKey": "id",
-                "bordered": true,
-                "allowAdd": true,
-                "dataSource": [
-                  {
-                    "id": "1",
-                    "key": "name",
-                    "name": "张三",
-                    "age": 18,
-                    "width": 100
-                  },
-                  {
-                    "id": "2",
-                    "key": "name",
-                    "name": "李四",
-                    "age": 19,
-                    "width": 100
-                  }
-                ],
-                "columns": [
-                  {
-                    "id": "1",
-                    "title": "数列1(姓名)",
-                    "dataIndex": "name",
-                    "key": "name",
-                    "component": {
-                      "name": "AInput",
-                      "vModelField": "value",
-                      "type": "input",
-                      "props": {
-                        "placeholder": "请输入 数列1(姓名)"
-                      }
-                    }
-                  },
-                  {
-                    "id": "2",
-                    "title": "数列2(年龄)",
-                    "dataIndex": "age",
-                    "key": "age",
-                    "component": {
-                      "name": "AInputNumber",
-                      "vModelField": "value",
-                      "type": "input-number",
-                      "props": {
-                        "placeholder": "请输入 数列2(年龄)"
-                      }
-                    }
-                  }
-                ],
-                "initial": {
-                  "name": "name1",
-                  "age": 18,
-                  "width": 100
-                }
-              }
-            }
-          },
-          "componentProps": [],
-          "formItemProps": [],
-          "class": "click-way-vz-form-table"
-        },
-        {
-          "id": "7307645290519990272",
-          "key": "7307645290519990272",
-          "title": "输入框",
-          "icon": "iconoir:input-field",
-          "type": "input",
-          "componentName": "AInput",
-          "vModelField": "value",
-          "item": {
-            "antdv": {
-              "label": "输入框",
-              "name": "7307645290519990272",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            },
-            "vant": {
-              "label": "输入框",
-              "name": "7307645290519990272",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            },
-            "wot": {
-              "label": "输入框",
-              "name": "7307645290519990272",
-              "tooltip": "",
-              "extra": "",
-              "required": false,
-              "colon": true,
-              "displayState": true,
-              "rules": []
-            }
-          },
-          "component": {
-            "antdv": {
-              "name": "AInput",
-              "events": {},
-              "props": {
-                "placeholder": "请输入",
-                "bordered": true,
-                "showCount": false,
-                "size": "",
-                "events": {}
-              }
-            },
-            "vant": {
-              "name": "VanField",
-              "events": {},
-              "props": {
-                "placeholder": "xxx",
-                "label": "实际外出时间",
-                "bordered": true,
-                "showCount": false,
-                "size": "",
+              ],
+              "component": {
+                "name": "ACol",
                 "events": {},
-                "required": true,
-                "colon": false
+                "props": {}
+              }
+            },
+            {
+              "id": "7308029485243174913",
+              "key": "7308029485243174913",
+              "title": "出差任务内容",
+              "icon": "radix-icons:layout",
+              "type": "tabs-layout-col",
+              "vModelField": "value",
+              "item": {
+                "label": "卡片布局-标签2",
+                "name": "",
+                "tooltip": "",
+                "extra": "",
+                "required": false,
+                "colon": true,
+                "displayState": true,
+                "rules": []
+              },
+              "children": [
+                {
+                  "id": "7306561607306317824",
+                  "key": "7306561607306317824",
+                  "title": "输入表格",
+                  "icon": "ant-design:cloud-upload-outlined",
+                  "type": "vz-form-table",
+                  "componentName": "VzFormTable",
+                  "vModelField": "value",
+                  "item": {
+                    "antdv": {
+                      "label": "输入表格",
+                      "name": "7306561607306317824",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
+                    },
+                    "vant": {
+                      "label": "输入表格",
+                      "name": "bo_hr_outworkbills_work",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
+                    },
+                    "wot": {
+                      "label": "输入表格",
+                      "name": "7306561607306317824",
+                      "tooltip": "",
+                      "extra": "",
+                      "required": false,
+                      "colon": true,
+                      "displayState": true,
+                      "rules": []
+                    }
+                  },
+                  "component": {
+                    "antdv": {
+                      "name": "VzFormTable",
+                      "events": {},
+                      "props": {
+                        "rowKey": "id",
+                        "bordered": true,
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "数列1(姓名)",
+                            "dataIndex": "name",
+                            "key": "name",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "数列2(年龄)",
+                            "dataIndex": "age",
+                            "key": "age",
+                            "component": {
+                              "name": "AInputNumber",
+                              "vModelField": "value",
+                              "type": "input-number",
+                              "props": {
+                                "placeholder": "请输入 数列2(年龄)"
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
+                      }
+                    },
+                    "vant": {
+                      "name": "VzFormTable",
+                      "events": {},
+                      "props": {
+                        "rowKey": "id",
+                        "bordered": true,
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "任务内容",
+                            "dataIndex": "ctask",
+                            "key": "ctask",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "出发地",
+                            "dataIndex": "cstart",
+                            "key": "cstart",
+                            "component": {
+                              "name": "AInputNumber",
+                              "vModelField": "value",
+                              "type": "input-number",
+                              "props": {
+                                "placeholder": "请输入 数列2(年龄)"
+                              }
+                            }
+                          },
+                          {
+                            "title": "目的地",
+                            "key": "cend",
+                            "dataIndex": "cend",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "c6kX9mIOSyMAWI2XAXRmF",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "目的地区ID",
+                            "key": "do_sa_region_id",
+                            "dataIndex": "do_sa_region_id",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "G39-gCQasryX1VjDfX-i1",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "任务开始日期",
+                            "key": "dbegindate",
+                            "dataIndex": "dbegindate",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "8FNI4dwV0mm_T_tNLKFyG",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "任务结束日期",
+                            "key": "denddate",
+                            "dataIndex": "denddate",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "hLMW60Yq07j_WmpNvNEVG",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "自备交通工具",
+                            "key": "bzb",
+                            "dataIndex": "bzb",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "9IO7RBQjli7iGZepsS4n1",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "自备车",
+                            "key": "csubsidyname",
+                            "dataIndex": "csubsidyname",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "JD9AXJUEu18Axkf_n-Ge7",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "往返里程",
+                            "key": "fwaylength",
+                            "dataIndex": "fwaylength",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "q0u_SJ9GcK2PwY8nKkGDM",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "交通工具",
+                            "key": "cvehicle",
+                            "dataIndex": "cvehicle",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "DjdzH72jq3R-2nxf6xkuT",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "出差总结",
+                            "key": "cresult",
+                            "dataIndex": "cresult",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "CrUjBKhrecOTcj0kO-SMf",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "评价意见",
+                            "key": "cassess",
+                            "dataIndex": "cassess",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "XM1Etnw3lQA8MrgDisZu5",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "目的地区",
+                            "key": "cregionname",
+                            "dataIndex": "cregionname",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "XCAHwtuw8OPC6tpDOQSjf",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "主键ID",
+                            "key": "do_hr_outworkbills_work_id",
+                            "dataIndex": "do_hr_outworkbills_work_id",
+                            "width": 100,
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入"
+                              }
+                            },
+                            "id": "zFr0dhE31haQ96e3bePPY",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
+                      }
+                    },
+                    "wot": {
+                      "name": "VzFormTable",
+                      "events": {},
+                      "props": {
+                        "rowKey": "id",
+                        "bordered": true,
+                        "allowAdd": true,
+                        "dataSource": [
+                          {
+                            "id": "1",
+                            "key": "name",
+                            "name": "张三",
+                            "age": 18,
+                            "width": 100
+                          },
+                          {
+                            "id": "2",
+                            "key": "name",
+                            "name": "李四",
+                            "age": 19,
+                            "width": 100
+                          }
+                        ],
+                        "columns": [
+                          {
+                            "id": "1",
+                            "title": "数列1(姓名)",
+                            "dataIndex": "name",
+                            "key": "name",
+                            "component": {
+                              "name": "AInput",
+                              "vModelField": "value",
+                              "type": "input",
+                              "props": {
+                                "placeholder": "请输入 数列1(姓名)"
+                              }
+                            }
+                          },
+                          {
+                            "id": "2",
+                            "title": "数列2(年龄)",
+                            "dataIndex": "age",
+                            "key": "age",
+                            "component": {
+                              "name": "AInputNumber",
+                              "vModelField": "value",
+                              "type": "input-number",
+                              "props": {
+                                "placeholder": "请输入 数列2(年龄)"
+                              }
+                            }
+                          }
+                        ],
+                        "initial": {
+                          "name": "name1",
+                          "age": 18,
+                          "width": 100
+                        }
+                      }
+                    }
+                  },
+                  "componentProps": [],
+                  "formItemProps": [],
+                  "class": "click-way-vz-form-table"
+                }
+              ],
+              "componentProps": [],
+              "formItemProps": [],
+              "component": {
+                "name": "ACol",
+                "events": {},
+                "props": {}
+              }
+            }
+          ],
+          "component": {
+            "antdv": {
+              "name": "VanTabbar",
+              "events": {},
+              "props": {}
+            },
+            "vant": {
+              "name": "VanTabbar",
+              "events": {},
+              "props": {
+                "shrink": true,
+                "type": "line",
+                "ellipsis": true,
+                "border": false,
+                "tabs": [],
+                "events": {}
               }
             },
             "wot": {
-              "name": "WdInput",
+              "name": "VanTabbar",
               "events": {},
-              "props": {
-                "label": "输入框",
-                "placeholder": "请输入",
-                "bordered": true,
-                "showCount": false,
-                "type": "text",
-                "size": "",
-                "events": {}
-              }
+              "props": {}
             }
           },
           "componentProps": [],
           "formItemProps": [],
-          "class": "clone-way-input"
+          "class": "click-way-tabs-layout"
         }
       ],
       "component": {

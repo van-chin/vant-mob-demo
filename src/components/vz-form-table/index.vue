@@ -1,5 +1,32 @@
 <script setup lang="ts">
-import { ListTable, VTable } from '@visactor/vue-vtable';
+import { ListTable, VTable } from '@visactor/vue-vtable'
+
+import { ref } from 'vue'
+
+interface VzFormTableProps {
+  columns: Record<string, any>[]
+}
+
+defineOptions({
+  name: 'VzFormTable',
+})
+
+const { columns } = defineProps<VzFormTableProps>()
+
+const modelValue = defineModel<any[]>('value', {
+  default: [
+    // {
+    //   cpercode_cc: '1234567890123456789012345678901201',
+    //   cpername_cc: '小六',
+    //   do_hr_outworkbills_per_id: '730656059597573734401',
+    // },
+    // {
+    //   cpercode_cc: '1234567890123456789012345678901202',
+    //   cpername_cc: '张三',
+    //   do_hr_outworkbills_per_id: '730656059597573734402',
+    // },
+  ],
+})
 
 const currentTheme = VTable.themes.DEFAULT.extends({
   defaultStyle: {
@@ -10,31 +37,19 @@ const currentTheme = VTable.themes.DEFAULT.extends({
   headerStyle: { color: '#1B1F23', bgColor: '#EEF1F5', fontSize: 14, textAlign: 'center', padding: [8, 12, 8, 12] },
 })
 
-
-
 const active = ref(0)
 // *出差人编码			*出差人名称
 
-const businessTravellerTableOptions = {
+const listTableOptions = ref({
   header: [
-    {
-      field: '0',
-      caption: '出差人编码',
-      // width: '100',
-
-    },
-    {
-      field: '1',
-      caption: '出差人名称',
-      // width: '100',
-      // width: '100',
-    },
 
   ],
-  records: Array.from({ length: 8 }).fill(['100003', '湖南蓝海']),
+  records: [
+
+  ],
   theme: currentTheme,
   autoFillWidth: true,
-  autoFillHeight: true,
+  // autoFillHeight: true,
 
   // autoWrapText: true,
   // heightMode: 'autoHeight',
@@ -55,109 +70,29 @@ const businessTravellerTableOptions = {
     //   textAlign: 'center',
     // },
   },
-}
+});
 
-const tableOptions = {
-  header: [
-    {
-      field: '0',
-      caption: '任务内容',
-      width: '200',
-      headerStyle: {
-        textAlign: 'center',
+(async function init() {
+  console.info('init columns=>', columns)
+  console.info('init modelValue=>', modelValue.value)
+  let tmpHeaders = []
+  columns.forEach((column) => {
+    tmpHeaders.push({
+      field: column.key,
+      caption: column.title,
+      // 是否隐藏列
+      hide: column.key === 'do_hr_outworkbills_per_id',
+    })
+  })
 
-      },
-    },
-    {
-      field: '1',
-      caption: '出发地',
-      // width: '100',
-    },
-    {
-      field: '2',
-      // width: '100',
-      caption: '目的地',
-    },
-    {
-      field: '3',
-      // width: '100',
-      caption: '目的地区',
-    },
-    {
-      field: '4',
-      width: '90',
-      caption: '开始日期',
-    },
-    {
-      field: '5',
-      width: '90',
-      caption: '结束日期',
-    },
-    {
-      field: '6',
-      width: '130',
-      caption: '自备交通工具',
-    },
-    {
-      field: '6',
-      // width: '90',
-      caption: '自备车',
-    },
-    {
-      field: '6',
-      // width: '120',
-      caption: '往返里程',
-    },
-    {
-      field: '6',
-      // width: '100',
-      caption: '交通工具',
-    },
-  ],
-  records: Array.from({ length: 10 }).fill(['确保高随内容动态调整确保行高随内容动态调整', '湖南蓝海', '四川蓝海', '温江区', '2025-03-12 23:17:22', '2025-04-12 23:17:22']),
-  theme: currentTheme,
-  autoWrapText: true,
-  heightMode: 'autoHeight',
-  frozenColCount: 1,
-  // theme: {
-  //   headerStyle: {
-  //     backgroundColor: '#f5f5f5',
-  //   },
-  // },
-  columnResizeMode: 'header',
-  rowSeriesNumber: {
-    title: '#',
-    width: '50',
-    headerStyle: {
-      textAlign: 'center',
-    },
-    style: {
-      textAlign: 'center',
-    },
-  },
-}
-
-
+  listTableOptions.value.header = tmpHeaders
+  listTableOptions.value.records = modelValue.value
+})()
 </script>
 
 <template>
- <div class="">
-
-  <div class="p-2 mt-2">
-<van-tabs v-model:active="active" shrink>
-      <van-tab title="出差人明细">
-        <div class="mt-4 h-424px p-2">
-          <ListTable :options="businessTravellerTableOptions" />
-        </div>
-      </van-tab>
-      <van-tab title="出差任务内容">
-        <div class="mt-4 h-400px p-2">
-          <ListTable :options="tableOptions" />
-        </div>
-      </van-tab>
-    </van-tabs>
+  <div class="h-200 min-h-200">
+    <ListTable :options="listTableOptions" />
+    <!-- <ListTable :options="tableOptions" /> -->
   </div>
-
-
- </div>
 </template>
