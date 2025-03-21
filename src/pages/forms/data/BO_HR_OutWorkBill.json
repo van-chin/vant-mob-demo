@@ -14,28 +14,35 @@
     "csource": "",
     "bo_hr_outworkbills_per": [
       {
-        "cpercode_cc": "1234567890123456789012345678901201",
-        "cpername_cc": "小六",
-        "do_hr_outworkbills_per_id": "730656059597573734401"
+        "cpercode_cc": "100003",
+        "cpername_cc": "小明",
+        "do_hr_outworkbills_per_id": "22160479359799552001"
       },
       {
-        "cpercode_cc": "1234567890123456789012345678901202",
-        "cpername_cc": "张三",
-        "do_hr_outworkbills_per_id": "730656059597573734402"
+        "cpercode_cc": "100004",
+        "cpername_cc": "小六",
+        "do_hr_outworkbills_per_id": "22160479359799552002"
       }
     ],
     "bo_hr_outworkbills_work": [
       {
-        "ctask": "设备采购",
-        "cstart": "四川👦",
-        "cend": "湖南南海"
-      },
-      {
-        "ctask": "设备采购",
-        "cstart": "四川👦",
-        "cend": "湖南南海"
+        "ctask": "",
+        "cstart": "",
+        "cend": "",
+        "do_sa_region_id": "",
+        "dbegindate": "",
+        "denddate": "",
+        "bzb": "",
+        "csubsidyname": "",
+        "fwaylength": "",
+        "cvehicle": "",
+        "cresult": "",
+        "cassess": "",
+        "cregionname": "",
+        "do_hr_outworkbills_work_id": ""
       }
-    ]
+    ],
+    "do_hr_outworkbill_id": ""
   },
   "modelKeys": {
     "7306560545140772864": {
@@ -107,6 +114,13 @@
       "id": "7306561607306317824",
       "displayState": true,
       "model": "bo_hr_outworkbills_work"
+    },
+    "7308660323769126912": {
+      "id": "7308660323769126912",
+      "displayState": false,
+      "needRender": false,
+      "model": "do_hr_outworkbill_id",
+      "addMode": "json"
     }
   },
   "rules": {
@@ -153,7 +167,7 @@
           }
         },
         "vant": {
-          "name": "f_9GqdghhCcT4Dr6VZp-i",
+          "name": "BO_HR_OutWorkBill",
           "colon": true,
           "displayState": true,
           "labelShow": true,
@@ -163,7 +177,9 @@
             "style": {
               "width": "100px"
             }
-          }
+          },
+          "title": "出差任务单",
+          "primaryKey": "do_hr_outworkbill_id"
         },
         "wot": {
           "name": "f_9GqdghhCcT4Dr6VZp-i",
@@ -2064,7 +2080,8 @@
                               "props": {
                                 "placeholder": "请输入 数列1(姓名)"
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "id": "2",
@@ -2082,7 +2099,8 @@
                                 "size": "",
                                 "events": {}
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "主键ID",
@@ -2199,7 +2217,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "primaryKey": true
                           }
                         ],
                         "initial": {
@@ -2423,7 +2442,6 @@
                             "width": 100
                           }
                         ],
-
                         "columns": [
                           {
                             "id": "1",
@@ -2437,7 +2455,8 @@
                               "props": {
                                 "placeholder": "请输入 数列1(姓名)"
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "id": "2",
@@ -2451,7 +2470,8 @@
                               "props": {
                                 "placeholder": "请输入 数列2(年龄)"
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "目的地",
@@ -2568,7 +2588,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "目的地区ID",
@@ -2685,7 +2706,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "任务开始日期",
@@ -2802,7 +2824,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "任务结束日期",
@@ -2919,7 +2942,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "自备交通工具",
@@ -3036,7 +3060,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "自备车",
@@ -3153,7 +3178,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "往返里程",
@@ -3270,7 +3296,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "交通工具",
@@ -3387,7 +3414,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "出差总结",
@@ -3504,7 +3532,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "评价意见",
@@ -3621,7 +3650,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "目的地区",
@@ -3738,7 +3768,8 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "visible": true
                           },
                           {
                             "title": "主键ID",
@@ -3855,7 +3886,9 @@
                                   "allowClear": true
                                 }
                               }
-                            }
+                            },
+                            "primaryKey": true,
+                            "visible": false
                           }
                         ],
                         "initial": {

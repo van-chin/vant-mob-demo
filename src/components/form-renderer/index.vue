@@ -26,7 +26,7 @@ const emits = defineEmits<{
 dayjs.locale('zh-cn')
 
 // const COMPONENT_NAME = 'VzFormRendererVant'
-const { prefixCls } = useStyle('form-renderer')
+const { prefixCls } = useStyle('form-renderer');
 
 const formInstance = ref<any>()
 
@@ -171,7 +171,7 @@ function parseEvents() {
             let params = reactive({})
             item.component.events[key].map((pkey: string, index: number) => {
               params[pkey] = args[index]
-            })
+            });
             emitEventHandler(item.item.name, key, params)
           }
         }
@@ -196,8 +196,8 @@ function reset() {
 
 (async function init() {
   parseEvents()
-  // console.info('init =>', '...')
-})()
+  console.info('init =>', '...');
+})();
 
 /**
  * 查找表单组件节点
@@ -278,12 +278,14 @@ defineExpose<VzFormExpose>({
 
 watch(data, (newVal) => {
   parseEvents()
-})
+});
 </script>
 
 <template>
   <div class="h-full w-full flex flex-col" :class="[`${prefixCls}`]">
     <div class="min-h-100px flex-1 overflow-hidden" :class="[`${prefixCls}-wrapper`]">
+
+
       <van-form
 
         :ref="toRef('formRef')"
@@ -317,14 +319,14 @@ watch(data, (newVal) => {
           </template>
 
           <template v-else-if="item.type === 'tabs-layout'">
-            <van-row class="divider-x">
+            <van-row :key="item.id" class="divider-x">
               <van-col
 
                 :span="24"
                 class="my-2"
               >
                 <van-tabs v-bind="item.component.vant.props">
-                  <van-tab v-for="(tab) in item.children" :name="tab.id" :title="tab.title">
+                  <van-tab v-for="(tab) in item.children" :key="tab.id" :name="tab.id" :title="tab.title">
                     <template v-for="(ric) in tab.children" :key="ric.id">
                       <component
                         :is="ric.component.vant.name"
@@ -344,7 +346,7 @@ watch(data, (newVal) => {
 
           <template v-else>
             <template v-if="item.component.vant.name !== 'VzFormTable'">
-              <van-row class="divider-x">
+              <van-row :key="item.id" class="divider-x">
                 <van-col :span="24">
                   <!-- <div>{{ item.component.vant.props }}</div> -->
                   <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
@@ -370,7 +372,9 @@ watch(data, (newVal) => {
 
             <template v-else>
               <component
+
                 :is="item.component.vant.name"
+                :key="item.id"
 
                 v-bind="item.component.vant.props"
                 v-model:[item.vModelField]="data.model[item.item.vant.name]"
@@ -386,7 +390,7 @@ watch(data, (newVal) => {
     </div>
     <div :class="[`${prefixCls}-tool-bar`]">
       <van-tabbar v-model="active">
-        <van-tabbar-item v-for="(action) in modeActions.all" :icon="action.icon">
+        <van-tabbar-item v-for="(action) in modeActions.all" :key="action.id" :icon="action.icon">
           {{ action.title }}
         </van-tabbar-item>
       </van-tabbar>

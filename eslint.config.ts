@@ -16,6 +16,8 @@ export default antfu(
   },
   {
     rules: {
+      'semi': ['error', 'always'],
+      'no-console': 'off',
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-exports': 'off',
       'perfectionist/sort-named-exports': 'off',
