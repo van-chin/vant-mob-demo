@@ -9,7 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./../components/Chart/index.vue')['default']
-    copy: typeof import('./../components/vz-form-table/index copy.vue')['default']
+    copy: typeof import('./../components/vz-form-date-picker copy/index.vue')['default']
     FormRenderer: typeof import('./../components/form-renderer/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     'Index.bk': typeof import('./../components/vz-form-table/index.bk.vue')['default']
@@ -26,6 +26,7 @@ declare module 'vue' {
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanCol: typeof import('vant/es')['Col']
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
+    VanDatePicker: typeof import('vant/es')['DatePicker']
     VanEmpty: typeof import('vant/es')['Empty']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
@@ -41,6 +42,8 @@ declare module 'vue' {
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
+    VzFormDatePicker: typeof import('./../components/vz-form-date-picker/index.vue')['default']
     VzFormTable: typeof import('./../components/vz-form-table/index.vue')['default']
+    VzFormXxx: typeof import('./../components/vz-form-xxx/index.vue')['default']
   }
 }

@@ -348,7 +348,8 @@ watch(data, (newVal) => {
             <template v-if="item.component.vant.name !== 'VzFormTable'">
               <van-row :key="item.id" class="divider-x">
                 <van-col :span="24">
-                  <!-- <div>{{ item.component.vant.props }}</div> -->
+
+                  <!-- <div>{{ item.component.vant.name }}</div> -->
                   <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
                     <slot :name="item.item.slot" :item="item" :model="data.model" />
                   </template>

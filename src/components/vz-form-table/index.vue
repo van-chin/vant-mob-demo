@@ -224,14 +224,14 @@ function onToolbarAction(item) {
   switch (item.code) {
     case 'add':
       additionRow();
-      break;
+      break
     case 'edit':
       // rowPopuping.value = true;
       editRow();
-      break
+      break;
     case 'delete':
       deleteRow();
-      break;
+      break
     case 'export':
       break;
   }
@@ -363,6 +363,8 @@ function onPopupClose() {
   };
 }
 
+const abc = ref('2025-06-08');
+
 watch(() => dataTableRecords.value, (newDataTableRecords) => {
   const temModelValue = [];
   newDataTableRecords.forEach((item) => {
@@ -459,11 +461,6 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
               <van-form @failed="onFailed">
                 <van-cell-group inset>
                   <template v-for="(item) in rowColumnsFormItems">
-                    <!-- {{ item.key }}
-                    {{ item.primaryKey }} -->
-                    <!-- {{ dataTableRecords[rowPopupData.position.row - 1] }}
-                    {{ rowPopupData.data }} -->
-
                     <template v-if="item.primaryKey === true">
                       <van-field
                         v-show="item.visible"
@@ -473,14 +470,25 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
                       />
                     </template>
                     <template v-else>
-                      <van-field
+                      <component
+                        :is="item.component.vant.name"
+                        v-bind="item.component.vant.props"
+                        v-show="item.visible"
+                        :key="item.key"
+                        v-model="rowPopupData.data[item.key]"
+                      />
+                      <!-- <van-field
                         v-show="item.visible"
                         :key="item.key"
                         v-model="rowPopupData.data[item.key]"
                         :label="item.title"
-                      />
+                      /> -->
                     </template>
                   </template>
+
+                  <VzFormDatePicker v-model:value="abc" />
+
+                  <!-- VzFormDatePicker -->
                 </van-cell-group>
               </van-form>
             </div>
