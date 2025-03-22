@@ -1,21 +1,22 @@
+<!-- eslint-disable prefer-const -->
 <script setup lang="ts">
 import { ListTable, VTable } from '@visactor/vue-vtable';
 import { useStyle } from '@/hooks';
-
+import { omit } from 'es-toolkit/compat';
 import { closeToast, showLoadingToast } from 'vant';
 
-import { ref, useTemplateRef } from 'vue';
+import { ref, useTemplateRef, watch } from 'vue';
 
-
-import snowflakeId from "snowflake-id";
-
-const snowflake = new snowflakeId();
+import snowflakeId from 'snowflake-id'
 
 defineOptions({
   name: 'VzFormTable',
-});
+})
 
-const { columns } = defineProps<VzFormTableProps>();
+const { columns } = defineProps<VzFormTableProps>()
+
+// eslint-disable-next-line new-cap
+const snowflake = new snowflakeId()
 
 const { prefixCls } = useStyle('form-table');
 
@@ -26,36 +27,11 @@ const {
 
 } = VTable.ListTable.EVENT_TYPE;
 
-
 const checkedDataIds = ref([]);
 
 interface VzFormTableProps {
   columns: Record<string, any>[]
 }
-
-VTable.register.icon('addition', {
-  type: 'svg',
-  // svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/edit.svg',
-  svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/edit.svg',
-  width: 20,
-  height: 20,
-  name: 'addition',
-  positionType: VTable.TYPES.IconPosition.left,
-  marginRight: 0,
-  cursor: 'pointer',
-});
-
-VTable.register.icon('delete', {
-  type: 'svg',
-  svg: 'https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/VTable/delete.svg',
-  width: 20,
-  height: 20,
-  name: 'delete',
-  positionType: VTable.TYPES.IconPosition.left,
-  marginRight: 0,
-  marginLeft: 5,
-  cursor: 'pointer',
-});
 
 const modelValue = defineModel<any[]>('value', {
   default: [
@@ -106,7 +82,7 @@ const listTableOptions = ref({
     title: '#',
     width: '55',
     dragOrder: false,
-    field: 'do_hr_outworkbills_per_id',
+    field: 'dtcrkId',
     // format: (index) => {
     //   console.log(index);
     //   return '1';
@@ -125,10 +101,39 @@ const initDataStructure = ref({});
 
 const rowPopuping = ref(false);
 
+//
+const rowPopupData = ref({
+  position: {
+    col: 0,
+    row: 0,
+  },
+  action: {
+
+  },
+  data: {},
+
+});
+
+// 自定义 客户端口 data-table-row-key
+// const dataTableClientRowKey = ref('dtcrkId');
+const dataTableClientRowKey = 'dtcrkId';
+// 服务数据 data-table-row-primary-key
+const dataTableRowServeKey = ref('unknowned');
+
+const dataTableRecords = ref([]);
+
+// 行 编辑 表单项 组件
+const rowColumnsFormItems = ref([]);
+
 (async function init() {
   const tmpHeaders = [];
   columns.forEach((column) => {
-    // console.log('column =>',column);
+    console.log('column =>', column);
+    rowColumnsFormItems.value.push(column);
+    if (column.primaryKey) {
+      dataTableRowServeKey.value = column.key;
+    }
+
     initDataStructure.value[column.key] = '';
     tmpHeaders.push({
       field: column.key,
@@ -137,6 +142,18 @@ const rowPopuping = ref(false);
       hide: !column.visible,
     })
   });
+
+  // 构造表格数据
+
+  let dataTableTmpRecords = [];
+  modelValue.value.forEach((item) => {
+    let tmpRecord = { ...item }
+    // tmpRecord[dataTableClientRowKey] = item[dataTableRowServeKey.value];
+    tmpRecord[dataTableClientRowKey] = snowflake.generate();
+    dataTableTmpRecords.push(tmpRecord);
+  })
+
+  dataTableRecords.value = dataTableTmpRecords;
 
   // 增加操作列
 
@@ -206,10 +223,12 @@ function onToolbarAction(item) {
   console.info('onToolbarAction =>', item)
   switch (item.code) {
     case 'add':
-      additionRow(0, 0, {}, undefined);
+      additionRow();
       break;
     case 'edit':
-      break;
+      // rowPopuping.value = true;
+      editRow();
+      break
     case 'delete':
       deleteRow();
       break;
@@ -218,16 +237,26 @@ function onToolbarAction(item) {
   }
 }
 
-function additionRow(col, row, originData, dataValue) {
-  // console.info('添加行 => col', col);
-  // console.info('添加行 => row', row);
-  // console.info('添加行 => originData', originData);
-  // console.info('添加行 => dataValue', dataValue);
-  //
-  let addedData = {...initDataStructure.value };
-  addedData.do_hr_outworkbills_per_id = snowflake.generate();
-  modelValue.value.push(addedData);
+function setRowPopupData(data, actionCode, row, col, popup = true) {
+  rowPopupData.value.data = data;
+  rowPopupData.value.action = toolbarButtons.value.find(item => item.code === actionCode);
+  rowPopupData.value.position.row = row;
+  rowPopupData.value.position.col = col;
+
+  console.info('setRowPopupData =>', rowPopupData.value);
+  rowPopuping.value = popup;
+}
+
+function editRow() {
   rowPopuping.value = true;
+}
+
+function additionRow() {
+  let addedData = { ...initDataStructure.value };
+  addedData[dataTableClientRowKey] = snowflake.generate();
+  dataTableRecords.value.push(addedData);
+  setRowPopupData(addedData, 'add', dataTableRecords.value.length, 0);
+
 }
 
 function deleteRow() {
@@ -237,72 +266,77 @@ function deleteRow() {
   // console.info('删除行 => dataValue', dataValue);
 
   checkedDataIds.value.forEach((id) => {
-    const index = modelValue.value.findIndex((item) => item.do_hr_outworkbills_per_id === id);
+    const index = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === id);
     console.info('删除行 => index', index);
-    modelValue.value.splice(index, 1);
-  });
+    dataTableRecords.value.splice(index, 1);
+  })
 
-
-  // modelValue.value.splice(row - 1, 1);
+  // dataTableRecords.value.splice(row - 1, 1);
   // listTableOptions.value.records.splice(row - 1, 1);
   // console.info('删除行 => listTableOptions.value.records', listTableOptions.value.records);
   // setRecordsValue();
 }
 
-function onDblClickCell(e) {
-  console.log('onDblClickCell', e)
+function onDblClickCell(args) {
+  console.log('onDblClickCell =>', args);
+  const { field, col, row, targetIcon, originData, dataValue } = args;
+
+  if (field !== '_vtable_rowSeries_number') {
+    // 非序号列 双击编辑
+
+    setRowPopupData(originData, 'edit', row, col);
+
+  }
 }
 
 function onClickCell(args) {
   const { field, col, row, targetIcon, originData, dataValue } = args;
 
   if (field === '_vtable_rowSeries_number') {
-
     const checkboxStates = listTableElRef.value.vTableInstance.getCheckboxState();
     let checkedQuantity = 0;
-    const selectedIds = [];
-    checkboxStates.forEach((state,index) => {
+    const checkedIds = [];
+    checkboxStates.forEach((state, index) => {
       console.log('state =>', state);
-      if(state._vtable_rowSeries_number) {
+      if (state._vtable_rowSeries_number) {
         checkedQuantity++;
-        selectedIds.push(modelValue.value[index].do_hr_outworkbills_per_id);
+        checkedIds.push(dataTableRecords.value[index][dataTableClientRowKey]);
       }
     });
 
-    console.info('选中数量 =>', checkedQuantity);
-    console.info('选中数据的 id =>', selectedIds);
+    if (checkedQuantity === 1) {
+      // fixed row 和  数据不对 需要根据数据去查找
+      dataTableRecords.value.forEach((item, index) => {
+        if (item[dataTableClientRowKey] === checkedIds[0]) {
+          setRowPopupData(item, 'edit', index + 1, col, false);
+        }
+      });
+    }
+    else {
+      rowPopupData.value = {
+        position: {
+          col: 0,
+          row: 0,
+        },
+        action: {
 
-    checkedDataIds.value = selectedIds;
+        },
+        data: {},
+
+      };
+    }
+
+    checkedDataIds.value = checkedIds;
 
     toolbarButtons.value.forEach((item) => {
-      if(item.code === 'delete') {
+      if (item.code === 'delete') {
         item.disabled = checkedQuantity === 0;
       }
-      if(item.code === 'edit') {
-        item.disabled = checkedQuantity === 1 ? false: true;
+      if (item.code === 'edit') {
+        item.disabled = checkedQuantity !== 1
       }
-    })
+    });
 
-    // _vtable_rowSeries_number
-    // switch (targetIcon.name) {
-    //   case 'addition':
-    //     additionRow(col, row, originData, dataValue);
-    //     break
-    //   case 'delete':
-    //     deleteRow(col, row, originData, dataValue);
-    //     break
-    // }
-  }
-
-  if (field === 'operation') {
-    switch (targetIcon.name) {
-      case 'addition':
-        additionRow(col, row, originData, dataValue);
-        break
-      case 'delete':
-        deleteRow(col, row, originData, dataValue);
-        break
-    }
   }
 }
 
@@ -311,34 +345,33 @@ function onRowEditSave() {
   rowPopuping.value = false;
 }
 
+function onFailed(errorInfo) {
+  console.log('failed', errorInfo)
+}
 
-const value1 = ref('');
-    const value2 = ref('');
-    const value3 = ref('abc');
-    const value4 = ref('');
-    const pattern = /\d{6}/;
+function onPopupClose() {
+  rowPopupData.value = {
+    position: {
+      col: 0,
+      row: 0,
+    },
+    action: {
 
-    // 校验函数返回 true 表示校验通过，false 表示不通过
-    const validator = (val) => /1\d{10}/.test(val);
+    },
+    data: {},
 
-    // 校验函数可以直接返回一段错误提示
-    const validatorMessage = (val) => `${val} 不合法，请重新输入`;
+  };
+}
 
-    // 校验函数可以返回 Promise，实现异步校验
-    const asyncValidator = (val) =>
-      new Promise((resolve) => {
-        showLoadingToast('验证中...');
-
-        setTimeout(() => {
-          closeToast();
-          resolve(val === '1234');
-        }, 1000);
-      });
-
-    const onFailed = (errorInfo) => {
-      console.log('failed', errorInfo);
-    };
-
+watch(() => dataTableRecords.value, (newDataTableRecords) => {
+  const temModelValue = [];
+  newDataTableRecords.forEach((item) => {
+    temModelValue.push(omit(item, [dataTableClientRowKey]));
+  })
+  modelValue.value = temModelValue;
+}, {
+  deep: true,
+})
 //
 </script>
 
@@ -351,26 +384,41 @@ const value1 = ref('');
             <van-button v-if="item.visible" v-bind="item" :key="item.id" @click="onToolbarAction(item)" />
           </template>
         </van-space>
-
-
       </div>
       <div :class="`${prefixCls}-top-toolbar-right`">
         &nbsp;
       </div>
     </div>
 
-    <div :class="`${prefixCls}-gird h-400 min-h-400 w-full`">
+    <!-- <div>
+      rowPopupData:
+      <div>{{ rowPopupData }}</div>
+    </div> -->
 
+    <!-- <div>
+      dataTableRowServeKey:
+      <div>{{ dataTableRowServeKey }}</div>
+    </div> -->
+
+    <!-- <div>
+      dataTableRecords:
+      <div>{{ dataTableRecords }}</div>
+    </div>
+
+    <div>
+      modelValue:
+      <div>{{ modelValue }}</div>
+    </div> -->
+
+    <div :class="`${prefixCls}-gird h-400 min-h-400 w-full`">
       <ListTable
         ref="list-table-el"
         :class="`${prefixCls}-gird-list-table`"
         :options="listTableOptions"
-        :records="modelValue"
+        :records="dataTableRecords"
         @on-dbl-click-cell="onDblClickCell"
         @on-click-cell="onClickCell"
       />
-
-
 
     <!-- <ListTable :options="tableOptions" /> DBLCLICK_CELL -->
     </div>
@@ -379,7 +427,8 @@ const value1 = ref('');
       v-model:show="rowPopuping"
       teleport="body"
       position="bottom"
-      :style="{ height: '100%',backgroundColor: '#f7f8fa' }"
+      :style="{ height: '100%', backgroundColor: '#f7f8fa' }"
+      @close="onPopupClose"
     >
       <div :class="`${prefixCls}-row-popup h-full w-full flex flex-col`">
         <div>
@@ -391,179 +440,74 @@ const value1 = ref('');
             @click-left="onRowEditSave"
             @click-right="onRowEditSave"
           >
-          <template #right>
-            <van-icon name="cross" size="18" />
-          </template>
+            <template #right>
+              <van-icon name="cross" size="18" />
+            </template>
+            <!-- <template #title>
+              {{ rowPopupData.action.text }} 第 {{ rowPopupData.position.row }} 行
+            </template> -->
           </van-nav-bar>
         </div>
-        <div class="flex-1 min-h-100px overflow-hidden ">
-          <div class="w-full h-full px-2 py-4 pb-70px overflow-y-auto">
-
+        <div class="min-h-100px flex-1 overflow-hidden">
+          <div class="h-full w-full overflow-y-auto px-2 py-4 pb-70px">
             <div class="p-2">
-
+              <!-- {{ rowPopupData.data }} -->
+              <!-- {{ rowColumnsFormItems }} -->
+              <!-- v-model="rowPopupData.data[item.key]"
+                      v-model="dataTableRecords[rowPopupData.position.row - 1][item.key]"
+                    -->
               <van-form @failed="onFailed">
                 <van-cell-group inset>
+                  <template v-for="(item) in rowColumnsFormItems">
+                    <!-- {{ item.key }}
+                    {{ item.primaryKey }} -->
+                    <!-- {{ dataTableRecords[rowPopupData.position.row - 1] }}
+                    {{ rowPopupData.data }} -->
 
-
-
-
-                   <van-field
-
-
-                      label="任务内容"
-                      type="textarea"
-                      rows="2"
-                      maxlength="50"
-                      show-word-limit
-                      autosize
-                      placeholder="请填写 任务内容 至少 20 个字符"
-
-                    />
-                    <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="出发地"
-                      placeholder="请选择 出发地"
-                    />
-                    <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="目的地"
-                      placeholder="请选择 目的地"
-                    />
-                     <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="任务开始日期"
-                      placeholder=""
-                    />
-                     <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="任务结束日期"
-                      placeholder="请选择 "
-                    />
-
-
-                     <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="自备交通工具"
-                      placeholder=" "
-                    />
-
-                    <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="自备车"
-                      placeholder=" "
-                    />
-
-                    <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="往返公里数"
-                      placeholder=" "
-                    />
-
-                     <van-field
-                      is-link
-                      readonly
-                      name="picker"
-                      label="交通工具"
-                      placeholder=" "
-                    />
-
-                     <van-field
-
-                      name="picker"
-                      label="出差总结"
-                      placeholder=" "
-                       type="textarea"
-                      rows="2"
-                      maxlength="50"
-                      show-word-limit
-                      autosize
-                    />
-
-                     <van-field
-
-                      name="picker"
-                      label="评价意见"
-                      placeholder=" "
-                       type="textarea"
-                      rows="2"
-                      maxlength="50"
-                      show-word-limit
-                      autosize
-                    />
-
-                  <!--
-
-
-
-
-
-									 -->
-
-
-
-
-                  <!-- 通过 pattern 进行正则校验 -->
-                   <!-- <van-field
-                      name="picker"
-                      label="占位内容"
-
-
-                      v-for="n in 10"
-
-                    /> -->
-
-
-
+                    <template v-if="item.primaryKey === true">
+                      <van-field
+                        v-show="item.visible"
+                        :key="item.key"
+                        v-model="rowPopupData.data[item.key]"
+                        :label="item.title"
+                      />
+                    </template>
+                    <template v-else>
+                      <van-field
+                        v-show="item.visible"
+                        :key="item.key"
+                        v-model="rowPopupData.data[item.key]"
+                        :label="item.title"
+                      />
+                    </template>
+                  </template>
                 </van-cell-group>
-
               </van-form>
             </div>
-
-
-
-
-
-
-
           </div>
         </div>
         <div class="">
           <van-action-bar>
-          <van-action-bar-icon icon="add-o" text="增加" />
-          <van-action-bar-icon icon="delete-o" text="删除" />
+            <van-action-bar-icon icon="add-o" text="增加" />
+            <van-action-bar-icon icon="delete-o" text="删除" />
+            <van-action-bar-icon icon="arrow-left" text="上一行" />
+            <van-action-bar-icon icon="arrow" text="下一行" />
 
-          <van-action-bar-icon icon="add-o" text="上一条" />
-          <van-action-bar-icon icon="delete-o" text="下一条" />
-
-          <van-action-bar-button type="danger" text="立即保存" @click="onRowEditSave" />
-        </van-action-bar>
+            <van-action-bar-button type="danger" text="立即保存" @click="onRowEditSave" />
+          </van-action-bar>
         </div>
-
       </div>
     </van-popup>
   </div>
 </template>
 
-<style lang="less" scoped >
+<style lang="less" scoped>
 @prefix-cls: ~'vz-form-table';
 
 .@{prefix-cls} {
   width: 100%;
   height: 100%;
+  // border: 2px solid red;
   &-top-toolbar {
     &-left {
       // border: 2px solid red;

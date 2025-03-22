@@ -2,7 +2,7 @@
   "name": "vue3-vant-mobile",
   "type": "module",
   "version": "3.7.1",
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af",
   "description": "An mobile web apps template based on the Vue 3 ecosystem",
   "license": "MIT",
   "scripts": {
@@ -29,6 +29,7 @@
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
     "echarts": "^5.6.0",
+    "es-toolkit": "^1.33.0",
     "handsontable": "^15.1.0",
     "lodash-es": "^4.17.21",
     "nprogress": "^0.2.0",
