@@ -363,8 +363,6 @@ function onPopupClose() {
   };
 }
 
-const abc = ref('2025-06-08');
-
 watch(() => dataTableRecords.value, (newDataTableRecords) => {
   const temModelValue = [];
   newDataTableRecords.forEach((item) => {
@@ -485,8 +483,6 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
                       /> -->
                     </template>
                   </template>
-
-                  <VzFormDatePicker v-model:value="abc" />
 
                   <!-- VzFormDatePicker -->
                 </van-cell-group>
