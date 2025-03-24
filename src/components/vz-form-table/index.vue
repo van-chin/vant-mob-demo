@@ -2,8 +2,13 @@
 <script setup lang="ts">
 import { ListTable, VTable } from '@visactor/vue-vtable';
 import { useStyle } from '@/hooks';
+
+import { getAllSysEnums, getTokenJwtkeyAcc,getEnumsByRuleName,getEnumsByRuleCaption } from '@/composables/sys-enums';
+//
 import { omit } from 'es-toolkit/compat';
-import { closeToast, showLoadingToast } from 'vant';
+import { closeToast, showConfirmDialog, showFailToast, showLoadingToast, showSuccessToast, showToast } from 'vant';
+
+
 
 import { ref, useTemplateRef, watch } from 'vue';
 
@@ -125,7 +130,21 @@ const dataTableRecords = ref([]);
 // 行 编辑 表单项 组件
 const rowColumnsFormItems = ref([]);
 
+// const tokenJwtkeyAcc = useStorage('TOKEN-JWTKEY-ACC', { token: '', jwtkey: '', caccid: '' });
+// const tokenJwtkeyAcc = useStorage('TOKEN-JWTKEY-ACC', { token: '', jwtkey: '', caccid: '' });
+//
+
+// getAallSysEnums
 (async function init() {
+  // console.info('tokenJwtkeyAcc =>', getTokenJwtkeyAcc());
+  // console.info('sysEnums all =>', getAllSysEnums());
+
+  console.info('getEnumsByRuleName =>',getEnumsByRuleName('EnmOutCooutry'));
+
+  console.info('getEnumsByRuleCaption =>',getEnumsByRuleCaption('出差国家'));
+
+  //
+
   const tmpHeaders = [];
   columns.forEach((column) => {
     console.log('column =>', column);
@@ -224,14 +243,14 @@ function onToolbarAction(item) {
   switch (item.code) {
     case 'add':
       additionRow();
-      break
+      break;
     case 'edit':
       // rowPopuping.value = true;
       editRow();
-      break;
+      break
     case 'delete':
       deleteRow();
-      break
+      break;
     case 'export':
       break;
   }
@@ -260,21 +279,83 @@ function additionRow() {
 }
 
 function deleteRow() {
-  // console.info('删除行 => col', col);
-  // console.info('删除行 => row', row);
-  // console.info('删除行 => originData', originData);
-  // console.info('删除行 => dataValue', dataValue);
-
-  checkedDataIds.value.forEach((id) => {
-    const index = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === id);
-    console.info('删除行 => index', index);
-    dataTableRecords.value.splice(index, 1);
+  showConfirmDialog({
+    title: '确认提示',
+    message:
+    '确认要删除所选数据么?',
   })
+    .then(() => {
+      checkedDataIds.value.forEach((id) => {
+        const index = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === id);
+        console.info('删除行 => index', index);
+        dataTableRecords.value.splice(index, 1);
+      })
+    })
+    .catch(() => {
+    // on cancel
+    });
 
-  // dataTableRecords.value.splice(row - 1, 1);
-  // listTableOptions.value.records.splice(row - 1, 1);
-  // console.info('删除行 => listTableOptions.value.records', listTableOptions.value.records);
-  // setRecordsValue();
+}
+
+// onPopupAdd onPopupDelete onPopupPrevious onPopupNext
+
+function onPopupAdd() {
+  console.log('onPopupAdd => rowPopupData', rowPopupData.value);
+  additionRow();
+}
+
+function onPopupDelete() {
+  if (dataTableRecords.value.length === 1) {
+    showToast('最后一行不能删除!');
+    return;
+  }
+
+  showConfirmDialog({
+    title: '确认提示',
+    message:
+    '确认要删除当前数据么?',
+  })
+    .then(() => {
+      const findedIndex = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === rowPopupData.value.data[dataTableClientRowKey]);
+      dataTableRecords.value.splice(findedIndex, 1);
+      let currentIndex = findedIndex < dataTableRecords.value.length ? findedIndex : 0;
+      if (dataTableRecords.value.length > 1 && currentIndex === 0) {
+        currentIndex = dataTableRecords.value.length - 1;
+      }
+      setRowPopupData(dataTableRecords.value[currentIndex], 'edit', currentIndex + 1, 0);
+    })
+    .catch(() => {
+    // on cancel
+    });
+
+}
+
+function onPopupPrevious() {
+  if (dataTableRecords.value.length === 1) {
+    showToast('当前已经是第一行数据了!');
+    return
+  }
+  const findedIndex = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === rowPopupData.value.data[dataTableClientRowKey]);
+
+  if (findedIndex === 0) {
+    showToast('当前已经是第一行数据了!');
+    return;
+  }
+  setRowPopupData(dataTableRecords.value[findedIndex - 1], 'edit', findedIndex, 0);
+}
+
+function onPopupNext() {
+  if (dataTableRecords.value.length === 1) {
+    showToast('当前已经是最后一行数据了!');
+    return;
+  }
+  const findedIndex = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === rowPopupData.value.data[dataTableClientRowKey]);
+
+  if (dataTableRecords.value.length - 1 === findedIndex) {
+    showToast('当前已经是最后一行数据了!');
+    return;
+  }
+  setRowPopupData(dataTableRecords.value[findedIndex + 1], 'edit', findedIndex + 2, 0);
 }
 
 function onDblClickCell(args) {
@@ -443,9 +524,9 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
             <template #right>
               <van-icon name="cross" size="18" />
             </template>
-            <!-- <template #title>
+            <template #title>
               {{ rowPopupData.action.text }} 第 {{ rowPopupData.position.row }} 行
-            </template> -->
+            </template>
           </van-nav-bar>
         </div>
         <div class="min-h-100px flex-1 overflow-hidden">
@@ -492,10 +573,10 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
         </div>
         <div class="">
           <van-action-bar>
-            <van-action-bar-icon icon="add-o" text="增加" />
-            <van-action-bar-icon icon="delete-o" text="删除" />
-            <van-action-bar-icon icon="arrow-left" text="上一行" />
-            <van-action-bar-icon icon="arrow" text="下一行" />
+            <van-action-bar-icon icon="add-o" text="增加" @click="onPopupAdd" />
+            <van-action-bar-icon icon="delete-o" text="删除" @click="onPopupDelete" />
+            <van-action-bar-icon icon="arrow-left" text="上一行" @click="onPopupPrevious" />
+            <van-action-bar-icon icon="arrow" text="下一行" @click="onPopupNext" />
 
             <van-action-bar-button type="danger" text="立即保存" @click="onRowEditSave" />
           </van-action-bar>

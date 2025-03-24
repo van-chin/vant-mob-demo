@@ -302,17 +302,18 @@ watch(data, (newVal) => {
                 :span="rowItem.component?.props.span ? rowItem.component?.props.span : 24 / item.children.length"
               >
                 <template v-for="ric in rowItem.children">
-                  <!-- {{ ric.component.vant.props }} -->
                   <component
-                    :is="ric.component.vant.name"
-                    v-bind="ric.component.vant.props"
-                    v-model:[ric.vModelField]="data.model[ric.item.vant.name]"
+                        :is="ric.component.vant.name"
+                        v-bind="ric.component.vant.props"
+                        v-model="data.model[data.modelKeys[ric.id].model]"
 
-                    :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
+                        :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
 
-                    :label-class="`${prefixCls}-wrapper-form-item-label`"
-                    v-on="ric.component?.emitsEvents || {}"
-                  />
+                        :label-class="`${prefixCls}-wrapper-form-item-label`"
+                        v-on="ric.component?.emitsEvents || {}"
+                      />
+
+
                 </template>
               </van-col>
             </van-row>
@@ -328,15 +329,21 @@ watch(data, (newVal) => {
                 <van-tabs v-bind="item.component.vant.props">
                   <van-tab v-for="(tab) in item.children" :key="tab.id" :name="tab.id" :title="tab.title">
                     <template v-for="(ric) in tab.children" :key="ric.id">
-                      <component
+                      <!-- v-model:[ric.vModelField]="data.model[ric.item.vant.name]" -->
+
+
+
+                        <component
                         :is="ric.component.vant.name"
                         v-bind="ric.component.vant.props"
-                        v-model:[ric.vModelField]="data.model[ric.item.vant.name]"
+                        v-model="data.model[ric.item.vant.name]"
                         :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
                         :label-class="`${prefixCls}-wrapper-form-item-label`"
                         v-on="ric.component?.emitsEvents || {}"
                         @field-events="(params: any) => onFieldEvents(ric.item.name, params)"
                       />
+
+
                     </template>
                   </van-tab>
                 </van-tabs>
@@ -353,12 +360,12 @@ watch(data, (newVal) => {
                   <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
                     <slot :name="item.item.slot" :item="item" :model="data.model" />
                   </template>
-
+<!-- v-model:[item.vModelField]="data.model[item.item.vant.name]" -->
                   <component
                     :is="item.component.vant.name"
                     v-else
                     v-bind="item.component.vant.props"
-                    v-model:[item.vModelField]="data.model[item.item.vant.name]"
+                    v-model="data.model[item.item.vant.name]"
 
                     :class="[`${prefixCls}-wrapper-form-item`, item.component.vant.class]"
 
@@ -372,13 +379,15 @@ watch(data, (newVal) => {
             </template>
 
             <template v-else>
+
+              <!-- v-model:[item.vModelField]="data.model[item.item.vant.name]" -->
               <component
 
                 :is="item.component.vant.name"
                 :key="item.id"
 
                 v-bind="item.component.vant.props"
-                v-model:[item.vModelField]="data.model[item.item.vant.name]"
+                v-model="data.model[item.item.vant.name]"
 
                 v-on="item.component?.emitsEvents || {}"
                 @field-events="(params: any) => onFieldEvents(item.item.name, params)"

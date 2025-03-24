@@ -19,12 +19,14 @@ import "vant/lib/index.css";
 
 import * as VueVTable from "@visactor/vue-vtable";
 
-import { Button, CellGroup, Col, Field, Form, Row } from "vant";
+import { Button, CellGroup, Col, Field, Form, Row, Switch } from "vant";
 
 import VzFormTable from "@/components/vz-form-table/index.vue";
 import VzFormDatePicker from "@/components/vz-form-date-picker/index.vue";
+import VzFormEnumPicker from "@/components/vz-form-enum-picker/index.vue";
+import VzFormSwitch from "@/components/vz-form-switch/index.vue";
 
-console.info("VzFormDatePicker", VzFormDatePicker);
+// console.info("VzFormDatePicker", VzFormDatePicker);
 
 /* --------------------------------
 Vant 中有个别组件是以函数的形式提供的，
@@ -41,12 +43,15 @@ app.component("list-column", VueVTable.ListColumn);
 
 app.component("VzFormTable", VzFormTable);
 app.component("VzFormDatePicker", VzFormDatePicker);
+app.component("VzFormEnumPicker", VzFormEnumPicker);
+app.component("VzFormSwitch", VzFormSwitch);
 
 app.use(head);
 app.use(router);
 app.use(pinia);
 app.use(i18n);
 
+app.use(Switch);
 app.use(Button);
 app.use(Field);
 app.use(CellGroup);

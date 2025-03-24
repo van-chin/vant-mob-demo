@@ -9,7 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./../components/Chart/index.vue')['default']
-    copy: typeof import('./../components/vz-form-date-picker copy/index.vue')['default']
+    copy: typeof import('./../components/vz-form-enum-picker copy/index.vue')['default']
     FormRenderer: typeof import('./../components/form-renderer/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     'Index.bk': typeof import('./../components/vz-form-table/index.bk.vue')['default']
@@ -43,6 +43,8 @@ declare module 'vue' {
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
     VzFormDatePicker: typeof import('./../components/vz-form-date-picker/index.vue')['default']
+    VzFormEnumPicker: typeof import('./../components/vz-form-enum-picker/index.vue')['default']
+    VzFormSwitch: typeof import('./../components/vz-form-switch/index.vue')['default']
     VzFormTable: typeof import('./../components/vz-form-table/index.vue')['default']
     VzFormXxx: typeof import('./../components/vz-form-xxx/index.vue')['default']
   }
