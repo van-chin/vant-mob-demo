@@ -238,10 +238,10 @@ const onEchoFieldInput = () => {
 
       <div class="flex justify-between items-center p-4 bg-white">
         <div class="flex justify-center items-center flex-1">
-          <van-button type="default" size="mini">取  消</van-button>
+          <van-button type="default" size="small" round>取  消</van-button>
         </div>
         <div class="flex justify-center items-center flex-1">
-          <van-button type="success" size="mini">确  认</van-button>
+          <van-button type="success" size="small" round>确  认</van-button>
         </div>
       </div>
 
