@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useStyle } from '@/hooks';
 
-import {getEnumsByRuleName } from '@/composables/sys-enums';
+import { getEnumsByRuleName } from '@/composables/sys-enums';
 
 import { closeToast, showLoadingToast } from 'vant';
 
@@ -13,7 +13,6 @@ defineOptions({
 
 defineProps<VzFormSwitchProps>()
 
-
 const { prefixCls } = useStyle('form-switch');
 
 interface VzFormSwitchProps {
@@ -24,18 +23,13 @@ interface VzFormSwitchProps {
 
 // switch
 
-const modelValue = defineModel<string|number|boolean>({
+const modelValue = defineModel<string | number | boolean>({
   default: '',
 });
-
 
 console.info('modelValue =>', modelValue.value);
 
 (async function init() {
-
-
-
-
 
 })();
 
@@ -47,13 +41,10 @@ console.info('modelValue =>', modelValue.value);
     :class="`${prefixCls}`"
     readonly
   >
-  <template #input>
-    <van-switch  v-bind="$attrs" v-model="modelValue" />
-  </template>
+    <template #input>
+      <van-switch v-bind="$attrs" v-model="modelValue" />
+    </template>
   </van-field>
-
-
-
 </template>
 
 <style lang="less" scoped>

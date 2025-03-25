@@ -25,6 +25,7 @@ import VzFormTable from "@/components/vz-form-table/index.vue";
 import VzFormDatePicker from "@/components/vz-form-date-picker/index.vue";
 import VzFormEnumPicker from "@/components/vz-form-enum-picker/index.vue";
 import VzFormSwitch from "@/components/vz-form-switch/index.vue";
+import VzFormReferPicker from "@/components/vz-form-refer-picker/index.vue";
 
 // console.info("VzFormDatePicker", VzFormDatePicker);
 
@@ -45,6 +46,8 @@ app.component("VzFormTable", VzFormTable);
 app.component("VzFormDatePicker", VzFormDatePicker);
 app.component("VzFormEnumPicker", VzFormEnumPicker);
 app.component("VzFormSwitch", VzFormSwitch);
+
+app.component("VzFormReferPicker", VzFormReferPicker);
 
 app.use(head);
 app.use(router);

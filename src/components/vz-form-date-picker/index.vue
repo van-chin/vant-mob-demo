@@ -17,7 +17,7 @@ interface VzFormDatePickerProps {
   abc?: string
 }
 
-const modelValue = defineModel<string>('value', {
+const modelValue = defineModel<string>({
   default: '',
 });
 
@@ -43,7 +43,9 @@ function onConfirm({ selectedValues }) {
 </script>
 
 <template>
-  <van-field
+
+  <div class="w-full h-full">
+<van-field
 
     v-bind="$attrs"
     v-model="modelValue"
@@ -52,7 +54,7 @@ function onConfirm({ selectedValues }) {
 
     readonly
 
-    name="datePicker"
+
 
     @click="showPicker = true"
   />
@@ -64,6 +66,8 @@ function onConfirm({ selectedValues }) {
       @cancel="showPicker = false"
     />
   </van-popup>
+  </div>
+
 </template>
 
 <style lang="less" scoped>

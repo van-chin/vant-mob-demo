@@ -77,17 +77,13 @@ function onConfirm({ selectedValues, selectedOptions, selectedIndexes }) {
 </script>
 
 <template>
-  <van-field
-
+  <div class="w-full h-full">
+    <van-field
     v-bind="$attrs"
     v-model="pickedText"
     :class="`${prefixCls}`"
     is-link
-
     readonly
-
-
-
     @click="showPicker = true"
   />
 
@@ -102,6 +98,7 @@ function onConfirm({ selectedValues, selectedOptions, selectedIndexes }) {
     @confirm="onConfirm"
   />
   </van-popup>
+  </div>
 </template>
 
 <style lang="less" scoped>

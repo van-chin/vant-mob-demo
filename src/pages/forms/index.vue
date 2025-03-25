@@ -6,7 +6,11 @@ import data from './data/BO_HR_OutWorkBill.json'
 
 import {
   getEnumsByAcc,
-} from '@/api/user';
+} from '@/api/methods/enums';
+
+import {
+  useNewBill,
+} from '@/composables/bills';
 
 const route = useRoute();
 
@@ -16,10 +20,13 @@ console.info('route =>', route);
 
 const { query } = route;
 
-const { token, jwtkey, caccid } = query;
+const { token, jwtkey, caccid, billName } = query;
 
-const tokenJwtkeyAcc = useStorage('TOKEN-JWTKEY-ACC', { token: '', jwtkey: '', caccid: '' });
-tokenJwtkeyAcc.value = { token, jwtkey, caccid };
+
+const initNewBilled = ref(false);
+
+const tokenJwtkeyAcc = useStorage('TOKEN-JWTKEY-ACC', { token: '', jwtkey: '', caccid: '', billName: '' });
+tokenJwtkeyAcc.value = { token, jwtkey, caccid, billName };
 
 const sysEnums = useStorage('SYS-ENUMS', [], undefined, {
   serializer: StorageSerializers.object,
@@ -28,17 +35,29 @@ const sysEnums = useStorage('SYS-ENUMS', [], undefined, {
 // 获取 getEnums
 
 async function getEnums(acc: string) {
-  const { data } = await getEnumsByAcc(acc);
-  sysEnums.value = JSON.parse(data);
+  const enums = await getEnumsByAcc(acc);
+  sysEnums.value = JSON.parse(enums);
 }
 
-getEnums(tokenJwtkeyAcc.value.caccid);
+(async function init() {
+  await getEnums(tokenJwtkeyAcc.value.caccid);
+  const newBillRes = await useNewBill();
+  console.info('init newBillRes =>', newBillRes);
+
+
+  list.value.model = newBillRes.model;
+
+  console.info('list.value =>', list.value);
+
+
+  initNewBilled.value = true;
+})();
 
 </script>
 
 <template>
   <div>
-    <FormRenderer :data="list" />
+    <FormRenderer :data="list" v-if="initNewBilled" />
   </div>
 </template>
 

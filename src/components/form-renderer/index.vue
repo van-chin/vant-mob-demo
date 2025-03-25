@@ -10,6 +10,16 @@ import { update } from 'lodash-es'
 
 import dayjs, { Dayjs } from 'dayjs'
 
+
+import type { CreateNewBillParams,HeadCellCheckParams,LoadBillParams, SaveBillParams ,CommitBillParams, RevokeBillParams, CancelBillParams, DeleteBillParams } from "@/types/bills";
+
+
+
+
+import {
+  newBillMethod,loadBillMethod ,saveBillMethod, commitBillMethod, revokeBillMethod, cancelBillMethod, deleteBillMethod, headCellCheckMethod
+} from '@/api/methods/bills';
+
 // treeFindPath
 import { treeFindNode } from '@utopia-utils/core'
 
@@ -25,6 +35,23 @@ const emits = defineEmits<{
 
 dayjs.locale('zh-cn')
 
+const showMoreing = ref(false);
+
+const moreActionOptions = [
+  [
+    { name: '微信', icon: 'wechat' },
+    { name: '朋友圈', icon: 'wechat-moments' },
+    { name: '微博', icon: 'weibo' },
+    { name: 'QQ', icon: 'qq' },
+  ],
+  [
+    { name: '复制链接', icon: 'link' },
+    { name: '分享海报', icon: 'poster' },
+    { name: '二维码', icon: 'qrcode' },
+    { name: '小程序码', icon: 'weapp-qrcode' },
+  ],
+]
+
 // const COMPONENT_NAME = 'VzFormRendererVant'
 const { prefixCls } = useStyle('form-renderer');
 
@@ -32,7 +59,7 @@ const formInstance = ref<any>()
 
 const slots = useSlots()
 
-const active = ref(0)
+const toolTabbarActive = ref('');
 
 const slotKeys = Object.keys(slots)
 
@@ -154,12 +181,29 @@ function onFieldEvents(field: string, params: any) {
   emits(eo, params.params)
 }
 
-const { data } = toRefs(props)
+const { data } = toRefs(props);
+
+const formBaseInfo = ref(
+  {
+    billPrimaryKey: '',
+    billTitle: '',
+    billName: '',
+  }
+);
 
 // 处理表单事件 emitsEvents
 
 function parseEvents() {
-  console.info('parseEvents props.data =>', props.data)
+  // data.value.items[0].item.vant.primaryKey
+  // 获取表单基础信息
+  formBaseInfo.value.billPrimaryKey = data.value.items[0].item.vant.primaryKey;
+  formBaseInfo.value.billTitle = data.value.items[0].item.vant.title;
+  formBaseInfo.value.billName = data.value.items[0].item.vant.name;
+
+
+
+
+  // console.info('parseEvents props.data =>', props.data);
   foreach(props.data.items[0].children, (item) => {
     // ARangePicker includes // presets
 
@@ -267,6 +311,90 @@ function updateFormModel(fields: string, value: any, path?: string | []) {
   // }
 }
 
+function showMoreActions() {
+  console.info('showMoreActions =>')
+  showMoreing.value = true;
+}
+
+function onMoreActionSelect(option: any, index: number) {
+  console.info('onMoreActionClick => item', option, index);
+  showMoreing.value = false;
+}
+
+function onActionEdit() {
+  console.info('onToolTabbarChange => edit');
+
+}
+
+async function onActionSave() {
+
+
+  const { cBIName, caccid } = useBiNameAndCaccid();
+  console.info('onToolTabbarChange => save', data.value.model);
+  let saveBillParams : SaveBillParams = {
+    id: data.value.model[formBaseInfo.value.billPrimaryKey],
+    cBIName,
+    caccid,
+    items: JSON.stringify({ model: data.value.model })
+  };
+
+  console.info('saveBillParams =>', saveBillParams);
+
+	const result = await saveBillMethod(saveBillParams);
+  console.info('result =>',result);
+  if(result) {
+    console.info('保存成功');
+  }
+
+  // console.info('result =>',result);
+
+  // console.info('onToolTabbarChange => save', data.value.model);
+
+}
+
+function onActionCommit() {
+  console.info('onToolTabbarChange => Commit');
+
+}
+
+function onActionSaveCommit() {
+  console.info('onToolTabbarChange => SaveCommit');
+
+}
+
+function onActionApprove() {
+  console.info('onToolTabbarChange => Approve');
+
+}
+
+function onToolTabbarChange(active) {
+  // console.info('onToolTabbarChange => active', active);
+
+  switch (active) {
+    case 'edit':
+      onActionEdit();
+      break
+    case 'save':
+      onActionSave();
+      break
+    case 'commit':
+      onActionCommit();
+      break
+    case 'save-commit':
+      onActionSaveCommit();
+      break
+    case 'approve':
+      onActionApprove();
+      break
+    case 'ellipsis':
+      showMoreActions();
+      break
+  }
+
+  toolTabbarActive.value = '';
+  // console.info('onToolTabbarChange => default 点了之后，重置状态为空', toolTabbarActive.value);
+}
+
 defineExpose<VzFormExpose>({
   refs,
   formInstance: formInstance.value,
@@ -284,8 +412,6 @@ watch(data, (newVal) => {
 <template>
   <div class="h-full w-full flex flex-col" :class="[`${prefixCls}`]">
     <div class="min-h-100px flex-1 overflow-hidden" :class="[`${prefixCls}-wrapper`]">
-
-
       <van-form
 
         :ref="toRef('formRef')"
@@ -295,24 +421,35 @@ watch(data, (newVal) => {
       >
         <template v-for="(item, index) in data.items[0].children">
           <template v-if="item.type === 'grid-layout'">
-            <van-row class="divider-x">
+            <van-row :key="item.id" class="divider-x">
               <van-col
                 v-for="(rowItem, index) in item.children"
                 :key="index"
                 :span="rowItem.component?.props.span ? rowItem.component?.props.span : 24 / item.children.length"
               >
-                <template v-for="ric in rowItem.children">
-                  <component
-                        :is="ric.component.vant.name"
-                        v-bind="ric.component.vant.props"
-                        v-model="data.model[data.modelKeys[ric.id].model]"
+                <template v-for="ric in rowItem.children" :key="ric.id">
 
-                        :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
 
-                        :label-class="`${prefixCls}-wrapper-form-item-label`"
-                        v-on="ric.component?.emitsEvents || {}"
-                      />
-
+                  <template v-if="ric.component.vant.name === 'VzFormReferPicker'">
+                    <component
+                      :is="ric.component.vant.name"
+                      v-bind="ric.component.vant.props"
+                      v-model="data.model"
+                      :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
+                      :label-class="`${prefixCls}-wrapper-form-item-label`"
+                      v-on="ric.component?.emitsEvents || {}"
+                    />
+                  </template>
+                  <template v-else>
+                    <component
+                      :is="ric.component.vant.name"
+                      v-bind="ric.component.vant.props"
+                      v-model="data.model[data.modelKeys[ric.id].model]"
+                      :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
+                      :label-class="`${prefixCls}-wrapper-form-item-label`"
+                      v-on="ric.component?.emitsEvents || {}"
+                    />
+                  </template>
 
                 </template>
               </van-col>
@@ -329,21 +466,15 @@ watch(data, (newVal) => {
                 <van-tabs v-bind="item.component.vant.props">
                   <van-tab v-for="(tab) in item.children" :key="tab.id" :name="tab.id" :title="tab.title">
                     <template v-for="(ric) in tab.children" :key="ric.id">
-                      <!-- v-model:[ric.vModelField]="data.model[ric.item.vant.name]" -->
-
-
-
-                        <component
+                      <component
                         :is="ric.component.vant.name"
                         v-bind="ric.component.vant.props"
-                        v-model="data.model[ric.item.vant.name]"
+                        v-model="data.model[data.modelKeys[ric.id].model]"
                         :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
                         :label-class="`${prefixCls}-wrapper-form-item-label`"
                         v-on="ric.component?.emitsEvents || {}"
                         @field-events="(params: any) => onFieldEvents(ric.item.name, params)"
                       />
-
-
                     </template>
                   </van-tab>
                 </van-tabs>
@@ -355,22 +486,18 @@ watch(data, (newVal) => {
             <template v-if="item.component.vant.name !== 'VzFormTable'">
               <van-row :key="item.id" class="divider-x">
                 <van-col :span="24">
-
                   <!-- <div>{{ item.component.vant.name }}</div> -->
                   <template v-if="Object.hasOwnProperty.call($slots, item.item.slot)">
                     <slot :name="item.item.slot" :item="item" :model="data.model" />
                   </template>
-<!-- v-model:[item.vModelField]="data.model[item.item.vant.name]" -->
+
                   <component
                     :is="item.component.vant.name"
                     v-else
                     v-bind="item.component.vant.props"
-                    v-model="data.model[item.item.vant.name]"
-
+                    v-model="data.model[data.modelKeys[item.id].model]"
                     :class="[`${prefixCls}-wrapper-form-item`, item.component.vant.class]"
-
                     :label-class="`${prefixCls}-wrapper-form-item-label`"
-
                     v-on="item.component?.emitsEvents || {}"
                     @field-events="(params: any) => onFieldEvents(item.item.name, params)"
                   />
@@ -379,33 +506,39 @@ watch(data, (newVal) => {
             </template>
 
             <template v-else>
-
-              <!-- v-model:[item.vModelField]="data.model[item.item.vant.name]" -->
               <component
-
                 :is="item.component.vant.name"
                 :key="item.id"
-
                 v-bind="item.component.vant.props"
-                v-model="data.model[item.item.vant.name]"
-
+                v-model="data.model[data.modelKeys[item.id].model]"
                 v-on="item.component?.emitsEvents || {}"
                 @field-events="(params: any) => onFieldEvents(item.item.name, params)"
               />
             </template>
-            <!-- {{ item }} -->
           </template>
         </template>
       </van-form>
     </div>
     <div :class="[`${prefixCls}-tool-bar`]">
-      <van-tabbar v-model="active">
-        <van-tabbar-item v-for="(action) in modeActions.all" :key="action.id" :icon="action.icon">
+      <van-tabbar v-model="toolTabbarActive" @change="onToolTabbarChange">
+        <van-tabbar-item v-for="(action) in modeActions.all" :key="action.id" :name="action.code" :icon="action.icon">
           {{ action.title }}
         </van-tabbar-item>
       </van-tabbar>
+
+      <!-- <van-action-bar>
+        <van-action-bar-icon v-for="(action) in modeActions.all" :key="action.id" :icon="action.icon" :text="action.title" />
+
+      </van-action-bar> -->
     </div>
   </div>
+
+  <van-share-sheet
+    v-model:show="showMoreing"
+    title="更多操作"
+    :options="moreActionOptions"
+    @select="onMoreActionSelect"
+  />
 </template>
 
 <style lang="less" scoped>

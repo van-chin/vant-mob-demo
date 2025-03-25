@@ -1,10 +1,10 @@
 {
   "model": {
-    "bathome": 1,
+    "bathome": "",
     "batabroad": "",
-    "ccode": "111",
-    "cpername": "3333",
-    "coutcooutry": "01",
+    "ccode": "",
+    "cpername": "",
+    "coutcooutry": "",
     "bgsgp": "",
     "dplanstartdate": "",
     "dplanenddate": "",
@@ -14,8 +14,8 @@
     "csource": "",
     "bo_hr_outworkbills_per": [
       {
-        "cpercode_cc": "123",
-        "cpername_cc": "3434",
+        "cpercode_cc": "",
+        "cpername_cc": "",
         "do_hr_outworkbills_per_id": ""
       }
     ],
@@ -308,10 +308,11 @@
                       "name": "VanField",
                       "events": {},
                       "props": {
-                        "placeholder": "请输入xx",
+                        "placeholder": "",
                         "label": "单号",
                         "bordered": true,
                         "showCount": false,
+                        "readonly": true,
                         "size": "",
                         "events": {}
                       }
@@ -412,12 +413,15 @@
                       }
                     },
                     "vant": {
-                      "name": "VanField",
+                      "name": "VzFormReferPicker",
                       "events": {},
                       "props": {
-                        "placeholder": "请输入xx",
+                        "placeholder": "",
                         "label": "任务下达人",
                         "bordered": true,
+                        "referTitle": "人员参照",
+                        "echoField": "cpername",
+                        "referRule": "Bill_COM_Person|cpercode,cpername|do_com_person_id,cjobname,cpercode,cpername,do_com_depart_id,cdepcode,cdepname|3|False|True|isnull(dLeaveDate,'')='' and isnull(bstop,0) = 0",
                         "showCount": false,
                         "size": "",
                         "events": {}
@@ -593,8 +597,8 @@
                         "label": "国内",
                         "bordered": true,
                         "showCount": false,
-                        "activeValue": 1,
-                        "inactiveValue": 0,
+                        "activeValue": "1",
+                        "inactiveValue": "0",
                         "size": "18px",
                         "events": {}
                       }
@@ -703,8 +707,8 @@
                         "bordered": true,
                         "showCount": false,
                         "size": "18px",
-                        "activeValue": 1,
-                        "inactiveValue": 0,
+                        "activeValue": "1",
+                        "inactiveValue": "0",
                         "events": {}
                       }
                     },
@@ -874,7 +878,7 @@
                       "name": "VzFormEnumPicker",
                       "events": {},
                       "props": {
-                        "placeholder": "请选择 出差国家",
+                        "placeholder": "",
                         "ruleName": "EnmOutCooutry",
                         "label": "出差国家",
                         "bordered": true,
@@ -982,7 +986,7 @@
                       "name": "VanField",
                       "events": {},
                       "props": {
-                        "placeholder": "请输入xx",
+                        "placeholder": "",
                         "label": "公司购票",
                         "bordered": true,
                         "showCount": false,
@@ -1437,7 +1441,7 @@
                       "name": "VzFormDatePicker",
                       "events": {},
                       "props": {
-                        "placeholder": "请选择",
+                        "placeholder": "",
                         "label": "实际外出开始时间",
                         "bordered": true,
                         "showCount": false,
@@ -1544,7 +1548,7 @@
                       "name": "VzFormDatePicker",
                       "events": {},
                       "props": {
-                        "placeholder": "请选择",
+                        "placeholder": "",
                         "label": "实际外出结束时间",
                         "bordered": true,
                         "showCount": false,
@@ -1718,10 +1722,11 @@
                       "name": "VanField",
                       "events": {},
                       "props": {
-                        "placeholder": "请输入xx",
+                        "placeholder": "",
                         "label": "来源单号",
                         "bordered": true,
                         "showCount": false,
+                        "readonly": true,
                         "size": "",
                         "events": {}
                       }
@@ -1825,7 +1830,7 @@
                       "name": "VanField",
                       "events": {},
                       "props": {
-                        "placeholder": "请输入xx",
+                        "placeholder": "",
                         "label": "来源单名称",
                         "bordered": true,
                         "showCount": false,
@@ -2096,7 +2101,7 @@
                                   "size": "",
                                   "events": {},
                                   "required": true,
-                                  "error": true
+                                  "error": false
                                 }
                               },
                               "wot": {
@@ -2146,7 +2151,7 @@
                                   "showWordLimit": true,
                                   "autofocus": true,
                                   "is-link": true,
-                                  "readonly": true
+                                  "readonly": false
                                 }
                               },
                               "wot": {
@@ -2187,7 +2192,7 @@
                                 "name": "VanField",
                                 "events": {},
                                 "props": {
-                                  "placeholder": "请输入xx",
+                                  "placeholder": "",
                                   "label": "输入框",
                                   "bordered": true,
                                   "showCount": false,
@@ -2803,7 +2808,7 @@
                                 "name": "VanField",
                                 "events": {},
                                 "props": {
-                                  "placeholder": "请输入xx",
+                                  "placeholder": "",
                                   "label": "输入框",
                                   "bordered": true,
                                   "showCount": false,
@@ -3843,10 +3848,11 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
+                                "name": "VzFormEnumPicker",
                                 "events": {},
                                 "props": {
-                                  "placeholder": "请输入 交通工具",
+                                  "placeholder": "",
+                                  "ruleName": "EnmVehicle",
                                   "label": "交通工具",
                                   "bordered": true,
                                   "showCount": false,
@@ -4295,7 +4301,7 @@
                                 "name": "VanField",
                                 "events": {},
                                 "props": {
-                                  "placeholder": "请输入xx",
+                                  "placeholder": "",
                                   "label": "输入框",
                                   "bordered": true,
                                   "showCount": false,

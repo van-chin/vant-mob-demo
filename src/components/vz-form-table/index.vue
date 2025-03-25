@@ -3,12 +3,10 @@
 import { ListTable, VTable } from '@visactor/vue-vtable';
 import { useStyle } from '@/hooks';
 
-import { getAllSysEnums, getTokenJwtkeyAcc,getEnumsByRuleName,getEnumsByRuleCaption } from '@/composables/sys-enums';
+import { getAllSysEnums, getEnumsByRuleCaption, getEnumsByRuleName, getTokenJwtkeyAcc } from '@/composables/sys-enums';
 //
 import { omit } from 'es-toolkit/compat';
 import { closeToast, showConfirmDialog, showFailToast, showLoadingToast, showSuccessToast, showToast } from 'vant';
-
-
 
 import { ref, useTemplateRef, watch } from 'vue';
 
@@ -38,7 +36,7 @@ interface VzFormTableProps {
   columns: Record<string, any>[]
 }
 
-const modelValue = defineModel<any[]>('value', {
+const modelValue = defineModel<any[]>({
   default: [
     // {
     //   cpercode_cc: '1234567890123456789012345678901201',
@@ -139,15 +137,15 @@ const rowColumnsFormItems = ref([]);
   // console.info('tokenJwtkeyAcc =>', getTokenJwtkeyAcc());
   // console.info('sysEnums all =>', getAllSysEnums());
 
-  console.info('getEnumsByRuleName =>',getEnumsByRuleName('EnmOutCooutry'));
+  // console.info('getEnumsByRuleName =>', getEnumsByRuleName('EnmOutCooutry'));
 
-  console.info('getEnumsByRuleCaption =>',getEnumsByRuleCaption('出差国家'));
+  // console.info('getEnumsByRuleCaption =>', getEnumsByRuleCaption('出差国家'));
 
   //
 
   const tmpHeaders = [];
   columns.forEach((column) => {
-    console.log('column =>', column);
+    // console.log('column =>', column);
     rowColumnsFormItems.value.push(column);
     if (column.primaryKey) {
       dataTableRowServeKey.value = column.key;
@@ -173,6 +171,14 @@ const rowColumnsFormItems = ref([]);
   })
 
   dataTableRecords.value = dataTableTmpRecords;
+  console.info('dataTableRecords.value =>', dataTableRecords.value);
+
+
+
+
+  let addedData = { ...initDataStructure.value };
+  addedData[dataTableClientRowKey] = snowflake.generate();
+  dataTableRecords.value.push(addedData);
 
   // 增加操作列
 
@@ -243,14 +249,14 @@ function onToolbarAction(item) {
   switch (item.code) {
     case 'add':
       additionRow();
-      break;
+      break
     case 'edit':
       // rowPopuping.value = true;
       editRow();
-      break
+      break;
     case 'delete':
       deleteRow();
-      break;
+      break
     case 'export':
       break;
   }
@@ -307,7 +313,7 @@ function onPopupAdd() {
 function onPopupDelete() {
   if (dataTableRecords.value.length === 1) {
     showToast('最后一行不能删除!');
-    return;
+    return
   }
 
   showConfirmDialog({
@@ -333,13 +339,13 @@ function onPopupDelete() {
 function onPopupPrevious() {
   if (dataTableRecords.value.length === 1) {
     showToast('当前已经是第一行数据了!');
-    return
+    return;
   }
   const findedIndex = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === rowPopupData.value.data[dataTableClientRowKey]);
 
   if (findedIndex === 0) {
     showToast('当前已经是第一行数据了!');
-    return;
+    return
   }
   setRowPopupData(dataTableRecords.value[findedIndex - 1], 'edit', findedIndex, 0);
 }
@@ -347,13 +353,13 @@ function onPopupPrevious() {
 function onPopupNext() {
   if (dataTableRecords.value.length === 1) {
     showToast('当前已经是最后一行数据了!');
-    return;
+    return
   }
   const findedIndex = dataTableRecords.value.findIndex(item => item[dataTableClientRowKey] === rowPopupData.value.data[dataTableClientRowKey]);
 
   if (dataTableRecords.value.length - 1 === findedIndex) {
     showToast('当前已经是最后一行数据了!');
-    return;
+    return
   }
   setRowPopupData(dataTableRecords.value[findedIndex + 1], 'edit', findedIndex + 2, 0);
 }
