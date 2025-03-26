@@ -39,11 +39,11 @@ export const lanhiAlova = createAlova({
   },
   responded: {
     onSuccess: async (response, method) => {
-      console.info("onSuccess response =>", response);
+      // console.info("onSuccess response =>", response);
 
       const { status, data: responseData } = response;
-      console.info("onSuccess status =>", status);
-      console.info("onSuccess responseData =>", responseData);
+      // console.info("onSuccess status =>", status);
+      // console.info("onSuccess responseData =>", responseData);
 
       if (status === 200) {
         // console.info('responseData xxxxx =>', responseData);
@@ -61,8 +61,8 @@ export const lanhiAlova = createAlova({
             break;
 
           default:
-            // console.info('code =>',code);
-            console.info("业务正常 返回数据");
+          // console.info('code =>',code);
+          // console.info("业务正常 返回数据");
 
           // 无匹配时的默认分支
         }

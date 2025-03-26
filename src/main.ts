@@ -19,13 +19,27 @@ import "vant/lib/index.css";
 
 import * as VueVTable from "@visactor/vue-vtable";
 
-import { Button, CellGroup, Col, Field, Form, Row, Switch } from "vant";
+import { Button, CellGroup, Col, Field, Form, Row, Search, Switch } from "vant";
 
 import VzFormTable from "@/components/vz-form-table/index.vue";
 import VzFormDatePicker from "@/components/vz-form-date-picker/index.vue";
 import VzFormEnumPicker from "@/components/vz-form-enum-picker/index.vue";
 import VzFormSwitch from "@/components/vz-form-switch/index.vue";
 import VzFormReferPicker from "@/components/vz-form-refer-picker/index.vue";
+
+import VzFormReferPickerItemPerson from "@/components/vz-form-refer-picker/components/person.vue";
+
+import VzFormReferPickerItemQuality from "@/components/vz-form-refer-picker/components/quality.vue";
+
+import VzFormReferPickerItemDepartment from "@/components/vz-form-refer-picker/components/department.vue";
+
+import VzFormReferPickerItemFeeType from "@/components/vz-form-refer-picker/components/fee-type.vue";
+import VzFormReferPickerItemProduct from "@/components/vz-form-refer-picker/components/product.vue";
+import VzFormReferPickerItemWarehouse from "@/components/vz-form-refer-picker/components/warehouse.vue";
+
+import VzFormReferPickerItemCustomer from "@/components/vz-form-refer-picker/components/customer.vue";
+
+import VzFormReferPickerItemFaultType from "@/components/vz-form-refer-picker/components/fault-type.vue";
 
 // console.info("VzFormDatePicker", VzFormDatePicker);
 
@@ -48,6 +62,21 @@ app.component("VzFormEnumPicker", VzFormEnumPicker);
 app.component("VzFormSwitch", VzFormSwitch);
 
 app.component("VzFormReferPicker", VzFormReferPicker);
+app.component("VzFormReferPickerItemPerson", VzFormReferPickerItemPerson);
+app.component("VzFormReferPickerItemQuality", VzFormReferPickerItemQuality);
+
+app.component("VzFormReferPickerItemFeeType", VzFormReferPickerItemFeeType);
+app.component("VzFormReferPickerItemProduct", VzFormReferPickerItemProduct);
+app.component("VzFormReferPickerItemWarehouse", VzFormReferPickerItemWarehouse);
+
+app.component("VzFormReferPickerItemCustomer", VzFormReferPickerItemCustomer);
+
+app.component("VzFormReferPickerItemFaultType", VzFormReferPickerItemFaultType);
+
+app.component(
+  "VzFormReferPickerItemDepartment",
+  VzFormReferPickerItemDepartment,
+);
 
 app.use(head);
 app.use(router);
@@ -57,6 +86,7 @@ app.use(i18n);
 app.use(Switch);
 app.use(Button);
 app.use(Field);
+app.use(Search);
 app.use(CellGroup);
 app.use(Form);
 app.use(Row);

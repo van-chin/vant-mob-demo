@@ -10,6 +10,8 @@ import { update } from 'lodash-es'
 
 import dayjs, { Dayjs } from 'dayjs'
 
+import { closeToast, showLoadingToast,showSuccessToast,showToast } from 'vant';
+
 
 import type { CreateNewBillParams,HeadCellCheckParams,LoadBillParams, SaveBillParams ,CommitBillParams, RevokeBillParams, CancelBillParams, DeleteBillParams } from "@/types/bills";
 
@@ -30,8 +32,26 @@ defineOptions({
 const props = withDefaults(defineProps<VzFormRendererProps>(), {})
 
 const emits = defineEmits<{
-  validateChange: [name: string | number | string[] | number[], status: boolean, errors: string[] | null]
-}>()
+		validateChange : [
+			name: string | number | string[] | number[],
+			status: boolean,
+			errors: string[] | null
+		];
+		save : [];
+		saved : [];
+		commit : [];
+		commited:[];
+		edit : [];
+		saveCommit : [];
+		saveCommited : [];
+
+		approve : [];
+
+		revoke : [];
+		cancel : [];
+		delete : [];
+
+	}>();
 
 dayjs.locale('zh-cn')
 
@@ -68,6 +88,11 @@ const { refs, toRef } = useRefs<{
 }>()
 
 const currentInstance = getCurrentInstance()
+
+const savedId = ref<string>('');
+
+
+
 
 const modeActions = {
   edit: [
@@ -169,13 +194,13 @@ const modeActions = {
 function emitEventHandler(field: string, event: string, params: any) {
   const eo = `${field}-${event}`
   currentInstance.emitsOptions[eo] = null
-  // console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ eo:', eo)
-  // console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ params:', params)
+  console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ eo:', eo)
+  console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ params:', params)
   emits(eo, params)
 }
 
 function onFieldEvents(field: string, params: any) {
-  // console.log('🚀 ~ file: index.vue:212 ~ onFieldEvents ~ params:', params)
+  console.log('🚀 ~ file: index.vue:212 ~ onFieldEvents ~ params:', params)
   const { columnField, event } = params
   const eo = `${field}-${columnField}-${event}`
   emits(eo, params.params)
@@ -191,14 +216,53 @@ const formBaseInfo = ref(
   }
 );
 
-// 处理表单事件 emitsEvents
 
-function parseEvents() {
+
+const parseEvents = () => {
+
   // data.value.items[0].item.vant.primaryKey
   // 获取表单基础信息
   formBaseInfo.value.billPrimaryKey = data.value.items[0].item.vant.primaryKey;
   formBaseInfo.value.billTitle = data.value.items[0].item.vant.title;
   formBaseInfo.value.billName = data.value.items[0].item.vant.name;
+
+
+		foreach(data.value.items[0].children, (item) => {
+			// ARangePicker includes // presets
+
+			console.info('item =>',item.component.vant);
+
+			if (item.component.vant) {
+				if (item.component.vant.events) {
+					// console.info('item.component.vant.events =>',item.component.vant.events);
+					let emitsEvents = {};
+					for (const key in item.component.vant.events) {
+						// console.info('key =>',key,schema.value.modelKeys[item.id].model);
+						// console.info('emitsEvents =>',emitsEvents);
+						emitsEvents[key] = (...args : any) => {
+							// console.info('args =>',args);
+							let params = reactive({});
+							item.component.vant.events[key].map((pkey : string, index : number) => {
+								params[pkey] = args[index];
+							});
+
+							emitEventHandler(data.value.modelKeys[item.id].model, key, params);
+						};
+					}
+					item.component.vant.emitsEvents = emitsEvents;
+				}
+
+
+			}
+		});
+	};
+
+// 处理表单事件 emitsEvents
+
+function parsesEvents() {
+
+
+
 
 
 
@@ -207,19 +271,24 @@ function parseEvents() {
   foreach(props.data.items[0].children, (item) => {
     // ARangePicker includes // presets
 
+    console.info('item => xxx',item);
+
     if (item.component) {
-      if (item.component.events) {
+      console.info('item.component  =>',item.component);
+      if (item.component.vant.events) {
+
         let emitsEvents = {}
-        for (const key in item.component.events) {
+        for (const key in item.component.vant.events) {
           emitsEvents[key] = (...args: any) => {
             let params = reactive({})
-            item.component.events[key].map((pkey: string, index: number) => {
+            item.component.vant.events[key].map((pkey: string, index: number) => {
               params[pkey] = args[index]
             });
             emitEventHandler(item.item.name, key, params)
           }
         }
-        item.component.emitsEvents = emitsEvents
+        item.component.vant.emitsEvents = emitsEvents
+        console.info('parseEvents emitsEvents =>', emitsEvents);
       }
 
       // if (['ARangePicker'].includes(item.component.name)) {
@@ -326,11 +395,14 @@ function onActionEdit() {
 
 }
 
-async function onActionSave() {
+async function onActionSave(needEmited:boolean = true) {
 
 
   const { cBIName, caccid } = useBiNameAndCaccid();
   console.info('onToolTabbarChange => save', data.value.model);
+
+  showLoadingToast('');
+
   let saveBillParams : SaveBillParams = {
     id: data.value.model[formBaseInfo.value.billPrimaryKey],
     cBIName,
@@ -341,24 +413,70 @@ async function onActionSave() {
   console.info('saveBillParams =>', saveBillParams);
 
 	const result = await saveBillMethod(saveBillParams);
+  closeToast();
   console.info('result =>',result);
   if(result) {
-    console.info('保存成功');
+      showSuccessToast('保存成功');
+      //
+			savedId.value = result.model[formBaseInfo.value.billPrimaryKey];
+      data.value.model = result.model;
+			// schema.value.model[formBaseInfo.value.billPrimaryKey] = result.model[savedIdField.value];
+			if(needEmited === true) {
+				// emits('saved');
+			}
   }
-
-  // console.info('result =>',result);
-
-  // console.info('onToolTabbarChange => save', data.value.model);
-
 }
 
-function onActionCommit() {
+async function onActionCommit() {
   console.info('onToolTabbarChange => Commit');
 
-}
+  	showLoadingToast('');
+		const { cBIName, caccid } = useBiNameAndCaccid();
 
-function onActionSaveCommit() {
+		let pkMid = savedId.value;
+		console.info('savedId.value =>',savedId.value);
+		console.info('pkMid =>',pkMid.length);
+
+		if(pkMid.length === 0) {
+			showToast('未保存成功，不能进行提交!');
+			return;
+		}
+
+
+
+		// todo 保证 pkMid 有值
+		let commitBillParams: CommitBillParams = {
+			pkMid: pkMid,
+			cBIName,
+			cAccID: caccid,
+			commIdea: '',
+		};
+
+		const result = await commitBillMethod(commitBillParams);
+    console.info('commit =>',result);
+		// bSuccess
+		const {bSuccess,Success} = result;
+
+		if (bSuccess === 1) {
+      showToast('提交成功');
+			// emits('commited');
+			setTimeout(()=>{
+				showToast('返回到首页');
+			},1500)
+		} else {
+      showToast(Success);
+			return;
+		}
+
+
+}
+async function onActionSaveCommit() {
   console.info('onToolTabbarChange => SaveCommit');
+  const res = await onActionSave(false);
+  console.info('res =>',res);
+  	if(savedId.value.length !== 0) {
+			await onActionCommit();
+		}
 
 }
 
@@ -441,13 +559,17 @@ watch(data, (newVal) => {
                     />
                   </template>
                   <template v-else>
+
+                    <!-- <div>
+                      {{ ric.component.vant.emitsEvents }}
+                    </div> -->
                     <component
                       :is="ric.component.vant.name"
                       v-bind="ric.component.vant.props"
                       v-model="data.model[data.modelKeys[ric.id].model]"
                       :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
                       :label-class="`${prefixCls}-wrapper-form-item-label`"
-                      v-on="ric.component?.emitsEvents || {}"
+                      v-on="ric.component.vant.emitsEvents || {}"
                     />
                   </template>
 
