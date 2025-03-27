@@ -1,6 +1,7 @@
 import { lanhiAlova } from "../index";
 
 import type {
+  BodyCellCheckParams,
   CancelBillParams,
   CommitBillParams,
   CreateNewBillParams,
@@ -76,4 +77,18 @@ export function headCellCheckMethod(params: HeadCellCheckParams) {
   return lanhiAlova.Post("/Bill/HeadCellCheck", params);
 }
 
-// newBillMethod loadBillMethod saveBillMethod commitBillMethod revokeBillMethod cancelBillMethod deleteBillMethod headCellCheckMethod
+/**
+ * 表体数据检查
+ */
+export function bodyCellCheckMethod(params: BodyCellCheckParams) {
+  console.info("bodyCellCheckMethod params =>", params);
+  return lanhiAlova.Post("/Bill/BodyCellCheck", params);
+}
+
+/**
+ * 数据项目
+ */
+export function modifyBillMethod(params: any) {
+  console.info("modifyBillMethod params =>", params);
+  return lanhiAlova.Post("/Bill/ModifyBill", params);
+}

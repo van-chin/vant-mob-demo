@@ -24,6 +24,30 @@ export interface HeadCellCheckParams {
   itemName: string;
   /** 当前修改字段的 值  */
   val: string;
+  /** 当前所有数据 */
+  items: string;
+}
+
+/**
+ * 表体 数据变化检查
+ */
+export interface BodyCellCheckParams {
+  /** id 标识  */
+  id: string;
+  /** 单据名称 */
+  cBIName: string;
+  /** 账套ID */
+  caccid: string;
+  /** 集合名称 */
+  boName: string;
+  /** 当前修改字段的 字段名称  */
+  itemName: string;
+  /** 当前修改字段的 值  */
+  val: string;
+  /** 当前所有数据 */
+  items: string;
+  /** 当前BO 表体行数 */
+  indexrow: string;
 }
 
 /**

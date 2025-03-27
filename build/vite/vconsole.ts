@@ -1,13 +1,13 @@
-import path from 'node:path'
-import { viteVConsole } from 'vite-plugin-vconsole'
+import path from "node:path";
+import { viteVConsole } from "vite-plugin-vconsole";
 
 export function createViteVConsole() {
   return viteVConsole({
-    entry: [path.resolve('src/main.ts')],
+    entry: [path.resolve("src/main.ts")],
     enabled: false,
     config: {
       maxLogNumber: 1000,
-      theme: 'light',
+      theme: "light",
     },
     // https://github.com/vadxq/vite-plugin-vconsole/issues/21
     dynamicConfig: {
@@ -40,5 +40,5 @@ export function createViteVConsole() {
       // 当不再需要观察时，停止观察
       // observer.disconnect();
     `,
-  })
+  });
 }

@@ -10,16 +10,19 @@ import { update } from 'lodash-es'
 
 import dayjs, { Dayjs } from 'dayjs'
 
-import { closeToast, showLoadingToast,showSuccessToast,showToast } from 'vant';
+import { closeToast, showLoadingToast, showSuccessToast, showToast } from 'vant';
 
-
-import type { CreateNewBillParams,HeadCellCheckParams,LoadBillParams, SaveBillParams ,CommitBillParams, RevokeBillParams, CancelBillParams, DeleteBillParams } from "@/types/bills";
-
-
-
+import type { CancelBillParams, CommitBillParams, CreateNewBillParams, DeleteBillParams, HeadCellCheckParams, LoadBillParams, RevokeBillParams, SaveBillParams } from '@/types/bills'
 
 import {
-  newBillMethod,loadBillMethod ,saveBillMethod, commitBillMethod, revokeBillMethod, cancelBillMethod, deleteBillMethod, headCellCheckMethod
+  cancelBillMethod,
+  commitBillMethod,
+  deleteBillMethod,
+  headCellCheckMethod,
+  loadBillMethod,
+  newBillMethod,
+  revokeBillMethod,
+  saveBillMethod,
 } from '@/api/methods/bills';
 
 // treeFindPath
@@ -29,29 +32,27 @@ defineOptions({
   name: 'VzFormRenderer',
 })
 
-const props = withDefaults(defineProps<VzFormRendererProps>(), {})
+const props = withDefaults(defineProps<VzFormRendererProps>(), {
+  renderMode:'edit',
+})
+
+
+
 
 const emits = defineEmits<{
-		validateChange : [
+  validateChange: [
 			name: string | number | string[] | number[],
 			status: boolean,
-			errors: string[] | null
-		];
-		save : [];
-		saved : [];
-		commit : [];
-		commited:[];
-		edit : [];
-		saveCommit : [];
-		saveCommited : [];
-
-		approve : [];
-
-		revoke : [];
-		cancel : [];
-		delete : [];
-
-	}>();
+			errors: string[] | null,
+  ]
+  saved: []
+  commited: []
+  saveCommited: []
+  approved: []
+  revoked: []
+  canceld: []
+  deleted: []
+}>();
 
 dayjs.locale('zh-cn')
 
@@ -91,8 +92,7 @@ const currentInstance = getCurrentInstance()
 
 const savedId = ref<string>('');
 
-
-
+// const savedId = ref<string>('');
 
 const modeActions = {
   edit: [
@@ -213,94 +213,47 @@ const formBaseInfo = ref(
     billPrimaryKey: '',
     billTitle: '',
     billName: '',
-  }
-);
+  },
+)
 
-
-
-const parseEvents = () => {
-
-  // data.value.items[0].item.vant.primaryKey
-  // 获取表单基础信息
-  formBaseInfo.value.billPrimaryKey = data.value.items[0].item.vant.primaryKey;
-  formBaseInfo.value.billTitle = data.value.items[0].item.vant.title;
-  formBaseInfo.value.billName = data.value.items[0].item.vant.name;
-
-
-		foreach(data.value.items[0].children, (item) => {
-			// ARangePicker includes // presets
-
-			console.info('item =>',item.component.vant);
-
-			if (item.component.vant) {
-				if (item.component.vant.events) {
-					// console.info('item.component.vant.events =>',item.component.vant.events);
-					let emitsEvents = {};
-					for (const key in item.component.vant.events) {
-						// console.info('key =>',key,schema.value.modelKeys[item.id].model);
-						// console.info('emitsEvents =>',emitsEvents);
-						emitsEvents[key] = (...args : any) => {
-							// console.info('args =>',args);
-							let params = reactive({});
-							item.component.vant.events[key].map((pkey : string, index : number) => {
-								params[pkey] = args[index];
-							});
-
-							emitEventHandler(data.value.modelKeys[item.id].model, key, params);
-						};
-					}
-					item.component.vant.emitsEvents = emitsEvents;
-				}
-
-
-			}
-		});
-	};
 
 // 处理表单事件 emitsEvents
+function parseEvents() {
+  // data.value.items[0].item.vant.primaryKey
+  // 获取表单基础信息
+  formBaseInfo.value.billPrimaryKey = data.value.items[0].item.vant.primaryKey
+  formBaseInfo.value.billTitle = data.value.items[0].item.vant.title
+  formBaseInfo.value.billName = data.value.items[0].item.vant.name
 
-function parsesEvents() {
-
-
-
-
-
-
-
-  // console.info('parseEvents props.data =>', props.data);
-  foreach(props.data.items[0].children, (item) => {
+  foreach(data.value.items[0].children, (item) => {
     // ARangePicker includes // presets
 
-    console.info('item => xxx',item);
+    // console.info('item =>', item.component.vant)
 
-    if (item.component) {
-      console.info('item.component  =>',item.component);
+    if (item.component.vant) {
       if (item.component.vant.events) {
-
+        // console.info('item.component.vant.events =>',item.component.vant.events);
         let emitsEvents = {}
         for (const key in item.component.vant.events) {
+          // console.info('key =>',key,schema.value.modelKeys[item.id].model);
+          // console.info('emitsEvents =>',emitsEvents);
           emitsEvents[key] = (...args: any) => {
+            // console.info('args =>',args);
             let params = reactive({})
             item.component.vant.events[key].map((pkey: string, index: number) => {
               params[pkey] = args[index]
             });
-            emitEventHandler(item.item.name, key, params)
-          }
+
+            emitEventHandler(data.value.modelKeys[item.id].model, key, params)
+          };
         }
         item.component.vant.emitsEvents = emitsEvents
-        console.info('parseEvents emitsEvents =>', emitsEvents);
       }
-
-      // if (['ARangePicker'].includes(item.component.name)) {
-      //   if (item.component.props.presets?.length) {
-      //     item.component.props.presets.forEach((preset) => {
-      //       preset.value = [dayjs(preset.value[0]), dayjs(preset.value[1])]
-      //     })
-      //   }
-      // }
     }
   })
 }
+
+
 
 function reset() {
   formInstance.value?.clearValidate()
@@ -309,7 +262,7 @@ function reset() {
 
 (async function init() {
   parseEvents()
-  console.info('init =>', '...');
+  // console.info('init =>', '...');
 })();
 
 /**
@@ -395,89 +348,84 @@ function onActionEdit() {
 
 }
 
-async function onActionSave(needEmited:boolean = true) {
-
-
+async function onActionSave(needEmited: boolean = true) {
   const { cBIName, caccid } = useBiNameAndCaccid();
   console.info('onToolTabbarChange => save', data.value.model);
 
   showLoadingToast('');
 
-  let saveBillParams : SaveBillParams = {
+  let saveBillParams: SaveBillParams = {
     id: data.value.model[formBaseInfo.value.billPrimaryKey],
     cBIName,
     caccid,
-    items: JSON.stringify({ model: data.value.model })
-  };
+    items: JSON.stringify({ model: data.value.model }),
+  }
 
   console.info('saveBillParams =>', saveBillParams);
 
-	const result = await saveBillMethod(saveBillParams);
-  closeToast();
-  console.info('result =>',result);
-  if(result) {
-      showSuccessToast('保存成功');
-      //
-			savedId.value = result.model[formBaseInfo.value.billPrimaryKey];
-      data.value.model = result.model;
-			// schema.value.model[formBaseInfo.value.billPrimaryKey] = result.model[savedIdField.value];
-			if(needEmited === true) {
-				// emits('saved');
-			}
+  const result = await saveBillMethod(saveBillParams);
+  // closeToast();
+  console.info('result =>', result);
+  if (result) {
+    showSuccessToast('保存成功');
+    //
+    savedId.value = result.model[formBaseInfo.value.billPrimaryKey];
+    data.value.model = result.model;
+    // schema.value.model[formBaseInfo.value.billPrimaryKey] = result.model[savedIdField.value];
+    if (needEmited === true) {
+      emits('saved');
+    }
+    closeToast();
   }
 }
 
 async function onActionCommit() {
-  console.info('onToolTabbarChange => Commit');
+  console.info('onToolTabbarChange => Commit')
 
-  	showLoadingToast('');
-		const { cBIName, caccid } = useBiNameAndCaccid();
+  showLoadingToast('')
+  const { cBIName, caccid } = useBiNameAndCaccid()
 
-		let pkMid = savedId.value;
-		console.info('savedId.value =>',savedId.value);
-		console.info('pkMid =>',pkMid.length);
+  let pkMid = savedId.value
+  console.info('savedId.value =>', savedId.value)
+  console.info('pkMid =>', pkMid.length)
 
-		if(pkMid.length === 0) {
-			showToast('未保存成功，不能进行提交!');
-			return;
-		}
+  if (pkMid.length === 0) {
+    showToast('未保存成功，不能进行提交!')
+    return;
+  }
 
+  // todo 保证 pkMid 有值
+  let commitBillParams: CommitBillParams = {
+    pkMid,
+    cBIName,
+    cAccID: caccid,
+    commIdea: '',
+  };
 
+  const result = await commitBillMethod(commitBillParams)
+  console.info('commit =>', result)
+  // bSuccess
+  const { bSuccess, Success } = result
 
-		// todo 保证 pkMid 有值
-		let commitBillParams: CommitBillParams = {
-			pkMid: pkMid,
-			cBIName,
-			cAccID: caccid,
-			commIdea: '',
-		};
+  if (bSuccess === 1) {
+    showToast('提交成功')
+    emits('commited');
+    setTimeout(() => {
+      showToast('返回到首页')
+    }, 1500);
+  }
+  else {
+    showToast(Success)
 
-		const result = await commitBillMethod(commitBillParams);
-    console.info('commit =>',result);
-		// bSuccess
-		const {bSuccess,Success} = result;
-
-		if (bSuccess === 1) {
-      showToast('提交成功');
-			// emits('commited');
-			setTimeout(()=>{
-				showToast('返回到首页');
-			},1500)
-		} else {
-      showToast(Success);
-			return;
-		}
-
-
+  }
 }
 async function onActionSaveCommit() {
   console.info('onToolTabbarChange => SaveCommit');
   const res = await onActionSave(false);
-  console.info('res =>',res);
-  	if(savedId.value.length !== 0) {
-			await onActionCommit();
-		}
-
+  console.info('res =>', res);
+  if (savedId.value.length !== 0) {
+    await onActionCommit();
+  }
 }
 
 function onActionApprove() {
@@ -531,7 +479,6 @@ watch(data, (newVal) => {
   <div class="h-full w-full flex flex-col" :class="[`${prefixCls}`]">
     <div class="min-h-100px flex-1 overflow-hidden" :class="[`${prefixCls}-wrapper`]">
       <van-form
-
         :ref="toRef('formRef')"
         label-width="85px"
         class="divider-y" :class="[`${prefixCls}-wrapper-form`]"
@@ -546,8 +493,6 @@ watch(data, (newVal) => {
                 :span="rowItem.component?.props.span ? rowItem.component?.props.span : 24 / item.children.length"
               >
                 <template v-for="ric in rowItem.children" :key="ric.id">
-
-
                   <template v-if="ric.component.vant.name === 'VzFormReferPicker'">
                     <component
                       :is="ric.component.vant.name"
@@ -555,14 +500,10 @@ watch(data, (newVal) => {
                       v-model="data.model"
                       :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
                       :label-class="`${prefixCls}-wrapper-form-item-label`"
-                      v-on="ric.component?.emitsEvents || {}"
+                      v-on="ric.component.vant.emitsEvents || {}"
                     />
                   </template>
                   <template v-else>
-
-                    <!-- <div>
-                      {{ ric.component.vant.emitsEvents }}
-                    </div> -->
                     <component
                       :is="ric.component.vant.name"
                       v-bind="ric.component.vant.props"
@@ -572,7 +513,6 @@ watch(data, (newVal) => {
                       v-on="ric.component.vant.emitsEvents || {}"
                     />
                   </template>
-
                 </template>
               </van-col>
             </van-row>
@@ -588,13 +528,14 @@ watch(data, (newVal) => {
                 <van-tabs v-bind="item.component.vant.props">
                   <van-tab v-for="(tab) in item.children" :key="tab.id" :name="tab.id" :title="tab.title">
                     <template v-for="(ric) in tab.children" :key="ric.id">
+                      <!-- <div>{{ JSON.stringify(ric.component.vant) }}</div> -->
                       <component
                         :is="ric.component.vant.name"
                         v-bind="ric.component.vant.props"
                         v-model="data.model[data.modelKeys[ric.id].model]"
                         :class="[`${prefixCls}-wrapper-form-item`, ric.component.vant.class]"
                         :label-class="`${prefixCls}-wrapper-form-item-label`"
-                        v-on="ric.component?.emitsEvents || {}"
+                        v-on="ric.component.vant.emitsEvents || {}"
                         @field-events="(params: any) => onFieldEvents(ric.item.name, params)"
                       />
                     </template>
@@ -643,15 +584,10 @@ watch(data, (newVal) => {
     </div>
     <div :class="[`${prefixCls}-tool-bar`]">
       <van-tabbar v-model="toolTabbarActive" @change="onToolTabbarChange">
-        <van-tabbar-item v-for="(action) in modeActions.all" :key="action.id" :name="action.code" :icon="action.icon">
+        <van-tabbar-item v-for="(action) in modeActions[renderMode]" :key="action.id" :name="action.code" :icon="action.icon">
           {{ action.title }}
         </van-tabbar-item>
       </van-tabbar>
-
-      <!-- <van-action-bar>
-        <van-action-bar-icon v-for="(action) in modeActions.all" :key="action.id" :icon="action.icon" :text="action.title" />
-
-      </van-action-bar> -->
     </div>
   </div>
 

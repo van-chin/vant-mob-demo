@@ -9,14 +9,14 @@ import { ref, useTemplateRef, watch } from 'vue';
 
 // @prefix-cls: ~'vz-form-refer-picker-item-person';
 defineOptions({
-  name: 'VzFormReferPickerItemFeeType',
+  name: 'VzFormReferPickerItemOwnCarStandard',
 })
 
-defineProps<VzFormReferPickerItemFeeTypeProps>()
+defineProps<VzFormReferPickerItemOwnCarStandardProps>()
 
-const { prefixCls } = useStyle('form-refer-picker-item-fee-type');
+const { prefixCls } = useStyle('form-refer-picker-item-own-car-standard');
 
-interface VzFormReferPickerItemFeeTypeProps {
+interface VzFormReferPickerItemOwnCarStandardProps {
   /** 数据项目 */
   item: object
 }
@@ -37,15 +37,15 @@ interface VzFormReferPickerItemFeeTypeProps {
 
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        费用名称：
+        车辆名称：
       </div>
-      <div>{{ item.cfeename }}</div>
+      <div>{{ item.csubsidyname }}</div>
     </div>
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        费用编码：
+        车辆编码：
       </div>
-      <div>{{ item.cfeecode }}</div>
+      <div>{{ item.csubsidycode }}</div>
     </div>
     <!-- <div class="flex items-center justify-between p-2">
       <div class="font-bold">
@@ -65,7 +65,7 @@ interface VzFormReferPickerItemFeeTypeProps {
 </template>
 
 <style lang="less" scoped>
-@prefix-cls: ~'vz-form-refer-picker-item-fee-type';
+@prefix-cls: ~'vz-form-refer-picker-item-own-car-standard';
 
 .@{prefix-cls} {
   width: 100%;

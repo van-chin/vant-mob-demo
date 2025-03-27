@@ -49,12 +49,12 @@ interface VzFormReferPickerItemFaultTypeProps {
       </div>
       <div>{{ item.cfaultcode }}</div>
     </div>
-    <div class="flex items-center justify-between p-2">
+    <!-- <div class="flex items-center justify-between p-2">
       <div class="font-bold">
         故障类型：
       </div>
       <div>{{ item.cfaulttypevalue }}</div>
-    </div>
+    </div> -->
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
         故障点位：

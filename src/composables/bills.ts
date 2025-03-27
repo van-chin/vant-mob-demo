@@ -1,6 +1,10 @@
-import type { CreateNewBillParams } from "@/types/bills";
+import type { CreateNewBillParams, LoadBillParams } from "@/types/bills";
 
-import { newBillMethod } from "@/api/methods/bills";
+import {
+  newBillMethod,
+  loadBillMethod,
+  modifyBillMethod,
+} from "@/api/methods/bills";
 
 function useBiNameAndCaccid() {
   const tokenJwtkeyAcc = useStorage("TOKEN-JWTKEY-ACC", {
@@ -33,6 +37,29 @@ async function useNewBill() {
   return res;
 }
 
+async function useLoadBill(billId: string) {
+  const { cBIName, caccid } = useBiNameAndCaccid();
+
+  let loadBillParams: LoadBillParams = {
+    id: billId,
+    cBIName,
+    caccid,
+  };
+  const res = await loadBillMethod(loadBillParams);
+  return res;
+}
+
+async function useModifyBill(billId: string) {
+  const { cBIName, caccid } = useBiNameAndCaccid();
+  let loadBillParams: LoadBillParams = {
+    cBIName,
+    caccid,
+    id: billId,
+  };
+  const res = await modifyBillMethod(loadBillParams);
+  return res;
+}
+
 export default useNewBill;
 
-export { useNewBill, useBiNameAndCaccid };
+export { useNewBill, useLoadBill, useBiNameAndCaccid, useModifyBill };

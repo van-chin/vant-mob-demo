@@ -8,16 +8,19 @@ import { getAllSysEnums, getEnumsByRuleCaption, getEnumsByRuleName, getTokenJwtk
 import { omit } from 'es-toolkit/compat';
 import { closeToast, showConfirmDialog, showFailToast, showLoadingToast, showSuccessToast, showToast } from 'vant';
 
-import { ref, useTemplateRef, watch } from 'vue';
+import { getCurrentInstance, reactive, ref, useTemplateRef, watch } from 'vue';
 
 import snowflakeId from 'snowflake-id'
 
 defineOptions({
   name: 'VzFormTable',
 })
-
-const { columns } = defineProps<VzFormTableProps>()
-
+const { columns } = defineProps<VzFormTableProps>();
+const emits = defineEmits<{
+  change: [
+			data: any,
+  ]
+}>();
 // eslint-disable-next-line new-cap
 const snowflake = new snowflakeId()
 
@@ -35,6 +38,8 @@ const checkedDataIds = ref([]);
 interface VzFormTableProps {
   columns: Record<string, any>[]
 }
+
+const currentInstance = getCurrentInstance()
 
 const modelValue = defineModel<any[]>({
   default: [
@@ -132,6 +137,60 @@ const rowColumnsFormItems = ref([]);
 // const tokenJwtkeyAcc = useStorage('TOKEN-JWTKEY-ACC', { token: '', jwtkey: '', caccid: '' });
 //
 
+function emitEventHandler(field: string, event: string, params: any) {
+  const eo = `${field}-${event}`
+  currentInstance.emitsOptions[eo] = null
+  // console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ eo:', eo)
+  // console.log('🚀 ~ file: index.vue:207 ~ emitEventHandler ~ params:', params)
+
+  // console.info('rowPopupData.value =>', rowPopupData.value);
+  emits(eo, params)
+  emits('change', { field, fieldValue: rowPopupData.value.data[field], rowIndex: rowPopupData.value.position.row, rowData: rowPopupData.value.data });
+}
+
+function onFieldEvents(field: string, params: any) {
+  // console.log('🚀 ~ file: index.vue:212 ~ onFieldEvents ~ params:', params)
+  const { columnField, event } = params
+  const eo = `${field}-${columnField}-${event}`
+  emits(eo, params.params)
+}
+
+// 处理表单事件 emitsEvents
+
+function parsesEvents() {
+  // console.group('解析列字段组件的事件 =>')
+
+  // console.info('rowColumnsFormItems =>', rowColumnsFormItems.value);
+
+  rowColumnsFormItems.value.forEach((item) => {
+    if (item.visible === true) {
+      // console.info('item =>', item);
+      if (item.component) {
+        console.info('item.component  =>', item.component);
+        if (item.component.vant.events) {
+          let emitsEvents = {}
+          for (const key in item.component.vant.events) {
+            emitsEvents[key] = (...args: any) => {
+              let params = reactive({})
+              item.component.vant.events[key].map((pkey: string, index: number) => {
+                params[pkey] = args[index]
+              });
+              // console.info('item =>', item);
+              emitEventHandler(item.key, key, params);
+            }
+          }
+          item.component.vant.emitsEvents = emitsEvents
+          console.info('parseEvents emitsEvents =>', emitsEvents);
+        }
+      }
+    }
+  });
+
+
+
+  // console.groupEnd();
+}
+
 // getAallSysEnums
 (async function init() {
   // console.info('tokenJwtkeyAcc =>', getTokenJwtkeyAcc());
@@ -160,6 +219,10 @@ const rowColumnsFormItems = ref([]);
     })
   });
 
+  // 解析列字段组件的事件
+
+  parsesEvents();
+
   // 构造表格数据
 
   let dataTableTmpRecords = [];
@@ -173,12 +236,9 @@ const rowColumnsFormItems = ref([]);
   dataTableRecords.value = dataTableTmpRecords;
   console.info('dataTableRecords.value =>', dataTableRecords.value);
 
-
-
-
-  let addedData = { ...initDataStructure.value };
-  addedData[dataTableClientRowKey] = snowflake.generate();
-  dataTableRecords.value.push(addedData);
+  // let addedData = { ...initDataStructure.value };
+  // addedData[dataTableClientRowKey] = snowflake.generate();
+  // dataTableRecords.value.push(addedData);
 
   // 增加操作列
 
@@ -538,15 +598,12 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
         <div class="min-h-100px flex-1 overflow-hidden">
           <div class="h-full w-full overflow-y-auto px-2 py-4 pb-70px">
             <div class="p-2">
-              <!-- {{ rowPopupData.data }} -->
-              <!-- {{ rowColumnsFormItems }} -->
-              <!-- v-model="rowPopupData.data[item.key]"
-                      v-model="dataTableRecords[rowPopupData.position.row - 1][item.key]"
-                    -->
+
               <van-form @failed="onFailed">
                 <van-cell-group inset>
                   <template v-for="(item) in rowColumnsFormItems">
                     <template v-if="item.primaryKey === true">
+
                       <van-field
                         v-show="item.visible"
                         :key="item.key"
@@ -555,23 +612,35 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
                       />
                     </template>
                     <template v-else>
-                      <component
-                        :is="item.component.vant.name"
-                        v-bind="item.component.vant.props"
-                        v-show="item.visible"
-                        :key="item.key"
-                        v-model="rowPopupData.data[item.key]"
-                      />
-                      <!-- <van-field
-                        v-show="item.visible"
-                        :key="item.key"
-                        v-model="rowPopupData.data[item.key]"
-                        :label="item.title"
-                      /> -->
+
+                      <template v-if="item.component.vant.name === 'VzFormReferPicker'">
+                          <component
+                            :is="item.component.vant.name"
+                            v-bind="item.component.vant.props"
+                            v-show="item.visible"
+                            :key="item.key"
+                            v-model="rowPopupData.data"
+                            v-on="item.component.vant.emitsEvents || {}"
+                          />
+                      </template>
+
+                      <template v-else>
+                         <component
+                          :is="item.component.vant.name"
+                          v-bind="item.component.vant.props"
+                          v-show="item.visible"
+                          :key="item.key"
+                          v-model="rowPopupData.data[item.key]"
+                          v-on="item.component.vant.emitsEvents || {}"
+                        />
+                      </template>
+
+
+
                     </template>
                   </template>
 
-                  <!-- VzFormDatePicker -->
+
                 </van-cell-group>
               </van-form>
             </div>

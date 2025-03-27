@@ -19,6 +19,9 @@
     "exampleComponents": "Example components",
     "forgot-password": "Forgot Password"
   },
+  "bills": {
+    "businessTrip": "出差任务单"
+  },
   "mock": {
     "fromAsyncData": "Data from asynchronous requests",
     "noData": "No data",

@@ -9,14 +9,14 @@ import { ref, useTemplateRef, watch } from 'vue';
 
 // @prefix-cls: ~'vz-form-refer-picker-item-person';
 defineOptions({
-  name: 'VzFormReferPickerItemFeeType',
+  name: 'VzFormReferPickerItemRegion',
 })
 
-defineProps<VzFormReferPickerItemFeeTypeProps>()
+defineProps<VzFormReferPickerItemRegionProps>()
 
-const { prefixCls } = useStyle('form-refer-picker-item-fee-type');
+const { prefixCls } = useStyle('form-refer-picker-item-region');
 
-interface VzFormReferPickerItemFeeTypeProps {
+interface VzFormReferPickerItemRegionProps {
   /** 数据项目 */
   item: object
 }
@@ -37,15 +37,15 @@ interface VzFormReferPickerItemFeeTypeProps {
 
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        费用名称：
+        区域名称：
       </div>
-      <div>{{ item.cfeename }}</div>
+      <div>{{ item.cregionname }}</div>
     </div>
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        费用编码：
+        区域编码：
       </div>
-      <div>{{ item.cfeecode }}</div>
+      <div>{{ item.cregioncode }}</div>
     </div>
     <!-- <div class="flex items-center justify-between p-2">
       <div class="font-bold">
@@ -65,7 +65,7 @@ interface VzFormReferPickerItemFeeTypeProps {
 </template>
 
 <style lang="less" scoped>
-@prefix-cls: ~'vz-form-refer-picker-item-fee-type';
+@prefix-cls: ~'vz-form-refer-picker-item-region';
 
 .@{prefix-cls} {
   width: 100%;

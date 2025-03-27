@@ -24,7 +24,7 @@ export const lanhiAlova = createAlova({
   requestAdapter: axiosRequestAdapter(),
 
   beforeRequest: (method) => {
-    console.info("beforeRequest method =>", method);
+    // console.info("beforeRequest method =>", method);
     const tokenJwtkeyAcc = useStorage("TOKEN-JWTKEY-ACC", {
       token: "",
       jwtkey: "",
@@ -72,8 +72,8 @@ export const lanhiAlova = createAlova({
     },
 
     onError: (error, method) => {
-      console.info("onError error =>", error);
-      console.info("onError method =>", method);
+      // console.info("onError error =>", error);
+      // console.info("onError method =>", method);
     },
     onComplete: async (method) => {
       // 处理请求完成逻辑

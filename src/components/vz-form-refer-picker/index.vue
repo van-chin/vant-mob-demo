@@ -11,7 +11,7 @@ import type { RfGetInvListParams, RfPerListParams } from '@/types/refers'
 
 import { closeToast, showLoadingToast } from 'vant';
 
-import { ref, useTemplateRef, watch } from 'vue';
+import { ref, useTemplateRef, watch,useAttrs } from 'vue';
 
 import { useRequest } from 'alova/client';
 import { cloneDeep } from 'lodash-es';
@@ -19,9 +19,12 @@ import { cloneDeep } from 'lodash-es';
 defineOptions({
   name: 'VzFormReferPicker',
 })
-
-const { referRule = '', referTitle, echoField, referCode = 'person' } = defineProps<VzFormReferPickerProps>()
-
+const { referRule = '', referTitle, echoField, referCode = 'person' } = defineProps<VzFormReferPickerProps>();
+const emits = defineEmits<{
+  change: [
+			data: any,
+  ]
+}>();
 // ruleName
 const { prefixCls } = useStyle('form-fefer-picker');
 
@@ -76,9 +79,6 @@ const refersMaps = ref({
     },
   },
 
-
-
-
   // 4 产品参照
   product: {
     endpoint: '/Bill/GetInvList',
@@ -104,7 +104,6 @@ const refersMaps = ref({
       pageNum: 1,
     },
   },
-
 
   // 6 仓库
   warehouse: {
@@ -145,7 +144,31 @@ const refersMaps = ref({
     },
   },
 
-  //
+  // 9 车辆参照
+  Bill_OA_OwnCarStandard: {
+    endpoint: '/Bill/GetSubsidyList',
+    method: 'POST',
+    itemComponent: 'VzFormReferPickerItemOwnCarStandard',
+    params: {
+      cbillname: '',
+      param: '',
+      pageSize: 10,
+      pageNum: 1,
+    },
+  },
+
+  // 10 地区参照
+  Bill_SA_Region: {
+    endpoint: '/Bill/GetRegionList',
+    method: 'POST',
+    itemComponent: 'VzFormReferPickerItemRegion',
+    params: {
+      cbillname: '',
+      param: '',
+      pageSize: 10,
+      pageNum: 1,
+    },
+  }
 
 });
 
@@ -165,7 +188,6 @@ const rfParams = ref<any>({
 
 });
 
-
 const rfRule = ref({
   // 参照名称
   billName: '',
@@ -176,26 +198,19 @@ const rfRule = ref({
 
   pageNum: 1,
   pageSize: 10,
-  bAccurate:false,
+  bAccurate: false,
   // 过滤器
   filter: '',
 });
 
-// const { loading, error, data: rfData, send } = useRequest((params : any) => rfPerListMethod(params), {
-// 		immediate: false,
-// 		initialData: [],
-// 	});
+
 
 function parseRfRule() {
   const rfRuleStr = referRule
 
-  console.info('referRule =>', referRule)
-  console.info('rfRuleStr =>', rfRuleStr)
-  // const rfRuleStr = "Bill_COM_Person|cPerCode,cPerName|DO_COM_Person_ID&&DO_COM_Person_ID_ZC,cPerCode,cPerName&&cPerName_ZC|3|False|True|isnull(dLeaveDate,'')='' and isnull(bstop,0) = 0";
-  //
   const rfRuleParagraphs = rfRuleStr.split('|')
 
-  console.info('rfRuleParagraphs =>', rfRuleParagraphs)
+  // console.info('rfRuleParagraphs =>', rfRuleParagraphs)
   let parsedRfRule = {
     // 参照名称
     billName: '',
@@ -223,13 +238,8 @@ function parseRfRule() {
 
     // parsedRfRule.filter = rfRuleParagraphs[rfRuleParagraphs.length - 1];
   }
-
   rfRule.value = parsedRfRule;
-
   rfParams.value.cbillname = parsedRfRule.billName
-
-  console.info('rfRule.value =>',rfRule.value);
-
 }
 
 const modelValue = defineModel<object>({
@@ -237,42 +247,27 @@ const modelValue = defineModel<object>({
 });
 
 const echoFieldValue = defineModel<string>('');
-
-console.info('modelValue refer =>', modelValue.value);
-
 const showRefer = ref(false);
-
 const referApiMethod = ref<Method>();
-
 const referData = ref<any>([]);
+
+const attrs = useAttrs();
 
 function onCloseReferPopup() {
   showRefer.value = false
 }
 
 async function onOpenReferPopup() {
-  // import { Method } from 'alova';
-  // /Home/GetInvList
-  // /Bill/GetPerList 人员参照
-  // referApiMethod.value = new Method('POST', lanhiAlova, '/Home/GetInvList', {
-  //   params: rfParams,
-  // });
-  // referData.value = await referApiMethod.value.send();
-  // console.info('referData.value =>', referData.value);
+  if(attrs.disabled === true) {
+    return;
+  }
   showRefer.value = true
 }
 
 (async function init() {
   echoFieldValue.value = modelValue.value[echoField];
-
-  console.info('referTitle =>', referTitle);
-  console.info('referCode =>', referCode);
-
   // 解析参照规则
   parseRfRule();
-
-  console.info('rfRule =>', rfRule.value);
-
 })();
 
 const listLoading = ref(false);
@@ -284,15 +279,19 @@ const listFinished = ref(false);
 async function onListLoad() {
   // const currentReferCode = 'person';
 
-  console.info('vv =>', refersMaps.value[referCode].endpoint);
+  // console.info('vv =>', refersMaps.value[referCode].endpoint);
 
   referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
     params: rfParams,
   });
   const resData = await referApiMethod.value.send();
-  console.info('resData =>', resData);
 
-  console.info('resData.length =>', resData.length);
+  // if(referData) {
+
+  // }
+  // console.info('resData =>', resData);
+
+  // console.info('resData.length =>', resData.length);
 
   referData.value = referData.value.concat(resData);
 
@@ -303,56 +302,64 @@ async function onListLoad() {
   if (resData.length < 10) {
     listFinished.value = true;
   }
-  console.info('referData.value =>', referData.value);
+  // console.info('referData.value =>', referData.value);
 
 }
 
+function echoFields(item: any, clear: boolean = false) {
+  console.info('echoFields ....', modelValue.value);
+  let getedData = {};
 
+  // return;
 
+  rfRule.value.outParams.forEach((param) => {
+    // console.info('param =>',param);
+    getedData[param[1]] = clear === true ? '' : item[param[0]];
+    // 直接修改 modelValue
+    modelValue.value[param[1]] = clear === true ? '' : item[param[0]];
 
-function echoFields(item:any,clear : boolean = false) {
-    console.info('echoFields ....');
-		let getedData = {};
+  })
 
-		rfRule.value.outParams.forEach((param) => {
-			// console.info('param =>',param);
-			getedData[param[1]] = clear === true ? '' : item[param[0]];
-			// 直接修改 modelValue
-			modelValue.value[param[1]] = clear === true ? '' : item[param[0]];
+  // console.info('选择参照之后: =>',modelValue.value);
 
-		});
+  // console.info('选择参照之后: echoFieldValue.value =>', echoFieldValue.value);
 
-
-    // console.info('选择参照之后: =>',modelValue.value);
 }
 
 // onItemPicked
 
 function onItemPicked(item: any, index: number) {
   // console.info('选择参照之前: =>',cloneDeep(modelValue.value));
+  // console.info('item =>', item);
+  // console.info('index =>', index);
   echoFields(item);
 
+  console.info('onItemPicked => item',item);
+  console.info('onItemPicked => modelValue.value',modelValue.value);
+
   echoFieldValue.value = modelValue.value[echoField];
+
+  emits('change', item[echoField]);
 
   showRefer.value = false;
 }
 
 function onClickSearch() {
-  console.info('onClickSearch =>', keywords.value)
+  // console.info('onClickSearch =>', keywords.value)
 
 }
 
 function onEchoFieldBlur() {
-  console.info('onEchoFieldBlur =>', echoFieldValue.value)
+  // console.info('onEchoFieldBlur =>', echoFieldValue.value)
 
 }
 
 function onEchoFieldClear() {
-  console.info('onEchoFieldClear =>', echoFieldValue.value)
+  // console.info('onEchoFieldClear =>', echoFieldValue.value)
 }
 
 function onEchoFieldInput() {
-  console.info('onEchoFieldInput =>', echoFieldValue.value)
+  // console.info('onEchoFieldInput =>', echoFieldValue.value)
 
 }
 </script>
@@ -416,14 +423,11 @@ function onEchoFieldInput() {
               finished-text="没有更多数据了"
               @load="onListLoad"
             >
+              <component
+                :is="refersMaps[referCode].itemComponent" v-for="(item, index) in referData" :key="`refer-item-${index}`" :item="item"
 
-
-
-
-              <component :is="refersMaps[referCode].itemComponent" v-for="(item, index) in referData" :key="`refer-item-${index}`" :item="item"
-
-              @click="onItemPicked(item,index)"
-              @tap="onItemPicked(item,index)"
+                @click="onItemPicked(item, index)"
+                @tap="onItemPicked(item, index)"
               />
             </van-list>
 

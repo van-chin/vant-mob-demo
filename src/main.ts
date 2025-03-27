@@ -21,6 +21,8 @@ import * as VueVTable from "@visactor/vue-vtable";
 
 import { Button, CellGroup, Col, Field, Form, Row, Search, Switch } from "vant";
 
+import VzFormRenderer from "@/components/form-renderer/index.vue";
+
 import VzFormTable from "@/components/vz-form-table/index.vue";
 import VzFormDatePicker from "@/components/vz-form-date-picker/index.vue";
 import VzFormEnumPicker from "@/components/vz-form-enum-picker/index.vue";
@@ -72,6 +74,8 @@ app.component("VzFormReferPickerItemWarehouse", VzFormReferPickerItemWarehouse);
 app.component("VzFormReferPickerItemCustomer", VzFormReferPickerItemCustomer);
 
 app.component("VzFormReferPickerItemFaultType", VzFormReferPickerItemFaultType);
+
+app.component("VzFormRenderer", VzFormRenderer);
 
 app.component(
   "VzFormReferPickerItemDepartment",

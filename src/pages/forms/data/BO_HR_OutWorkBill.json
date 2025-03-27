@@ -508,7 +508,11 @@
                     },
                     "vant": {
                       "name": "VzFormReferPicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "label": "任务下达人",
@@ -986,7 +990,11 @@
                     },
                     "vant": {
                       "name": "VzFormEnumPicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "ruleName": "EnmOutCooutry",
@@ -1093,10 +1101,10 @@
                       }
                     },
                     "vant": {
-                      "name": "VanField",
+                      "name": "VzFormSwitch",
                       "events": {
-                        "blur": [
-                          "event"
+                        "change": [
+                          "value"
                         ]
                       },
                       "props": {
@@ -1104,7 +1112,9 @@
                         "label": "公司购票",
                         "bordered": true,
                         "showCount": false,
-                        "size": "",
+                        "size": "18px",
+                        "activeValue": "1",
+                        "inactiveValue": "0",
                         "events": {}
                       }
                     },
@@ -1272,13 +1282,18 @@
                     },
                     "vant": {
                       "name": "VzFormDatePicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "label": "计划外出开始时间",
                         "bordered": true,
                         "showCount": false,
                         "size": "",
+                        "required": true,
                         "events": {}
                       }
                     },
@@ -1379,13 +1394,18 @@
                     },
                     "vant": {
                       "name": "VzFormDatePicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "label": "计划外出结束时间",
                         "bordered": true,
                         "showCount": false,
                         "size": "",
+                        "required": true,
                         "events": {}
                       }
                     },
@@ -1553,13 +1573,18 @@
                     },
                     "vant": {
                       "name": "VzFormDatePicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "label": "实际外出开始时间",
                         "bordered": true,
                         "showCount": false,
                         "size": "",
+                        "required": true,
                         "events": {}
                       }
                     },
@@ -1660,12 +1685,17 @@
                     },
                     "vant": {
                       "name": "VzFormDatePicker",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "placeholder": "",
                         "label": "实际外出结束时间",
                         "bordered": true,
                         "showCount": false,
+                        "required": true,
                         "size": "",
                         "events": {}
                       }
@@ -2165,7 +2195,11 @@
                     },
                     "vant": {
                       "name": "VzFormTable",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "rowKey": "id",
                         "bordered": true,
@@ -2205,16 +2239,28 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
-                                "events": {},
+                                "name": "VzFormReferPicker",
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
                                 "props": {
-                                  "placeholder": "请输入 出差人编码",
+                                  "placeholder": "",
                                   "label": "出差人编码",
                                   "bordered": true,
                                   "showCount": false,
+                                  "referTitle": "人员参照",
+                                  "referCode": "person",
+                                  "echoField": "cpercode_cc",
+                                  "referRule": "Bill_COM_Person|cpercode,cpername|do_com_person_id&&do_com_person_id_cc,cpercode&&cpercode_cc,cpername&&cpername_cc|3|False|True|isnull(dLeaveDate,'')='' and isnull(bstop,0) = 0",
                                   "size": "",
                                   "events": {},
                                   "required": true,
+                                  "readonly": false,
                                   "error": false
                                 }
                               },
@@ -2253,18 +2299,30 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
-                                "events": {},
+                                "name": "VzFormReferPicker",
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
                                 "props": {
-                                  "placeholder": "请输入 出差人名称",
+                                  "placeholder": "",
                                   "label": "出差人名称",
                                   "bordered": true,
                                   "showCount": false,
                                   "size": "",
+                                  "referTitle": "人员参照",
+                                  "referCode": "person",
+                                  "echoField": "cpername_cc",
+                                  "referRule": "Bill_COM_Person|cpercode,cpername|do_com_person_id&&do_com_person_id_cc,cpercode&&cpercode_cc,cpername&&cpername_cc|3|False|True|isnull(dLeaveDate,'')='' and isnull(bstop,0) = 0",
                                   "events": {},
-                                  "showWordLimit": true,
-                                  "autofocus": true,
-                                  "is-link": true,
+                                  "showWordLimit": false,
+                                  "autofocus": false,
+                                  "is-link": false,
+                                  "required": true,
                                   "readonly": false
                                 }
                               },
@@ -2599,7 +2657,7 @@
                             "key": "do_com_person_id_cc",
                             "dataIndex": "do_com_person_id_cc",
                             "width": 100,
-                            "visible": true,
+                            "visible": false,
                             "primaryKey": false,
                             "component": {
                               "antdv": {
@@ -2955,7 +3013,11 @@
                     },
                     "vant": {
                       "name": "VzFormTable",
-                      "events": {},
+                      "events": {
+                        "change": [
+                          "value"
+                        ]
+                      },
                       "props": {
                         "rowKey": "id",
                         "bordered": true,
@@ -2996,7 +3058,14 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 任务内容",
                                   "label": "任务内容",
@@ -3006,7 +3075,7 @@
                                   "events": {},
                                   "type": "textarea",
                                   "autosize": true,
-                                  "required": true
+                                  "required": false
                                 }
                               },
                               "wot": {
@@ -3045,14 +3114,22 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 出发地",
                                   "label": "出发地",
                                   "bordered": true,
                                   "showCount": false,
                                   "size": "",
-                                  "events": {}
+                                  "events": {},
+                                  "required": false
                                 }
                               },
                               "wot": {
@@ -3091,10 +3168,174 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 目的地",
                                   "label": "目的地",
+                                  "bordered": true,
+                                  "showCount": false,
+                                  "size": "",
+                                  "events": {},
+                                  "required": false
+                                }
+                              },
+                              "wot": {
+                                "name": "WdInput",
+                                "events": {},
+                                "props": {
+                                  "label": "输入框",
+                                  "placeholder": "请输入",
+                                  "bordered": true,
+                                  "showCount": false,
+                                  "type": "text",
+                                  "size": "",
+                                  "events": {}
+                                }
+                              }
+                            },
+                            "id": "c6kX9mIOSyMAWI2XAXRmF",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            },
+                            "visible": true,
+                            "componentType": "input"
+                          },
+                          {
+                            "title": "目的地区",
+                            "key": "cregionname",
+                            "dataIndex": "cregionname",
+                            "width": 100,
+                            "component": {
+                              "antdv": {
+                                "name": "AInput",
+                                "events": {},
+                                "props": {
+                                  "placeholder": "请输入",
+                                  "bordered": true,
+                                  "showCount": false,
+                                  "size": "",
+                                  "events": {}
+                                }
+                              },
+                              "vant": {
+                                "name": "VanField",
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ],
+                                  "blur": [
+                                    "event"
+                                  ]
+                                },
+                                "props": {
+                                  "placeholder": "请输入 目的地区",
+                                  "label": "目的地区",
                                   "bordered": true,
                                   "showCount": false,
                                   "size": "",
@@ -3239,14 +3480,20 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
-                                "events": {},
+                                "name": "VzFormSwitch",
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
-                                  "placeholder": "请输入 自备交通工具",
+                                  "placeholder": "",
                                   "label": "自备交通工具",
                                   "bordered": true,
                                   "showCount": false,
-                                  "size": "",
+                                  "activeValue": "1",
+                                  "inactiveValue": "0",
+                                  "size": "18px",
                                   "events": {}
                                 }
                               },
@@ -3389,14 +3636,19 @@
                               },
                               "vant": {
                                 "name": "VzFormDatePicker",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请选择 任务开始日期",
                                   "label": "任务开始日期",
                                   "bordered": true,
                                   "showCount": false,
                                   "size": "",
-                                  "events": {}
+                                  "events": {},
+                                  "required": false
                                 }
                               },
                               "wot": {
@@ -3538,11 +3790,173 @@
                               },
                               "vant": {
                                 "name": "VzFormDatePicker",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请选择 任务结束日期",
                                   "label": "任务结束日期",
                                   "bordered": true,
+                                  "showCount": false,
+                                  "size": "",
+                                  "events": {},
+                                  "required": false
+                                }
+                              },
+                              "wot": {
+                                "name": "WdInput",
+                                "events": {},
+                                "props": {
+                                  "label": "输入框",
+                                  "placeholder": "请输入",
+                                  "bordered": true,
+                                  "showCount": false,
+                                  "type": "text",
+                                  "size": "",
+                                  "events": {}
+                                }
+                              }
+                            },
+                            "id": "hLMW60Yq07j_WmpNvNEVG",
+                            "_components": {
+                              "title": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 表头"
+                                }
+                              },
+                              "key": {
+                                "name": "AInput",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "dataIndex": {
+                                "name": "VzConfigurationValue",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 KEY"
+                                }
+                              },
+                              "width": {
+                                "name": "AInputNumber",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 宽度"
+                                }
+                              },
+                              "formatType": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择格式化类型",
+                                  "options": [
+                                    {
+                                      "name": "date",
+                                      "label": "日期",
+                                      "value": 1,
+                                      "color": "blue",
+                                      "icon": "ant-design:check-outlined"
+                                    },
+                                    {
+                                      "name": "datetime",
+                                      "label": "时间",
+                                      "value": 2,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "index",
+                                      "label": "序号",
+                                      "value": 3,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    },
+                                    {
+                                      "name": "join",
+                                      "label": "联合",
+                                      "value": 4,
+                                      "color": "blue",
+                                      "icon": "ant-design:close-outlined"
+                                    }
+                                  ]
+                                }
+                              },
+                              "formater": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "align": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请选择对齐方式"
+                                }
+                              },
+                              "ellipsis": {
+                                "name": "ASwitch",
+                                "vModelField": "checked",
+                                "props": {}
+                              },
+                              "fixed": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "placeholder": "请输入 格式器"
+                                }
+                              },
+                              "component": {
+                                "name": "ASelect",
+                                "vModelField": "value",
+                                "props": {
+                                  "options": [],
+                                  "placeholder": "请选择 组件",
+                                  "allowClear": true
+                                }
+                              }
+                            },
+                            "visible": true,
+                            "componentType": "input"
+                          },
+                          {
+                            "title": "自备车",
+                            "key": "csubsidyname",
+                            "dataIndex": "csubsidyname",
+                            "width": 100,
+                            "component": {
+                              "antdv": {
+                                "name": "AInput",
+                                "events": {},
+                                "props": {
+                                  "placeholder": "请输入",
+                                  "bordered": true,
+                                  "showCount": false,
+                                  "size": "",
+                                  "events": {}
+                                }
+                              },
+                              "vant": {
+                                "name": "VzFormReferPicker",
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ]
+                                },
+                                "props": {
+                                  "placeholder": "",
+                                  "label": "自备车",
+                                  "bordered": true,
+                                  "referTitle": "车辆参照",
+                                  "referCode": "Bill_OA_OwnCarStandard",
+                                  "echoField": "csubsidyname",
+                                  "referRule": "Bill_OA_OwnCarStandard|csubsidycode,csubsidyname|do_oa_owncarstandard_id,csubsidycode,csubsidyname|3|False|True",
                                   "showCount": false,
                                   "size": "",
                                   "events": {}
@@ -3562,7 +3976,7 @@
                                 }
                               }
                             },
-                            "id": "hLMW60Yq07j_WmpNvNEVG",
+                            "id": "q0u_SJ9GcK2PwY8nKkGDM",
                             "_components": {
                               "title": {
                                 "name": "AInput",
@@ -3687,7 +4101,11 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "blur": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 往返里程",
                                   "label": "往返里程",
@@ -3836,7 +4254,11 @@
                               },
                               "vant": {
                                 "name": "VzFormEnumPicker",
-                                "events": {},
+                                "events": {
+                                  "change": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "",
                                   "ruleName": "EnmVehicle",
@@ -3986,7 +4408,11 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "blur": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 出差总结",
                                   "label": "出差总结",
@@ -4136,7 +4562,11 @@
                               },
                               "vant": {
                                 "name": "VanField",
-                                "events": {},
+                                "events": {
+                                  "blur": [
+                                    "value"
+                                  ]
+                                },
                                 "props": {
                                   "placeholder": "请输入 评价意见",
                                   "label": "评价意见",
@@ -5058,166 +5488,6 @@
                             "componentType": "input"
                           },
                           {
-                            "title": " csubsidyname",
-                            "key": "csubsidyname",
-                            "dataIndex": "csubsidyname",
-                            "width": 100,
-                            "visible": false,
-                            "primaryKey": false,
-                            "component": {
-                              "antdv": {
-                                "name": "AInput",
-                                "events": {},
-                                "props": {
-                                  "placeholder": "请输入",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "size": "",
-                                  "events": {}
-                                }
-                              },
-                              "vant": {
-                                "name": "VanField",
-                                "events": {},
-                                "props": {
-                                  "placeholder": "请输入xx",
-                                  "label": "输入框",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "size": "",
-                                  "events": {}
-                                }
-                              },
-                              "wot": {
-                                "name": "WdInput",
-                                "events": {},
-                                "props": {
-                                  "label": "输入框",
-                                  "placeholder": "请输入",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "type": "text",
-                                  "size": "",
-                                  "events": {}
-                                }
-                              }
-                            },
-                            "id": "izt2EPDEn0WBTUIiB6I6n",
-                            "_components": {
-                              "title": {
-                                "name": "AInput",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 表头"
-                                }
-                              },
-                              "key": {
-                                "name": "AInput",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 KEY"
-                                }
-                              },
-                              "dataIndex": {
-                                "name": "VzConfigurationValue",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 KEY"
-                                }
-                              },
-                              "width": {
-                                "name": "AInputNumber",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 宽度"
-                                }
-                              },
-                              "formatType": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请选择格式化类型",
-                                  "options": [
-                                    {
-                                      "name": "date",
-                                      "label": "日期",
-                                      "value": 1,
-                                      "color": "blue",
-                                      "icon": "ant-design:check-outlined"
-                                    },
-                                    {
-                                      "name": "datetime",
-                                      "label": "时间",
-                                      "value": 2,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    },
-                                    {
-                                      "name": "index",
-                                      "label": "序号",
-                                      "value": 3,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    },
-                                    {
-                                      "name": "join",
-                                      "label": "联合",
-                                      "value": 4,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    }
-                                  ]
-                                }
-                              },
-                              "formater": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 格式器"
-                                }
-                              },
-                              "align": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请选择对齐方式"
-                                }
-                              },
-                              "ellipsis": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "visible": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "primaryKey": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "fixed": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 格式器"
-                                }
-                              },
-                              "component": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "options": [],
-                                  "placeholder": "请选择 组件",
-                                  "allowClear": true
-                                }
-                              }
-                            },
-                            "componentType": "input"
-                          },
-                          {
                             "title": "csubsidycode",
                             "key": "csubsidycode",
                             "dataIndex": "csubsidycode",
@@ -5263,166 +5533,6 @@
                               }
                             },
                             "id": "tNI5MpcsTXAQpL5AOx-fW",
-                            "_components": {
-                              "title": {
-                                "name": "AInput",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 表头"
-                                }
-                              },
-                              "key": {
-                                "name": "AInput",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 KEY"
-                                }
-                              },
-                              "dataIndex": {
-                                "name": "VzConfigurationValue",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 KEY"
-                                }
-                              },
-                              "width": {
-                                "name": "AInputNumber",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 宽度"
-                                }
-                              },
-                              "formatType": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请选择格式化类型",
-                                  "options": [
-                                    {
-                                      "name": "date",
-                                      "label": "日期",
-                                      "value": 1,
-                                      "color": "blue",
-                                      "icon": "ant-design:check-outlined"
-                                    },
-                                    {
-                                      "name": "datetime",
-                                      "label": "时间",
-                                      "value": 2,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    },
-                                    {
-                                      "name": "index",
-                                      "label": "序号",
-                                      "value": 3,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    },
-                                    {
-                                      "name": "join",
-                                      "label": "联合",
-                                      "value": 4,
-                                      "color": "blue",
-                                      "icon": "ant-design:close-outlined"
-                                    }
-                                  ]
-                                }
-                              },
-                              "formater": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 格式器"
-                                }
-                              },
-                              "align": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请选择对齐方式"
-                                }
-                              },
-                              "ellipsis": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "visible": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "primaryKey": {
-                                "name": "ASwitch",
-                                "vModelField": "checked",
-                                "props": {}
-                              },
-                              "fixed": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "placeholder": "请输入 格式器"
-                                }
-                              },
-                              "component": {
-                                "name": "ASelect",
-                                "vModelField": "value",
-                                "props": {
-                                  "options": [],
-                                  "placeholder": "请选择 组件",
-                                  "allowClear": true
-                                }
-                              }
-                            },
-                            "componentType": "input"
-                          },
-                          {
-                            "title": "cregionname",
-                            "key": "cregionname",
-                            "dataIndex": "cregionname",
-                            "width": 100,
-                            "visible": false,
-                            "primaryKey": false,
-                            "component": {
-                              "antdv": {
-                                "name": "AInput",
-                                "events": {},
-                                "props": {
-                                  "placeholder": "请输入",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "size": "",
-                                  "events": {}
-                                }
-                              },
-                              "vant": {
-                                "name": "VanField",
-                                "events": {},
-                                "props": {
-                                  "placeholder": "请输入xx",
-                                  "label": "输入框",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "size": "",
-                                  "events": {}
-                                }
-                              },
-                              "wot": {
-                                "name": "WdInput",
-                                "events": {},
-                                "props": {
-                                  "label": "输入框",
-                                  "placeholder": "请输入",
-                                  "bordered": true,
-                                  "showCount": false,
-                                  "type": "text",
-                                  "size": "",
-                                  "events": {}
-                                }
-                              }
-                            },
-                            "id": "4QmQAyu7AxDW8zcb5OXpd",
                             "_components": {
                               "title": {
                                 "name": "AInput",
