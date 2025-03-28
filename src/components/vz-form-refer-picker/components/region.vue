@@ -33,8 +33,6 @@ interface VzFormReferPickerItemRegionProps {
 
 <template>
   <div class="mb-8px w-full rd-4 bg-white p-4 text-12px text-#00000073">
-
-
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
         区域名称：
@@ -47,20 +45,6 @@ interface VzFormReferPickerItemRegionProps {
       </div>
       <div>{{ item.cregioncode }}</div>
     </div>
-    <!-- <div class="flex items-center justify-between p-2">
-      <div class="font-bold">
-        费用类型：
-      </div>
-      <div>{{ item.cfeetypevalue }}</div>
-    </div> -->
-    <div class="flex items-center justify-between p-2">
-      <div class="font-bold">
-        单价：
-      </div>
-      <div>{{ item.fprice }}</div>
-    </div>
-
-
   </div>
 </template>
 

@@ -9,9 +9,9 @@ import type { RfGetInvListParams, RfPerListParams } from '@/types/refers'
 
 // import type { Method } from 'alova';
 
-import { closeToast, showLoadingToast } from 'vant';
+import { closeToast, showLoadingToast, showToast } from 'vant';
 
-import { ref, useTemplateRef, watch,useAttrs } from 'vue';
+import { ref, useAttrs, useTemplateRef, watch } from 'vue';
 
 import { useRequest } from 'alova/client';
 import { cloneDeep } from 'lodash-es';
@@ -168,9 +168,9 @@ const refersMaps = ref({
       pageSize: 10,
       pageNum: 1,
     },
-  }
+  },
 
-});
+})
 
 console.info('refersMaps =>', refersMaps);
 
@@ -183,8 +183,8 @@ const rfParams = ref<any>({
   pageNum: 1,
   pageSize: 10,
 
-  pageCode: '',
-  sFeild: '',
+  // pageCode: '',
+  // sFeild: '',
 
 });
 
@@ -202,8 +202,6 @@ const rfRule = ref({
   // 过滤器
   filter: '',
 });
-
-
 
 function parseRfRule() {
   const rfRuleStr = referRule
@@ -258,9 +256,25 @@ function onCloseReferPopup() {
 }
 
 async function onOpenReferPopup() {
-  if(attrs.disabled === true) {
+  if (attrs.disabled === true) {
     return;
   }
+
+  keywords.value = echoFieldValue.value;
+  // console.info('onOpenReferPopup => keywords', keywords.value);
+
+  rfParams.value.pageNum = 1;
+  rfParams.value.param = keywords.value;
+  rfParams.value.bAccurate = false;
+
+  // referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
+  //   params: rfParams,
+  // });
+  // const resData = await referApiMethod.value.send();
+  // console.info('resData =>', resData);
+
+  // referData.value = resData;
+
   showRefer.value = true
 }
 
@@ -281,17 +295,12 @@ async function onListLoad() {
 
   // console.info('vv =>', refersMaps.value[referCode].endpoint);
 
+  rfParams.value.param = keywords.value;
+
   referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
     params: rfParams,
   });
   const resData = await referApiMethod.value.send();
-
-  // if(referData) {
-
-  // }
-  // console.info('resData =>', resData);
-
-  // console.info('resData.length =>', resData.length);
 
   referData.value = referData.value.concat(resData);
 
@@ -303,7 +312,6 @@ async function onListLoad() {
     listFinished.value = true;
   }
   // console.info('referData.value =>', referData.value);
-
 }
 
 function echoFields(item: any, clear: boolean = false) {
@@ -323,7 +331,6 @@ function echoFields(item: any, clear: boolean = false) {
   // console.info('选择参照之后: =>',modelValue.value);
 
   // console.info('选择参照之后: echoFieldValue.value =>', echoFieldValue.value);
-
 }
 
 // onItemPicked
@@ -334,8 +341,8 @@ function onItemPicked(item: any, index: number) {
   // console.info('index =>', index);
   echoFields(item);
 
-  console.info('onItemPicked => item',item);
-  console.info('onItemPicked => modelValue.value',modelValue.value);
+  console.info('onItemPicked => item', item);
+  console.info('onItemPicked => modelValue.value', modelValue.value);
 
   echoFieldValue.value = modelValue.value[echoField];
 
@@ -344,24 +351,93 @@ function onItemPicked(item: any, index: number) {
   showRefer.value = false;
 }
 
-function onClickSearch() {
-  // console.info('onClickSearch =>', keywords.value)
+function isEchoFieldValueEmpty() {
+  if (echoFieldValue.value == null)
+    return true; // 处理 null 和 undefined
+  if (typeof echoFieldValue.value !== 'string')
+    return false; // 非字符串视为非空
+  return echoFieldValue.value.trim() === '' // 去除空白字符后判断
+}
+
+async function onClickSearch() {
+  console.info('onClickSearch =>', keywords.value)
+  rfParams.value.pageNum = 1;
+  rfParams.value.param = keywords.value;
+  rfParams.value.bAccurate = false;
+
+  referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
+    params: rfParams,
+  });
+  const resData = await referApiMethod.value.send();
+
+  referData.value = resData;
 
 }
 
-function onEchoFieldBlur() {
-  // console.info('onEchoFieldBlur =>', echoFieldValue.value)
+async function onSearchInput() {
+  console.info('onClickSearch =>', keywords.value)
+  rfParams.value.pageNum = 1;
+  rfParams.value.param = keywords.value;
+  rfParams.value.bAccurate = false;
 
+  referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
+    params: rfParams,
+  });
+  const resData = await referApiMethod.value.send();
+
+  if (resData.length === 0) {
+    showToast('没有找到相关数据!');
+  }
+  referData.value = resData;
 }
 
-function onEchoFieldClear() {
-  // console.info('onEchoFieldClear =>', echoFieldValue.value)
+async function onEchoFieldBlur() {
+  if (!isEchoFieldValueEmpty()) {
+    referApiMethod.value = new Method(refersMaps.value[referCode].method, lanhiAlova, refersMaps.value[referCode].endpoint, {
+      params: { ...rfParams.value, param: echoFieldValue.value, pageNum: 1, bAccurate: true },
+    });
+    const resData = await referApiMethod.value.send();
+
+    if (resData.length === 0) {
+      showToast('没有找到相关数据!');
+    }
+    else {
+      if (resData.length === 1) {
+        // 处理只有一条数据的情况
+        console.info('resData.length === 1', resData);
+        onItemPicked(resData[0], 0);
+      }
+      keywords.value = echoFieldValue.value;
+    }
+    referData.value = resData;
+  }
+}
+
+async function onEchoFieldClear() {
+  console.info('onEchoFieldClear =>', keywords.value)
+
 }
 
 function onEchoFieldInput() {
-  // console.info('onEchoFieldInput =>', echoFieldValue.value)
+  console.info('onEchoFieldInput =>', keywords.value)
 
 }
+
+function onReferCancel() {
+  showRefer.value = false;
+
+}
+
+function onReferConfirm() {
+  showRefer.value = false;
+}
+
+watch(() => modelValue.value, (newVal) => {
+  echoFieldValue.value = newVal[echoField];
+}, {
+  immediate: true,
+  deep: true,
+})
 </script>
 
 <template>
@@ -406,7 +482,7 @@ function onEchoFieldInput() {
             </div>
           </div>
           <div class="refer-searcher">
-            <van-search v-model="keywords" placeholder="请输入 关键词 搜索" show-action>
+            <van-search v-model="keywords" placeholder="请输入 关键词 搜索" show-action @input="onSearchInput" @clear="onClickSearch" @search="onClickSearch">
               <template #action>
                 <div @click="onClickSearch">
                   搜索
@@ -430,33 +506,17 @@ function onEchoFieldInput() {
                 @tap="onItemPicked(item, index)"
               />
             </van-list>
-
-            <!-- <template v-if="referData.length">
-              <van-card
-
-                v-for="(item, index) in referData"
-                :key="`refer-item-${index}`"
-                num="2"
-                price="2.00"
-                desc="描述信息"
-                :title="item.cjobname"
-                thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
-              />
-            </template>
-            <template v-else>
-              <van-empty description="描述文字" />
-            </template> -->
           </div>
         </div>
 
         <div class="flex items-center justify-between bg-white p-4">
           <div class="flex flex-1 items-center justify-center">
-            <van-button type="default" size="small" round>
+            <van-button type="default" size="small" round @click="onReferCancel">
               取  消
             </van-button>
           </div>
           <div class="flex flex-1 items-center justify-center">
-            <van-button type="success" size="small" round>
+            <van-button type="success" size="small" round @click="onReferConfirm">
               确  认
             </van-button>
           </div>

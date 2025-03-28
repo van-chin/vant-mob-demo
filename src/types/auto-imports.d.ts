@@ -49,6 +49,7 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getEnumsByRuleCaption: typeof import('../composables/sys-enums')['getEnumsByRuleCaption']
   const getEnumsByRuleName: typeof import('../composables/sys-enums')['getEnumsByRuleName']
+  const getEnumsValueByRuleNameCode: typeof import('../composables/sys-enums')['getEnumsValueByRuleNameCode']
   const getTokenJwtkeyAcc: typeof import('../composables/sys-enums')['getTokenJwtkeyAcc']
   const h: typeof import('vue')['h']
   const i18n: typeof import('@/utils/i18n')['i18n']

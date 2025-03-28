@@ -8,9 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    2: typeof import('./../components/vz-form-refer-picker/components/fee-type copy 2.vue')['default']
     Chart: typeof import('./../components/Chart/index.vue')['default']
-    copy: typeof import('./../components/vz-form-refer-picker/components/fee-type copy.vue')['default']
     Customer: typeof import('./../components/vz-form-refer-picker/components/customer.vue')['default']
     Department: typeof import('./../components/vz-form-refer-picker/components/department.vue')['default']
     FaultType: typeof import('./../components/vz-form-refer-picker/components/fault-type.vue')['default']
@@ -43,6 +41,7 @@ declare module 'vue' {
     VanList: typeof import('vant/es')['List']
     VanNavBar: typeof import('vant/es')['NavBar']
     VanPicker: typeof import('vant/es')['Picker']
+    VanPickerGroup: typeof import('vant/es')['PickerGroup']
     VanPopup: typeof import('vant/es')['Popup']
     VanRow: typeof import('vant/es')['Row']
     VanSearch: typeof import('vant/es')['Search']
@@ -54,7 +53,9 @@ declare module 'vue' {
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
+    VanTimePicker: typeof import('vant/es')['TimePicker']
     VzFormDatePicker: typeof import('./../components/vz-form-date-picker/index.vue')['default']
+    VzFormDateTimePicker: typeof import('./../components/vz-form-date-time-picker/index.vue')['default']
     VzFormEnumPicker: typeof import('./../components/vz-form-enum-picker/index.vue')['default']
     VzFormReferPicker: typeof import('./../components/vz-form-refer-picker/index.vue')['default']
     VzFormSwitch: typeof import('./../components/vz-form-switch/index.vue')['default']

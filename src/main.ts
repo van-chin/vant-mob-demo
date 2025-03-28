@@ -25,6 +25,7 @@ import VzFormRenderer from "@/components/form-renderer/index.vue";
 
 import VzFormTable from "@/components/vz-form-table/index.vue";
 import VzFormDatePicker from "@/components/vz-form-date-picker/index.vue";
+import VzFormDateTimePicker from "@/components/vz-form-date-time-picker/index.vue";
 import VzFormEnumPicker from "@/components/vz-form-enum-picker/index.vue";
 import VzFormSwitch from "@/components/vz-form-switch/index.vue";
 import VzFormReferPicker from "@/components/vz-form-refer-picker/index.vue";
@@ -34,6 +35,7 @@ import VzFormReferPickerItemPerson from "@/components/vz-form-refer-picker/compo
 import VzFormReferPickerItemQuality from "@/components/vz-form-refer-picker/components/quality.vue";
 
 import VzFormReferPickerItemDepartment from "@/components/vz-form-refer-picker/components/department.vue";
+import VzFormReferPickerItemOwnCarStandard from "@/components/vz-form-refer-picker/components/own-car-standard.vue";
 
 import VzFormReferPickerItemFeeType from "@/components/vz-form-refer-picker/components/fee-type.vue";
 import VzFormReferPickerItemProduct from "@/components/vz-form-refer-picker/components/product.vue";
@@ -42,6 +44,7 @@ import VzFormReferPickerItemWarehouse from "@/components/vz-form-refer-picker/co
 import VzFormReferPickerItemCustomer from "@/components/vz-form-refer-picker/components/customer.vue";
 
 import VzFormReferPickerItemFaultType from "@/components/vz-form-refer-picker/components/fault-type.vue";
+import VzFormReferPickerItemRegion from "@/components/vz-form-refer-picker/components/region.vue";
 
 // console.info("VzFormDatePicker", VzFormDatePicker);
 
@@ -60,6 +63,7 @@ app.component("list-column", VueVTable.ListColumn);
 
 app.component("VzFormTable", VzFormTable);
 app.component("VzFormDatePicker", VzFormDatePicker);
+app.component("VzFormDateTimePicker", VzFormDateTimePicker);
 app.component("VzFormEnumPicker", VzFormEnumPicker);
 app.component("VzFormSwitch", VzFormSwitch);
 
@@ -74,6 +78,11 @@ app.component("VzFormReferPickerItemWarehouse", VzFormReferPickerItemWarehouse);
 app.component("VzFormReferPickerItemCustomer", VzFormReferPickerItemCustomer);
 
 app.component("VzFormReferPickerItemFaultType", VzFormReferPickerItemFaultType);
+app.component("VzFormReferPickerItemRegion", VzFormReferPickerItemRegion);
+app.component(
+  "VzFormReferPickerItemOwnCarStandard",
+  VzFormReferPickerItemOwnCarStandard,
+);
 
 app.component("VzFormRenderer", VzFormRenderer);
 

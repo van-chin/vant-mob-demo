@@ -7,6 +7,8 @@ import { closeToast, showLoadingToast } from 'vant';
 
 import { ref, useTemplateRef, watch } from 'vue';
 
+import { formatNumberThousand } from '@utopia-utils/core';
+
 // @prefix-cls: ~'vz-form-refer-picker-item-person';
 defineOptions({
   name: 'VzFormReferPickerItemOwnCarStandard',
@@ -33,34 +35,24 @@ interface VzFormReferPickerItemOwnCarStandardProps {
 
 <template>
   <div class="mb-8px w-full rd-4 bg-white p-4 text-12px text-#00000073">
-
-
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        车辆名称：
+        补贴标准名称：
       </div>
       <div>{{ item.csubsidyname }}</div>
     </div>
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        车辆编码：
+        补贴标准编码：
       </div>
       <div>{{ item.csubsidycode }}</div>
     </div>
-    <!-- <div class="flex items-center justify-between p-2">
-      <div class="font-bold">
-        费用类型：
-      </div>
-      <div>{{ item.cfeetypevalue }}</div>
-    </div> -->
     <div class="flex items-center justify-between p-2">
       <div class="font-bold">
-        单价：
+        补贴标准：
       </div>
-      <div>{{ item.fprice }}</div>
+      <div>{{ parseFloat(item.fstandard).toFixed(2) }}</div>
     </div>
-
-
   </div>
 </template>
 

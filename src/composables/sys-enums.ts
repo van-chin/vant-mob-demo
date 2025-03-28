@@ -74,3 +74,17 @@ export function getTokenJwtkeyAcc() {
   });
   return tokenJwtkeyAcc.value;
 }
+
+export function getEnumsValueByRuleNameCode(
+  ruleName: string,
+  code: string = "01",
+) {
+  const res = getEnumsByRuleName(ruleName);
+  const finedIndex = res.findIndex((item) => item.sEnumCode === code);
+
+  if (finedIndex > -1) {
+    return res[finedIndex].sEnumValue;
+  } else {
+    return "";
+  }
+}

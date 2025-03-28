@@ -997,7 +997,7 @@
                       },
                       "props": {
                         "placeholder": "",
-                        "ruleName": "EnmOutCooutry",
+                        "enmName": "EnmOutCooutry",
                         "label": "出差国家",
                         "bordered": true,
                         "showCount": false,
@@ -1281,7 +1281,7 @@
                       }
                     },
                     "vant": {
-                      "name": "VzFormDatePicker",
+                      "name": "VzFormDateTimePicker",
                       "events": {
                         "change": [
                           "value"
@@ -1393,7 +1393,7 @@
                       }
                     },
                     "vant": {
-                      "name": "VzFormDatePicker",
+                      "name": "VzFormDateTimePicker",
                       "events": {
                         "change": [
                           "value"
@@ -1572,7 +1572,7 @@
                       }
                     },
                     "vant": {
-                      "name": "VzFormDatePicker",
+                      "name": "VzFormDateTimePicker",
                       "events": {
                         "change": [
                           "value"
@@ -1684,7 +1684,7 @@
                       }
                     },
                     "vant": {
-                      "name": "VzFormDatePicker",
+                      "name": "VzFormDateTimePicker",
                       "events": {
                         "change": [
                           "value"
@@ -2243,9 +2243,6 @@
                                 "events": {
                                   "change": [
                                     "value"
-                                  ],
-                                  "blur": [
-                                    "event"
                                   ]
                                 },
                                 "props": {
@@ -3324,19 +3321,20 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
+                                "name": "VzFormReferPicker",
                                 "events": {
                                   "change": [
                                     "value"
-                                  ],
-                                  "blur": [
-                                    "event"
                                   ]
                                 },
                                 "props": {
-                                  "placeholder": "请输入 目的地区",
+                                  "placeholder": "",
                                   "label": "目的地区",
                                   "bordered": true,
+                                  "referTitle": "地区参照",
+                                  "referCode": "Bill_SA_Region",
+                                  "echoField": "cregionname",
+                                  "referRule": "Bill_SA_Region|cregioncode,cregionname|do_sa_region_id,cregioncode,cregionname|3|False|True",
                                   "showCount": false,
                                   "size": "",
                                   "events": {}
@@ -3635,7 +3633,7 @@
                                 }
                               },
                               "vant": {
-                                "name": "VzFormDatePicker",
+                                "name": "VzFormDateTimePicker",
                                 "events": {
                                   "change": [
                                     "value"
@@ -3789,7 +3787,7 @@
                                 }
                               },
                               "vant": {
-                                "name": "VzFormDatePicker",
+                                "name": "VzFormDateTimePicker",
                                 "events": {
                                   "change": [
                                     "value"
@@ -3953,7 +3951,7 @@
                                   "placeholder": "",
                                   "label": "自备车",
                                   "bordered": true,
-                                  "referTitle": "车辆参照",
+                                  "referTitle": "补贴参照",
                                   "referCode": "Bill_OA_OwnCarStandard",
                                   "echoField": "csubsidyname",
                                   "referRule": "Bill_OA_OwnCarStandard|csubsidycode,csubsidyname|do_oa_owncarstandard_id,csubsidycode,csubsidyname|3|False|True",
@@ -4261,7 +4259,7 @@
                                 },
                                 "props": {
                                   "placeholder": "",
-                                  "ruleName": "EnmVehicle",
+                                  "enmName": "EnmVehicle",
                                   "label": "交通工具",
                                   "bordered": true,
                                   "showCount": false,
@@ -4561,20 +4559,20 @@
                                 }
                               },
                               "vant": {
-                                "name": "VanField",
+                                "name": "VzFormEnumPicker",
                                 "events": {
-                                  "blur": [
+                                  "change": [
                                     "value"
                                   ]
                                 },
                                 "props": {
-                                  "placeholder": "请输入 评价意见",
+                                  "placeholder": "",
+                                  "enmName": "EnmAssess",
                                   "label": "评价意见",
                                   "bordered": true,
                                   "showCount": false,
                                   "size": "",
-                                  "events": {},
-                                  "type": "textarea"
+                                  "events": {}
                                 }
                               },
                               "wot": {

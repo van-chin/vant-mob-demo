@@ -3,7 +3,7 @@
 import { ListTable, VTable } from '@visactor/vue-vtable';
 import { useStyle } from '@/hooks';
 
-import { getAllSysEnums, getEnumsByRuleCaption, getEnumsByRuleName, getTokenJwtkeyAcc } from '@/composables/sys-enums';
+import { getAllSysEnums, getEnumsByRuleCaption, getEnumsByRuleName, getEnumsValueByRuleNameCode, getTokenJwtkeyAcc } from '@/composables/sys-enums';
 //
 import { omit } from 'es-toolkit/compat';
 import { closeToast, showConfirmDialog, showFailToast, showLoadingToast, showSuccessToast, showToast } from 'vant';
@@ -186,10 +186,11 @@ function parsesEvents() {
     }
   });
 
-
-
   // console.groupEnd();
 }
+
+const enmColumns = ref({});
+const boolColumns = ref([]);
 
 // getAallSysEnums
 (async function init() {
@@ -204,19 +205,54 @@ function parsesEvents() {
 
   const tmpHeaders = [];
   columns.forEach((column) => {
-    // console.log('column =>', column);
+    // console.log('column =>', );
     rowColumnsFormItems.value.push(column);
     if (column.primaryKey) {
       dataTableRowServeKey.value = column.key;
     }
 
+
+
+    if(column.component.vant.name === 'VzFormSwitch') {
+
+      if(column.component.vant.props.inactiveValue === "0" && column.component.vant.props.activeValue === "1") {
+        boolColumns.value.push(column.key);
+      }
+    }
+
     initDataStructure.value[column.key] = '';
-    tmpHeaders.push({
-      field: column.key,
-      caption: column.title,
-      // 是否隐藏列
-      hide: !column.visible,
-    })
+    if (Object.prototype.hasOwnProperty.call(column.component.vant.props, 'enmName')) {
+      enmColumns.value[column.key] = column.component.vant.props.enmName;
+      tmpHeaders.push({
+        field: `${column.key}_enm`,
+        caption: `${column.title}`,
+        // 是否隐藏列
+        hide: !column.visible,
+      })
+      // tmpHeaders.push({
+      //   field: column.key,
+      //   caption: column.title,
+      //   // 是否隐藏列
+      //   hide: true,
+      // })
+    } else if(boolColumns.value.includes(column.key)) {
+      // boolColumns.value.
+      tmpHeaders.push({
+        field: `${column.key}_bool`,
+        caption: `${column.title}`,
+        // 是否隐藏列
+        hide: !column.visible,
+      })
+    }
+    else {
+      tmpHeaders.push({
+        field: column.key,
+        caption: column.title,
+        // 是否隐藏列
+        hide: !column.visible,
+      })
+    }
+    // if(column.component.vant.props.enmName)
   });
 
   // 解析列字段组件的事件
@@ -227,7 +263,14 @@ function parsesEvents() {
 
   let dataTableTmpRecords = [];
   modelValue.value.forEach((item) => {
+    Object.keys(enmColumns.value).forEach((key) => {
+      item[`${key}_enm`] = getEnumsValueByRuleNameCode(enmColumns.value[key], item[key]);
+    })
+    boolColumns.value.forEach((key) => {
+      item[`${key}_bool`] = item[key] === '1' ? '是' : '否';
+    });
     let tmpRecord = { ...item }
+    console.info('tmpRecord =>', tmpRecord);
     // tmpRecord[dataTableClientRowKey] = item[dataTableRowServeKey.value];
     tmpRecord[dataTableClientRowKey] = snowflake.generate();
     dataTableTmpRecords.push(tmpRecord);
@@ -488,8 +531,10 @@ function onClickCell(args) {
 }
 
 function onRowEditSave() {
-  console.log('onDblClickCell');
-  rowPopuping.value = false;
+  console.log('onRowEditSave');
+  setTimeout(() => {
+    rowPopuping.value = false;
+  }, 500);
 }
 
 function onFailed(errorInfo) {
@@ -497,17 +542,23 @@ function onFailed(errorInfo) {
 }
 
 function onPopupClose() {
-  rowPopupData.value = {
-    position: {
-      col: 0,
-      row: 0,
-    },
-    action: {
+  console.log('onPopupClose');
+  // 枚举值 正常展示
+  Object.keys(enmColumns.value).forEach((key) => {
+    rowPopupData.value.data[`${key}_enm`] = getEnumsValueByRuleNameCode(enmColumns.value[key], rowPopupData.value.data[key]);
+  })
 
-    },
-    data: {},
+  // rowPopupData.value = {
+  //   position: {
+  //     col: 0,
+  //     row: 0,
+  //   },
+  //   action: {
 
-  };
+  //   },
+  //   data: {},
+
+  // };
 }
 
 watch(() => dataTableRecords.value, (newDataTableRecords) => {
@@ -598,12 +649,10 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
         <div class="min-h-100px flex-1 overflow-hidden">
           <div class="h-full w-full overflow-y-auto px-2 py-4 pb-70px">
             <div class="p-2">
-
               <van-form @failed="onFailed">
                 <van-cell-group inset>
                   <template v-for="(item) in rowColumnsFormItems">
                     <template v-if="item.primaryKey === true">
-
                       <van-field
                         v-show="item.visible"
                         :key="item.key"
@@ -612,20 +661,19 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
                       />
                     </template>
                     <template v-else>
-
                       <template v-if="item.component.vant.name === 'VzFormReferPicker'">
-                          <component
-                            :is="item.component.vant.name"
-                            v-bind="item.component.vant.props"
-                            v-show="item.visible"
-                            :key="item.key"
-                            v-model="rowPopupData.data"
-                            v-on="item.component.vant.emitsEvents || {}"
-                          />
+                        <component
+                          :is="item.component.vant.name"
+                          v-bind="item.component.vant.props"
+                          v-show="item.visible"
+                          :key="item.key"
+                          v-model="rowPopupData.data"
+                          v-on="item.component.vant.emitsEvents || {}"
+                        />
                       </template>
 
                       <template v-else>
-                         <component
+                        <component
                           :is="item.component.vant.name"
                           v-bind="item.component.vant.props"
                           v-show="item.visible"
@@ -634,13 +682,8 @@ watch(() => dataTableRecords.value, (newDataTableRecords) => {
                           v-on="item.component.vant.emitsEvents || {}"
                         />
                       </template>
-
-
-
                     </template>
                   </template>
-
-
                 </van-cell-group>
               </van-form>
             </div>

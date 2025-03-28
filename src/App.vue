@@ -2,7 +2,7 @@
 import useRouteCache from '@/stores/modules/routeCache'
 
 useHead({
-  title: 'Vue3 Vant Mobile',
+  title: 'LBOS',
   meta: [
     {
       name: 'description',
@@ -24,16 +24,16 @@ useHead({
 
 const keepAliveRouteNames = computed(() => {
   return useRouteCache().routeCaches as string[]
-})
+});
 
 const mode = computed(() => {
   return isDark.value ? 'dark' : 'light'
-})
+});
 </script>
 
 <template>
   <van-config-provider :theme="mode">
-    <nav-bar />
+    <!-- <nav-bar /> -->
     <router-view v-slot="{ Component }">
       <section class="app-wrapper">
         <keep-alive :include="keepAliveRouteNames">

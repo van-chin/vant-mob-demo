@@ -11,7 +11,7 @@ defineOptions({
   name: 'VzFormEnumPicker',
 })
 
-const { ruleName } = defineProps<VzFormEnumPickerProps>()
+const { enmName } = defineProps<VzFormEnumPickerProps>()
 
 const emits = defineEmits<{
   change: [
@@ -19,12 +19,12 @@ const emits = defineEmits<{
   ]
 }>();
 
-// ruleName
+// enmName
 const { prefixCls } = useStyle('form-enum-picker');
 
 interface VzFormEnumPickerProps {
   /** 枚举规则名称 */
-  ruleName: string
+  enmName: string
 
 }
 
@@ -55,7 +55,7 @@ function onConfirm({ selectedValues, selectedOptions, selectedIndexes }) {
 }
 
 (async function init() {
-  enumColumns.value = getEnumsByRuleName(ruleName);
+  enumColumns.value = getEnumsByRuleName(enmName);
 
   if (modelValue.value) {
     const enumItem = enumColumns.value.find(item => item.value === modelValue.value);

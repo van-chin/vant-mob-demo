@@ -33,11 +33,8 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<VzFormRendererProps>(), {
-  renderMode:'edit',
+  renderMode: 'edit',
 })
-
-
-
 
 const emits = defineEmits<{
   validateChange: [
@@ -216,7 +213,6 @@ const formBaseInfo = ref(
   },
 )
 
-
 // 处理表单事件 emitsEvents
 function parseEvents() {
   // data.value.items[0].item.vant.primaryKey
@@ -252,8 +248,6 @@ function parseEvents() {
     }
   })
 }
-
-
 
 function reset() {
   formInstance.value?.clearValidate()
@@ -403,19 +397,27 @@ async function onActionCommit() {
   };
 
   const result = await commitBillMethod(commitBillParams)
-  console.info('commit =>', result)
+  console.info('commit result =>', result)
   // bSuccess
-  const { bSuccess, Success } = result
+  const { bSuccess, Success,sError } = result
 
   if (bSuccess === 1) {
-    showToast('提交成功')
+    showSuccessToast('提交成功');
     emits('commited');
     setTimeout(() => {
-      showToast('返回到首页')
-    }, 1500);
+      // uni.switchTab({
+      //   url: '/pages/index/index',
+      // });
+      uni.navigateBack();
+    }, 100);
   }
   else {
-    showToast(Success)
+    if(sError) {
+      showToast(sError)
+    } else {
+      showToast(Success)
+    }
+
 
   }
 }
